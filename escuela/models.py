@@ -1,5 +1,5 @@
 from django.db import models
-from alumnos.models import Alumno
+
 
 class Carrera(models.Model):
 	nombre = models.CharField(max_length=50)
@@ -24,8 +24,6 @@ class Materia(models.Model):
 	def __str__(self):
 		return '%s %s' % (self.nombre, self.curso)
 
-class Asistencia(models.Model):
-	cantidad = models.IntegerField()
-	alumno = models.ForeignKey(Alumno)
-	codigo = models.CharField(max_length=5)
-	fecha = models.DateField()
+
+
+

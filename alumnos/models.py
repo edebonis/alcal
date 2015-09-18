@@ -17,6 +17,14 @@ class Madre(models.Model):
 	telefono_madre = models.CharField(max_length=20)
 	nacionalidad_madre = models.CharField(max_length=20)
 
+class Tutor(models.Model):
+	nombre_tutor = models.CharField(max_length=50)
+	apellido_tutor = models.CharField(max_length=50)
+	dni_tutor = models.IntegerField(null=True, blank=True)
+	direccion_tutor = models.CharField(max_length=100, null=True, blank=True)
+	telefono_tutor = models.CharField(max_length=20)
+	nacionalidad_tutor = models.CharField(max_length=20)
+
 
 class Alumno(models.Model):
 	legajo = models.IntegerField()
@@ -28,6 +36,7 @@ class Alumno(models.Model):
 	nacionalidad = models.CharField(max_length=20)
 	padre = models.ForeignKey(Padre)
 	madre = models.ForeignKey(Madre)
+	tutor = models.ForeignKey(Tutor)
 	activo = models.BooleanField(default=True)
 	libre = models.BooleanField(default=False)
 	condicional = models.BooleanField(default=False)
