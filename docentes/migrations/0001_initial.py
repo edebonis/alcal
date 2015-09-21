@@ -14,12 +14,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Docente',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('legajo', models.IntegerField()),
                 ('nombre', models.CharField(max_length=50)),
                 ('apellido', models.CharField(max_length=50)),
-                ('dni', models.IntegerField(null=True, blank=True)),
-                ('direccion', models.CharField(null=True, blank=True, max_length=100)),
+                ('dni', models.IntegerField(blank=True, null=True)),
+                ('direccion', models.CharField(max_length=100, null=True, blank=True)),
                 ('telefono', models.CharField(max_length=20)),
                 ('nacionalidad', models.CharField(max_length=20)),
                 ('materia', models.ManyToManyField(to='escuela.Materia')),

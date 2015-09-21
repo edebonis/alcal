@@ -7,12 +7,12 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('escuela', '0001_initial'),
+        ('escuela', '0003_auto_20150921_1433'),
     ]
 
     operations = [
-        migrations.RenameModel(
-            old_name='Anio',
-            new_name='Año',
+        migrations.RemoveField(
+            model_name='curso',
+            name='ciclo_lectivo',
         ),
     ]

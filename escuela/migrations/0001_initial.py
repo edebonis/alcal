@@ -11,26 +11,35 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Anio',
+            name='Año',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
-                ('anio', models.IntegerField()),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
+                ('año', models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
             name='Carrera',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('nombre', models.CharField(max_length=50)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Curso',
+            fields=[
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
+                ('curso', models.CharField(max_length=5)),
+                ('año', models.ForeignKey(to='escuela.Año')),
+                ('carrera', models.ForeignKey(to='escuela.Carrera')),
             ],
         ),
         migrations.CreateModel(
             name='Materia',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('nombre', models.CharField(max_length=50)),
-                ('anio', models.ForeignKey(to='escuela.Anio')),
-                ('carrera', models.ForeignKey(to='escuela.Carrera')),
+                ('horas', models.IntegerField()),
+                ('curso', models.ForeignKey(to='escuela.Curso')),
             ],
         ),
     ]

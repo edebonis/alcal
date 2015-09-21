@@ -7,15 +7,15 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('escuela', '0004_auto_20150918_0042'),
-        ('alumnos', '0002_alumno_año'),
+        ('alumnos', '0001_initial'),
+        ('escuela', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='CalificacionParcial',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('nota', models.IntegerField()),
                 ('fecha', models.DateField()),
                 ('alumno', models.ForeignKey(to='alumnos.Alumno')),
@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CalificacionTrimestral',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('nota', models.IntegerField()),
                 ('alumno', models.ForeignKey(to='alumnos.Alumno')),
                 ('materia', models.ForeignKey(to='escuela.Materia')),
@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Trimestre',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('trimestre', models.IntegerField()),
             ],
         ),
