@@ -7,15 +7,15 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('escuela', '0002_auto_20150918_0027'),
-        ('alumnos', '0001_initial'),
+        ('escuela', '0003_auto_20150921_1433'),
+        ('observaciones', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='alumno',
-            name='año',
-            field=models.ForeignKey(default='', to='escuela.Año'),
+            model_name='observacion',
+            name='ciclo_lectivo',
+            field=models.ForeignKey(to='escuela.Año', default=''),
             preserve_default=False,
         ),
     ]
