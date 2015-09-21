@@ -14,6 +14,8 @@ class CalificacionTrimestral(models.Model):
 	alumno = models.ForeignKey(Alumno)
 	materia = models.ForeignKey(Materia)
 	ciclo_lectivo = models.ForeignKey(Año)
+	class Meta:
+		verbose_name_plural = "Calificaciones Trimestrales"
 
 class CalificacionParcial(models.Model):
 	nota = models.IntegerField()
@@ -22,4 +24,5 @@ class CalificacionParcial(models.Model):
 	alumno = models.ForeignKey(Alumno)
 	materia = models.ForeignKey(Materia)
 	ciclo_lectivo = models.ForeignKey(Año)
-
+	class Meta:
+		verbose_name_plural = "Calificaciones Parciales"
