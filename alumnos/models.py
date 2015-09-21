@@ -31,6 +31,8 @@ class Tutor(models.Model):
 	nacionalidad_tutor = models.CharField(max_length=20)
 	def __str__(self):
 		return self.apellido_tutor + " " + self.nombre_tutor
+	class Meta:
+		verbose_name_plural = "Tutores"
 
 
 
