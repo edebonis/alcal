@@ -30,10 +30,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'django.contrib.contenttypes',
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -110,7 +110,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 GRAPPELLI_ADMIN_TITLE = 'Alcal'

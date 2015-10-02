@@ -10,5 +10,6 @@ class Docente(models.Model):
 	telefono = models.CharField(max_length=20)
 	nacionalidad = models.CharField(max_length=20)
 	materia = models.ManyToManyField(Materia)
-	
+	def __str__(self):
+		return self.apellido + " " + self.nombre
 	
