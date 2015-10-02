@@ -21,7 +21,6 @@ class Madre(models.Model):
 	def __str__(self):
 		return self.apellido_madre + " " + self.nombre_madre
 
-
 class Tutor(models.Model):
 	nombre_tutor = models.CharField(max_length=50)
 	apellido_tutor = models.CharField(max_length=50)
@@ -33,8 +32,6 @@ class Tutor(models.Model):
 		return self.apellido_tutor + " " + self.nombre_tutor
 	class Meta:
 		verbose_name_plural = "Tutores"
-
-
 
 class Alumno(models.Model):
 	legajo = models.IntegerField()
@@ -51,6 +48,7 @@ class Alumno(models.Model):
 	libre = models.BooleanField(default=False)
 	condicional = models.BooleanField(default=False)
 	curso = models.ForeignKey(Curso)
+
 	def __str__(self):
 		return self.apellido + " " + self.nombre
 
