@@ -94,7 +94,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['0.0.0.0']
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 STATICFILES_DIRS = (
