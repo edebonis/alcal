@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from django.db import models
 from escuela.models import Materia
 from alumnos.models import Alumno
