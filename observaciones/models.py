@@ -3,7 +3,7 @@ from django.db import models
 from alumnos.models import Alumno
 from smart_selects.db_fields import ChainedForeignKey
 from escuela.models import Curso
-from escuela.models import Año
+from escuela.models import Anio
 
 class TipoObservacion(models.Model):
 	nombre = models.CharField(max_length=50)
@@ -18,7 +18,7 @@ class Observacion(models.Model):
 	alumno = ChainedForeignKey(Alumno, chained_field="curso", chained_model_field="curso", show_all=False, auto_choose=True)
 	mensaje = models.TextField(max_length=500)
 	tipo = models.ForeignKey(TipoObservacion)
-	ciclo_lectivo = models.ForeignKey(Año)
+	ciclo_lectivo = models.ForeignKey(Anio)
 	def __str__(self):
 		return self.alumno
 	class Meta:
