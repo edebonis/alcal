@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from django.db import models
 from alumnos.models import Alumno
 from smart_selects.db_fields import ChainedForeignKey
