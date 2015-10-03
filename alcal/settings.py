@@ -23,7 +23,7 @@ SECRET_KEY = 'j2kogo(g2dz59f3*g2^_xjbx3105i2#zqdecgo3yo^%owl280x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
+#TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -101,20 +101,16 @@ DATABASES = {
 
 DATABASES['default'] =  dj_database_url.config()
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['*']
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'alcal/static'),
 )
 LANGUAGE_CODE = 'ES'
-
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -125,3 +121,8 @@ STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 GRAPPELLI_ADMIN_TITLE = 'Alcal'
 
+# Settings propios de esta instalacion:
+try:
+    from .settings_local import *
+except ImportError:
+    pass
