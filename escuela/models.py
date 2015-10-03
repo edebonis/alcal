@@ -6,7 +6,7 @@ class Carrera(models.Model):
 	def __str__(self):
 		return self.nombre
 
-class Año(models.Model):
+class Anio(models.Model):
 	ciclo_lectivo = models.IntegerField()
 	def __str__(self):
 		return str(self.ciclo_lectivo)
