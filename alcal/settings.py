@@ -94,10 +94,12 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
+ALLOWED_HOSTS = ['*']
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
-
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'alcal/static'),
+)
 LANGUAGE_CODE = 'ES'
 
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
