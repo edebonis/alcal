@@ -2,11 +2,20 @@
 from django.contrib import admin
 from .models import Asistencia, CodigoAsistencia
 
+class CodigoAsistenciaAdmin(admin.ModelAdmin):    
+    #readonly_fields = ('cantidad',)
+    list_display = ('codigo','cantidad')
+
 
 class AsistenciaAdmin(admin.ModelAdmin):
-    list_display = ('alumno', 'cantidad', 'curso', 'codigo', 'fecha')
+    def numero(self, request):
+        #self = CodigoAsistenciaAdmin(admin.ModelAdmin).cantidad
+        num = CodigoAsistencia.objects.all()
+        return num
 
+    list_display = ('alumno', 'curso', 'codigo', 'fecha', 'numero')
+    list_filter = ('alumno', 'curso', 'codigo', 'fecha')
+	
 
 admin.site.register(Asistencia, AsistenciaAdmin)
-admin.site.register(CodigoAsistencia)
-# Register your models here.
+admin.site.register(CodigoAsistencia, CodigoAsistenciaAdmin)

@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'grappelli',
+    'grappelli.dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
@@ -44,8 +45,9 @@ INSTALLED_APPS = (
     'docentes',
     'escuela',
     'asistencias',
-    'notas',
+    'calificaciones',
     'observaciones',
+    'django_extensions'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -72,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
             ],
             'debug': True,
@@ -85,21 +88,15 @@ WSGI_APPLICATION = 'alcal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sag',
-        'USER': 'sag',
-        'PASSWORD': 'sag',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+                        default='postgres://sag:sag@localhost:5432/sag')
 }
 
+# Enable Connection Pooling (if desired)
+DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
-DATABASES['default'] =  dj_database_url.config()
+
 
 ALLOWED_HOSTS = ['*']
 # Internationalization
@@ -126,3 +123,4 @@ try:
     from .settings_local import *
 except ImportError:
     pass
+GRAPPELLI_INDEX_DASHBOARD = 'alcal.dashboard.CustomIndexDashboard'
