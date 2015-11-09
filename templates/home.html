@@ -1,4 +1,34 @@
-{% extends "admin/base_site.html" %}
-{% load i18n admin_urls staticfiles %}
+{% extends "admin/base_site.html" %} {% load i18n grp_tags admin_urls admin_static admin_list %} {% block stylesheets %} {{ block.super }} {{ media.css }} {% endblock %} {% block javascripts %} {{ block.super }} {{ media.js }} {% if cl.formset or action_form %} {% url 'admin:jsi18n' as jsi18nurl %} {% endif %} {% if action_form %} {% endif %} {% if cl.formset %} {% endif %} {% endblock %} {% block content_title %}
+
+{{ cl.opts.verbose_name_plural|capfirst }}
+
+{% endblock %} {% block object-tools %}
+{% endblock %}
+{% block breadcrumbs %}
+    <ul class="grp-horizontal-list">
+        <li><a href="{% url 'admin:index' %}">{% trans "Home" %}</a></li>
+        <li>Consultas</li>
+    </ul>
+{% endblock %}
+
+
+
+{% block content %}
+<div><input type="checkbox" name="NAME" class="grp"></div>
+<div><input type="radio" name="NAME" value="x"></div>
+<div><input type="text" name="NAME" size=20> </div>
+<div><button id="submit" type="large" onclick="post" method="post"/></div>
+<div><input type="submit" value="Grabar" class="grp-button grp-default" name="_save"></div>
+<div><input type="submit" value="NAME"></div>
+<div><button type="submit">Submit</button></div>
+<div><input type="reset"></div>
+<div><input type="image" border=0 name="NAME" src="name.gif"> </div>
+
+{% endblock %}
+
+        
+{% for i in alumno %}
+{{i.nombre}} {{ i.apellido}} {{i.padre}}
+{% endfor %}
 
 
