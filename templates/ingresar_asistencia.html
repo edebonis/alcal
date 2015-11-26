@@ -1,0 +1,38 @@
+{% extends "admin/base_site.html" %} {% load i18n grp_tags admin_urls admin_static admin_list %} {% block stylesheets %} {{ block.super }} {{ media.css }} {% endblock %} {% block javascripts %} {{ block.super }} {{ media.js }} {% if cl.formset or action_form %} {% url 'admin:jsi18n' as jsi18nurl %} {% endif %} {% if action_form %} {% endif %} {% if cl.formset %} {% endif %} {% endblock %} {% block content_title %}
+
+{{ cl.opts.verbose_name_plural|capfirst }}
+
+{% endblock %} {% block object-tools %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="grp-horizontal-list">
+        <li><a href="/">{% trans "Home" %}</a></li>
+        <li>Asistencia</li>
+    </ul>
+{% endblock %}
+
+
+
+{% block content %}
+<table>
+	<select name="menu">
+		<option value="0" selected> Elegir Curso </option>
+			{% for i in cursos %}
+    			<option value> {{i.curso}} </option> 
+  			{% endfor %}
+	</select>
+
+	<tr></tr>
+
+	<form method='POST' action=""> 
+	{{form.as_p}}
+		<input type="submit" value="Ver" />
+	</form>
+</table>
+
+<form action="/">
+    <input type="submit" value="Volver">
+</form>
+
+{% endblock %}
