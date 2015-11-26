@@ -6,29 +6,29 @@
 {% endblock %}
 {% block breadcrumbs %}
     <ul class="grp-horizontal-list">
-        <li><a href="{% url 'admin:index' %}">{% trans "Home" %}</a></li>
-        <li>Consultas</li>
+        <li><a href="/">{% trans "Home" %}</a></li>
     </ul>
 {% endblock %}
 
 
 
 {% block content %}
-<div><input type="checkbox" name="NAME" class="grp"></div>
-<div><input type="radio" name="NAME" value="x"></div>
-<div><input type="text" name="NAME" size=20> </div>
-<div><button id="submit" type="large" onclick="post" method="post"/></div>
-<div><input type="submit" value="Grabar" class="grp-button grp-default" name="_save"></div>
-<div><input type="submit" value="NAME"></div>
-<div><button type="submit">Submit</button></div>
-<div><input type="reset"></div>
-<div><input type="image" border=0 name="NAME" src="name.gif"> </div>
-
+<table>
+	<form action="/consultas">
+    	<input type="submit" value="Consultas">
+	</form>
+	<form action="/ing_asistencia">
+    	<input type="submit" value="Asistencia">
+	</form>
+	<form action="/calificaciones">
+    	<input type="submit" value="Calificaciones">
+	</form>
+	<form action="/observaciones">
+    	<input type="submit" value="Observaciones">
+	</form>
+</table>
 {% endblock %}
 
         
-{% for i in alumno %}
-{{i.nombre}} {{ i.apellido}} {{i.padre}}
-{% endfor %}
 
 

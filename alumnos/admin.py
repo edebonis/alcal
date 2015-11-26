@@ -2,7 +2,13 @@
 from django.contrib import admin
 from .models import Alumno, Padre, Madre, Tutor
 
-admin.site.register(Alumno)
+
+class AlumnoAdmin(admin.ModelAdmin):    
+    #readonly_fields = ('cantidad',)
+   list_display = ('nombre','apellido','curso')
+
+
+admin.site.register(Alumno, AlumnoAdmin)
 admin.site.register(Padre)
 admin.site.register(Madre)
 admin.site.register(Tutor)
