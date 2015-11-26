@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 from django.db import models
+from smart_selects.db_fields import ChainedForeignKey
 
 class Carrera(models.Model):
 	nombre = models.CharField(max_length=50)

@@ -1,6 +1,8 @@
 # -*- encoding: utf-8 -*-
 from django.db import models
 from escuela.models import Curso
+from smart_selects.db_fields import ChainedForeignKey
+
 
 class Padre(models.Model):
 	nombre_padre = models.CharField(max_length=50)
@@ -49,7 +51,7 @@ class Alumno(models.Model):
 	libre = models.BooleanField(default=False)
 	condicional = models.BooleanField(default=False)
 	curso = models.ForeignKey(Curso)
-
+	
 	def __str__(self):
 		return self.apellido + " " + self.nombre
 
