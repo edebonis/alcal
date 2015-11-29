@@ -16,18 +16,14 @@
 
 {% block content %}
 <table>
-	<select name="menu">
-		<option value="0" selected> Elegir Curso </option>
-			{% for i in cursos %}
-    			<option value> {{i.curso}} </option> 
-  			{% endfor %}
-	</select>
-
-	<tr></tr>
-
-	<form method='POST' action=""> 
-	{{form.as_p}}
-		<input type="submit" value="Ver" />
+	<form method="get" action="/ing_asistencia_cur">
+		<select name="menu">
+			<option value="0" selected> Elegir Curso </option>
+				{% for i in cursos %}
+    				<option value = {{i}}> {{i.curso}}</option> 
+  				{% endfor %}
+		</select>
+		<input type="submit" value="Ver" />{% csrf_token %}
 	</form>
 </table>
 

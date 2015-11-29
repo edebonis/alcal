@@ -14,5 +14,6 @@ urlpatterns = patterns('',
     url(r'^calificaciones/', 'alcal.views.calificaciones', name='calificaciones'),
     url(r'^observaciones/', 'alcal.views.observaciones', name='observaciones'),
     url(r'^ing_asistencia/', 'alcal.views.ing_asistencia', name='ing_asistencia'),
+    url(r'^ing_asistencia_cur/', 'alcal.views.ing_asistencia_cur', name='ing_asistencia_cur'),
 
 )
