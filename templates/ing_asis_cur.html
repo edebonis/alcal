@@ -7,22 +7,11 @@
 {% block breadcrumbs %}
     <ul class="grp-horizontal-list">
         <li><a href="/">{% trans "Home" %}</a></li>
-        <li>Consultas</li>
+        <li>{{query}}</li>
     </ul>
 {% endblock %}
-
-
-
 {% block content %}
-<table>
-	<form action="/cons_asistencia">
-    	<input type="submit" value="Asistencia">
-	</form>
-	<form action="/cons_calificaciones">
-    	<input type="submit" value="Calificaciones">
-	</form>
-	<form action="/cons_observaciones">
-    	<input type="submit" value="Observaciones">
-	</form>
-</table>
-{% endblock %}
+{% for i in alumnos %} 
+	<li>{{ i }}</li>
+{% endfor %}
+{%endblock%}
