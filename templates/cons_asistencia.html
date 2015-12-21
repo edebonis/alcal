@@ -4,10 +4,11 @@
 
 {% endblock %} {% block object-tools %}
 {% endblock %}
+
 {% block breadcrumbs %}
     <ul class="grp-horizontal-list">
         <li><a href="/">{% trans "Home" %}</a></li>
-        <li>Consultas</li>
+        <li>Asistencia</li>
     </ul>
 {% endblock %}
 
@@ -15,14 +16,19 @@
 
 {% block content %}
 <table>
-	<form action="/cons_asistencia">
-    	<input type="submit" value="Asistencia">
-	</form>
-	<form action="/cons_calificaciones">
-    	<input type="submit" value="Calificaciones">
-	</form>
-	<form action="/cons_observaciones">
-    	<input type="submit" value="Observaciones">
+	<form method="get" action="/cons_asistencia_cur">
+		<select name="menu">
+			<option value="0" selected> Elegir Curso </option>
+				{% for i in cursos %}
+    				<option value = {{i}}> {{i.curso}}</option> 
+  				{% endfor %}
+		</select>
+		<input type="submit" value="Ver" />{% csrf_token %}
 	</form>
 </table>
+
+<form action="/">
+    <input type="submit" value="Volver">
+</form>
+
 {% endblock %}
