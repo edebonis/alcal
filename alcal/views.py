@@ -77,7 +77,7 @@ def ing_asistencia_cur(request):
 		alumnos = Alumno.objects.filter(curso=pkcur)
 		return render(request, 'ing_asis_cur.html',  {'alumnos': alumnos, 'query': q}) 
 	else: 
-		return HttpResponse('Por favor introduce un termino de búsqueda.')
+		return HttpResponse('Por favor introduce un termino de busqueda.')
 
 def cons_asistencia_cur(request):
 	cursos = Curso.objects.all()
