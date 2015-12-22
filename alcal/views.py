@@ -102,7 +102,7 @@ def cons_asistencia_cur(request):
 				
 		return render(request, 'cons_asis_cur.html',  {'alumnos': alumnos, 'query': q, 'faltas':faltas}) 
 	else: 
-		return HttpResponse('Por favor introduce un termino de búsqueda.') 
+		return HttpResponse('Por favor introduce un termino de busqueda.') 
 
 def ing_calificaciones(request):
 	cantidad = CodigoAsistencia.objects.all()
@@ -141,7 +141,7 @@ def ing_calificaciones_cur(request):
 		alumnos = Alumno.objects.filter(curso=pkcur)
 		return render(request, 'resultados.html',  {'alumnos': alumnos, 'query': q}) 
 	else: 
-		return HttpResponse('Por favor introduce un termino de búsqueda.')
+		return HttpResponse('Por favor introduce un termino de busqueda.')
 
 def cons_calificaciones_cur(request):
 	cursos = Curso.objects.all()
@@ -154,7 +154,7 @@ def cons_calificaciones_cur(request):
 		alumnos = Alumno.objects.filter(curso=pkcur)
 		return render(request, 'cons_resultados.html',  {'alumnos': alumnos, 'query': q}) 
 	else: 
-		return HttpResponse('Por favor introduce un termino de búsqueda.')
+		return HttpResponse('Por favor introduce un termino de busqueda.')
 
 def ing_observaciones(request):
 	cantidad = CodigoAsistencia.objects.all()
@@ -193,7 +193,7 @@ def ing_observaciones_cur(request):
 		alumnos = Alumno.objects.filter(curso=pkcur)
 		return render(request, 'resultados.html',  {'alumnos': alumnos, 'query': q}) 
 	else: 
-		return HttpResponse('Por favor introduce un termino de búsqueda.')
+		return HttpResponse('Por favor introduce un termino de busqueda.')
 
 def cons_observaciones_cur(request):
 	cursos = Curso.objects.all()
@@ -206,4 +206,4 @@ def cons_observaciones_cur(request):
 		alumnos = Alumno.objects.filter(curso=pkcur)
 		return render(request, 'cons_resultados.html',  {'alumnos': alumnos, 'query': q}) 
 	else: 
-		return HttpResponse('Por favor introduce un termino de búsqueda.') 
+		return HttpResponse('Por favor introduce un termino de busqueda.') 
