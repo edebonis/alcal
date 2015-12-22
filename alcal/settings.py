@@ -47,7 +47,7 @@ INSTALLED_APPS = (
     'asistencias',
     'calificaciones',
     'observaciones',
-    'django_extensions'
+    'django_extensions',
 )
 
 MIDDLEWARE_CLASSES = (
