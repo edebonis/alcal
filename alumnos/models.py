@@ -37,7 +37,7 @@ class Tutor(models.Model):
 		verbose_name_plural = "Tutores"
 
 class Alumno(models.Model):
-	legajo = models.IntegerField()
+	legajo = models.AutoField(primary_key=True)
 	nombre = models.CharField(max_length=50)
 	apellido = models.CharField(max_length=50)
 	dni = models.IntegerField(null=True, blank=True)

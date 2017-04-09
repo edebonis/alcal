@@ -88,9 +88,20 @@ WSGI_APPLICATION = 'alcal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
+#DATABASES = {
+#    'default': dj_database_url.config(
+#                        default='postgres://sag:sag@localhost:5432/sag')
+#}
+
 DATABASES = {
-    'default': dj_database_url.config(
-                        default='postgres://sag:sag@localhost:5432/sag')
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'sag',
+        'USER': 'sag',
+        'PASSWORD': 'sag',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
 }
 
 # Enable Connection Pooling (if desired)
