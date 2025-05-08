@@ -1,17 +1,18 @@
-from django.shortcuts import render
-from asistencias.models import Asistencia, CodigoAsistencia
-from alumnos.models import Alumno
-from escuela.models import Curso
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.shortcuts import render
 
-def home(request):
-	if request.user.is_authenticated():
-		cantidad = CodigoAsistencia.objects.all()
-		codigo = CodigoAsistencia.objects.all()
-		alumno = Alumno.objects.all()
-		return render(request, 'home.html', {'alumno':alumno, 'cantidad':cantidad, 'codigo':codigo})
-	else:
-		return render(request, 'login.html')
+from alumnos.models import Alumno
+from asistencias.models import Asistencia, CodigoAsistencia
+from escuela.models import Curso
+
+
+@login_required  
+def home(request):  
+    cantidad = CodigoAsistencia.objects.all()  
+    codigo = CodigoAsistencia.objects.all()  
+    alumno = Alumno.objects.all()  
+    return render(request, 'home.html', {'alumno': alumno, 'cantidad': cantidad, 'codigo': codigo})
 
 def consultas(request):
 	alumno = Alumno.objects.all()
