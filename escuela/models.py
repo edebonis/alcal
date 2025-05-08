@@ -2,6 +2,7 @@
 from django.db import models
 from smart_selects.db_fields import ChainedForeignKey
 
+
 class Carrera(models.Model):
 	nombre = models.CharField(max_length=50)
 	def __str__(self):
@@ -14,14 +15,14 @@ class Anio(models.Model):
 
 class Curso(models.Model):
 	curso = models.CharField(max_length=5)
-	carrera = models.ForeignKey(Carrera)
+	carrera = models.ForeignKey(Carrera, on_delete=models.CASCADE)
 	def __str__(self):
 		return self.curso
 
 
 class Materia(models.Model):
 	nombre = models.CharField(max_length=50)
-	curso = models.ForeignKey(Curso)
+	curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
 	horas = models.IntegerField()
 	def __str__(self):
 		return self.nombre

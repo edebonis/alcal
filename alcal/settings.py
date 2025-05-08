@@ -10,7 +10,9 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 import dj_database_url
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -50,13 +52,12 @@ INSTALLED_APPS = (
     'django_extensions',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -74,7 +75,6 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.core.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
             ],
             'debug': True,
@@ -93,19 +93,16 @@ WSGI_APPLICATION = 'alcal.wsgi.application'
 #                        default='postgres://sag:sag@localhost:5432/sag')
 #}
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sag',
-        'USER': 'sag',
-        'PASSWORD': 'sag',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
-
-# Enable Connection Pooling (if desired)
-DATABASES['default']['ENGINE'] = 'django_postgrespool'
+DATABASES = {  
+    'default': {  
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sag',  
+        'USER': 'sag',  
+        'PASSWORD': 'sag',  
+        'HOST': '127.0.0.1',  
+        'PORT': '5432',  
+    }  
+}  
 
 
 
@@ -113,7 +110,7 @@ ALLOWED_HOSTS = ['*']
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'alcal/static'),
+    os.path.join(BASE_DIR, 'staticfiles'),
 )
 LANGUAGE_CODE = 'ES'
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
@@ -124,9 +121,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(BASE_DIR, 'alcal/static')  
+STATIC_URL = '/static/'  
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 GRAPPELLI_ADMIN_TITLE = 'Alcal'
 
 # Settings propios de esta instalacion:
@@ -135,3 +132,4 @@ try:
 except ImportError:
     pass
 GRAPPELLI_INDEX_DASHBOARD = 'alcal.dashboard.CustomIndexDashboard'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
