@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
 from django.db import models
-from escuela.models import Curso
 from smart_selects.db_fields import ChainedForeignKey
+
+from escuela.models import Curso
 
 
 class Padre(models.Model):
@@ -44,13 +45,13 @@ class Alumno(models.Model):
 	direccion = models.CharField(max_length=100, null=True, blank=True)
 	telefono = models.CharField(max_length=20, null=True, blank=True)
 	nacionalidad = models.CharField(max_length=20, null=True, blank=True)
-	padre = models.ForeignKey(Padre,null=True, blank=True)
-	madre = models.ForeignKey(Madre,null=True, blank=True)
-	tutor = models.ForeignKey(Tutor,null=True, blank=True)
+	padre = models.ForeignKey(Padre,null=True, blank=True, on_delete=models.CASCADE)
+	madre = models.ForeignKey(Madre,null=True, blank=True, on_delete=models.CASCADE)
+	tutor = models.ForeignKey(Tutor,null=True, blank=True, on_delete=models.CASCADE)
 	activo = models.BooleanField(default=True)
 	libre = models.BooleanField(default=False)
 	condicional = models.BooleanField(default=False)
-	curso = models.ForeignKey(Curso)
+	curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
 	
 	def __str__(self):
 		return self.apellido + " " + self.nombre
