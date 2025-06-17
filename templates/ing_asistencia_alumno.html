@@ -1,0 +1,312 @@
+{% extends "base.html" %}
+
+{% block title %}ALCAL - Ingresar Asistencia por Alumno{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-success">
+                <div class="card-header bg-success text-white">
+                    <h2 class="card-title mb-0">
+                        <i class="fas fa-user-check me-2"></i>
+                        Ingresar Asistencia por Alumno
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <p class="lead">Registre la asistencia de un estudiante específico</p>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'ingresar_selector' %}">Ingresar</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'asistencia_selector' %}">Asistencia</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Por Alumno</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Section -->
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h4 class="card-title mb-0">
+                        <i class="fas fa-calendar-plus me-2"></i>
+                        Formulario de Asistencia
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Student Selection -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="alumno" class="form-label">
+                                    <i class="fas fa-user me-1"></i>
+                                    Seleccionar Alumno *
+                                </label>
+                                <select class="form-select" id="alumno" name="alumno" required>
+                                    <option value="">Seleccione un alumno...</option>
+                                    {% for alumno in alumnos %}
+                                    <option value="{{ alumno.id }}">{{ alumno.apellido }}, {{ alumno.nombre }} - {{
+                                        alumno.curso }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor seleccione un alumno.
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="fecha" class="form-label">
+                                    <i class="fas fa-calendar me-1"></i>
+                                    Fecha *
+                                </label>
+                                <input type="date" class="form-control" id="fecha" name="fecha" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese una fecha válida.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Attendance Status -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label class="form-label">
+                                    <i class="fas fa-check-circle me-1"></i>
+                                    Estado de Asistencia *
+                                </label>
+                                <div class="row">
+                                    <div class="col-6 col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="estado" id="presente"
+                                                value="P" required>
+                                            <label class="form-check-label" for="presente">
+                                                <span class="badge bg-success me-2">P</span>
+                                                Presente
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="estado" id="ausente"
+                                                value="A" required>
+                                            <label class="form-check-label" for="ausente">
+                                                <span class="badge bg-danger me-2">A</span>
+                                                Ausente
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="estado" id="tardanza"
+                                                value="T" required>
+                                            <label class="form-check-label" for="tardanza">
+                                                <span class="badge bg-warning me-2">T</span>
+                                                Tardanza
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="estado" id="retiro"
+                                                value="R" required>
+                                            <label class="form-check-label" for="retiro">
+                                                <span class="badge bg-info me-2">R</span>
+                                                Retiro Temprano
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Por favor seleccione un estado de asistencia.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Time (optional for tardiness/early departure) -->
+                        <div class="row mb-4" id="time-section" style="display: none;">
+                            <div class="col-md-6">
+                                <label for="hora" class="form-label">
+                                    <i class="fas fa-clock me-1"></i>
+                                    Hora (opcional)
+                                </label>
+                                <input type="time" class="form-control" id="hora" name="hora">
+                                <small class="form-text text-muted">
+                                    Especifique la hora para tardanzas o retiros tempranos
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Observations -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label for="observaciones" class="form-label">
+                                    <i class="fas fa-comment me-1"></i>
+                                    Observaciones (opcional)
+                                </label>
+                                <textarea class="form-control" id="observaciones" name="observaciones" rows="3"
+                                    placeholder="Agregue cualquier observación relevante..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a href="{% url 'asistencia_selector' %}" class="btn btn-outline-secondary me-md-2">
+                                        <i class="fas fa-arrow-left me-2"></i>
+                                        Volver
+                                    </a>
+                                    <button type="reset" class="btn btn-outline-warning me-md-2">
+                                        <i class="fas fa-undo me-2"></i>
+                                        Limpiar
+                                    </button>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-save me-2"></i>
+                                        Guardar Asistencia
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Section -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="alert alert-info">
+                <h5 class="alert-heading">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Instrucciones
+                </h5>
+                <ul class="mb-0">
+                    <li><strong>Presente (P):</strong> El estudiante asistió normalmente</li>
+                    <li><strong>Ausente (A):</strong> El estudiante no asistió a clase</li>
+                    <li><strong>Tardanza (T):</strong> El estudiante llegó tarde (opcional especificar hora)</li>
+                    <li><strong>Retiro Temprano (R):</strong> El estudiante se retiró antes del horario (opcional
+                        especificar hora)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Records -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-history me-2"></i>
+                        Registros Recientes
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Alumno</th>
+                                    <th>Estado</th>
+                                    <th>Observaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if registros_recientes %}
+                                {% for registro in registros_recientes %}
+                                <tr>
+                                    <td>{{ registro.fecha|date:"d/m/Y" }}</td>
+                                    <td>{{ registro.alumno.apellido }}, {{ registro.alumno.nombre }}</td>
+                                    <td>
+                                        {% if registro.estado == 'P' %}
+                                        <span class="badge bg-success">Presente</span>
+                                        {% elif registro.estado == 'A' %}
+                                        <span class="badge bg-danger">Ausente</span>
+                                        {% elif registro.estado == 'T' %}
+                                        <span class="badge bg-warning">Tardanza</span>
+                                        {% elif registro.estado == 'R' %}
+                                        <span class="badge bg-info">Retiro</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ registro.observaciones|default:"-" }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted">No hay registros recientes</td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Set today's date as default
+    document.getElementById('fecha').valueAsDate = new Date();
+
+    // Show/hide time section based on attendance status
+    document.querySelectorAll('input[name="estado"]').forEach(function (radio) {
+        radio.addEventListener('change', function () {
+            const timeSection = document.getElementById('time-section');
+            if (this.value === 'T' || this.value === 'R') {
+                timeSection.style.display = 'block';
+            } else {
+                timeSection.style.display = 'none';
+            }
+        });
+    });
+
+    // Bootstrap form validation
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+
+<style>
+    .form-check-label {
+        cursor: pointer;
+    }
+
+    .badge {
+        font-size: 0.8rem;
+    }
+
+    .alert {
+        border-radius: 10px;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .card-header {
+        border-radius: 12px 12px 0 0 !important;
+    }
+</style>
+{% endblock %}

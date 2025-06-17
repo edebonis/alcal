@@ -1,33 +1,95 @@
-{% extends "admin/base_site.html" %} {% load i18n grp_tags admin_urls static admin_list %} {% block stylesheets %} {{ block.super }} {{ media.css }} {% endblock %} {% block javascripts %} {{ block.super }} {{ media.js }} {% if cl.formset or action_form %} {% url 'admin:jsi18n' as jsi18nurl %} {% endif %} {% if action_form %} {% endif %} {% if cl.formset %} {% endif %} {% endblock %} {% block content_title %}
+{% extends "base.html" %}
+{% load static %}
 
-{{ cl.opts.verbose_name_plural|capfirst }}
+{% block title %}Calificaciones - ALCAL Sistema Académico{% endblock %}
 
-{% endblock %} {% block object-tools %}
+{% block content_title %}
+<div class="alcal-header">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h1 class="display-5 mb-0">
+          <i class="bi bi-journal-check"></i> Calificaciones
+        </h1>
+        <p class="lead mb-0 mt-2">Gestión de notas y evaluaciones</p>
+      </div>
+      <div class="col-md-4 text-end">
+        <a href="/" class="btn btn-outline-light">
+          <i class="bi bi-arrow-left"></i> Volver al Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
+
 {% block breadcrumbs %}
-    <ul class="grp-horizontal-list">
-        <li><a href="/">{% trans "Home" %}</a></li>
-        <li>Calificaciones</li>
-    </ul>
+<div class="container">
+  <nav class="alcal-breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <i class="bi bi-house-door"></i>
+        <a href="/">Inicio</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <i class="bi bi-journal-check"></i> Calificaciones
+      </li>
+    </ol>
+  </nav>
+</div>
 {% endblock %}
 
 {% block content %}
-<table>
-<select name="menu">
-   <option value="0" selected> Elegir Curso </option>
-   
-  {% for i in cursos %}
-    <option value> {{i.curso}} </option> 
-  {% endfor %}
-</select>
-<tr></tr>
-<form action="/calificaciones">
-<input type="submit" value="Ver" />
-</form>
-</table>
+<div class="container alcal-fade-in-up">
 
-<form action="/">
-    <input type="submit" value="Volver">
-</form>
+  <div class="row justify-content-center">
+    <div class="col-md-10">
 
+      <!-- Info Card -->
+      <div class="alert alcal-alert alert-success d-flex align-items-center mb-4">
+        <i class="bi bi-info-circle-fill"></i>
+        <div>
+          <strong>Sistema de Calificaciones</strong><br>
+          Esta funcionalidad está siendo desarrollada. Pronto estará disponible.
+        </div>
+      </div>
+
+      <!-- Main Card -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="bi bi-journal-check"></i> Registro de Calificaciones
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead class="table-light">
+                <tr>
+                  <th><i class="bi bi-person"></i> Estudiante</th>
+                  <th><i class="bi bi-book"></i> Materia</th>
+                  <th><i class="bi bi-calendar"></i> Fecha</th>
+                  <th><i class="bi bi-star"></i> Calificación</th>
+                  <th><i class="bi bi-chat-text"></i> Observaciones</th>
+                  <th><i class="bi bi-gear"></i> Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="6" class="text-center text-muted py-4">
+                    <i class="bi bi-journal-x" style="font-size: 3rem;"></i>
+                    <p class="mt-3">No hay calificaciones registradas</p>
+                    <small>Las calificaciones aparecerán aquí cuando se registren</small>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
 {% endblock %}
