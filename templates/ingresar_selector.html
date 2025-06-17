@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}ALCAL - Seleccionar Tipo de Ingreso{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title mb-0">
+                        <i class="fas fa-plus-circle me-2"></i>
+                        Ingreso de Datos
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <p class="lead">Seleccione el tipo de ingreso que desea realizar:</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Selector Cards -->
+    <div class="row mb-4">
+        <!-- Asistencia Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm border-success hover-card">
+                <div class="card-header bg-success text-white">
+                    <h4 class="card-title mb-0">
+                        <i class="fas fa-calendar-check me-2"></i>
+                        Asistencia
+                    </h4>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <p class="card-text mb-3">
+                        Registre la asistencia de los estudiantes de manera individual o por curso completo.
+                    </p>
+
+                    <div class="mb-3">
+                        <h6 class="text-success">Opciones Disponibles:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-user text-primary me-2"></i>Por Alumno Individual</li>
+                            <li><i class="fas fa-users text-info me-2"></i>Por Curso Completo</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-3">
+                        <h6 class="text-success">Tipos de Registro:</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge bg-success">Presente</span>
+                            <span class="badge bg-danger">Ausente</span>
+                            <span class="badge bg-warning">Tardanza</span>
+                            <span class="badge bg-info">Retiro Temprano</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-auto">
+                        <a href="{% url 'asistencia_selector' %}" class="btn btn-success btn-lg w-100">
+                            <i class="fas fa-arrow-right me-2"></i>
+                            Ingresar Asistencia
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calificaciones Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm border-info hover-card">
+                <div class="card-header bg-info text-white">
+                    <h4 class="card-title mb-0">
+                        <i class="fas fa-star me-2"></i>
+                        Calificaciones
+                    </h4>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <p class="card-text mb-3">
+                        Registre las calificaciones trimestrales y parciales de los estudiantes.
+                    </p>
+
+                    <div class="mb-3">
+                        <h6 class="text-info">Opciones Disponibles:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-user text-primary me-2"></i>Por Alumno Individual</li>
+                            <li><i class="fas fa-users text-info me-2"></i>Por Curso Completo</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-3">
+                        <h6 class="text-info">Tipos de Calificación:</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge bg-primary">Trimestral</span>
+                            <span class="badge bg-secondary">Parcial</span>
+                            <span class="badge bg-success">Aprobado</span>
+                            <span class="badge bg-warning">Regular</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-auto">
+                        <a href="{% url 'calificaciones_selector' %}" class="btn btn-info btn-lg w-100">
+                            <i class="fas fa-arrow-right me-2"></i>
+                            Ingresar Calificaciones
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Options Row -->
+    <div class="row mb-4">
+        <!-- Observaciones Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm border-warning hover-card">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="card-title mb-0">
+                        <i class="fas fa-sticky-note me-2"></i>
+                        Observaciones
+                    </h4>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <p class="card-text mb-3">
+                        Registre observaciones y comentarios sobre el comportamiento y desempeño.
+                    </p>
+
+                    <div class="mb-3">
+                        <h6 class="text-warning">Características:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-comment text-primary me-2"></i>Comentarios Detallados</li>
+                            <li><i class="fas fa-clock text-info me-2"></i>Fecha y Hora</li>
+                            <li><i class="fas fa-user-tag text-success me-2"></i>Por Estudiante</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-auto">
+                        <a href="{% url 'ing_observaciones' %}" class="btn btn-warning btn-lg w-100">
+                            <i class="fas fa-arrow-right me-2"></i>
+                            Ingresar Observaciones
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Access Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm border-secondary">
+                <div class="card-header bg-secondary text-white">
+                    <h4 class="card-title mb-0">
+                        <i class="fas fa-bolt me-2"></i>
+                        Acceso Rápido
+                    </h4>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <p class="card-text mb-3">
+                        Enlaces directos para un acceso más rápido a las funciones más utilizadas.
+                    </p>
+
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'ing_asistencia_alumno' %}" class="btn btn-outline-success">
+                            <i class="fas fa-user-check me-2"></i>
+                            Asistencia por Alumno
+                        </a>
+                        <a href="{% url 'ing_calificaciones_alumno' %}" class="btn btn-outline-info">
+                            <i class="fas fa-user-graduate me-2"></i>
+                            Calificaciones por Alumno
+                        </a>
+                        <a href="{% url 'consultas_selector' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-search me-2"></i>
+                            Ver Consultas
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="alert alert-light border">
+                <h5 class="alert-heading">
+                    <i class="fas fa-info-circle text-primary me-2"></i>
+                    ¿Necesita Ayuda?
+                </h5>
+                <p class="mb-3">Guía rápida para el ingreso de datos:</p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>Asistencia:</strong> Para registrar presente, ausente, tardanza o retiro temprano.
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Calificaciones:</strong> Para ingresar notas trimestrales y parciales.
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Observaciones:</strong> Para comentarios y seguimiento conductual.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-home me-2"></i>
+                    Volver al Inicio
+                </a>
+                <a href="{% url 'consultas_selector' %}" class="btn btn-outline-primary">
+                    <i class="fas fa-eye me-2"></i>
+                    Ver Consultas
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-card {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+    .hover-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .card-header {
+        border-radius: 12px 12px 0 0 !important;
+    }
+
+    .btn-lg {
+        border-radius: 8px;
+        font-weight: 500;
+    }
+
+    .badge {
+        font-size: 0.8rem;
+    }
+
+    .alert {
+        border-radius: 10px;
+    }
+</style>
+{% endblock %}

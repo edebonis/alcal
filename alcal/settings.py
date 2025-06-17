@@ -30,14 +30,12 @@ SECRET_KEY = env('SECRET_KEY', default='j2kogo(g2dz59f3*g2^_xjbx3105i2#zqdecgo3y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
 # Application definition
 INSTALLED_APPS = [
-    'django.contrib.contenttypes',
-    'grappelli',
-    'grappelli.dashboard',
     'django.contrib.admin',
+    'django.contrib.contenttypes',
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -45,6 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'smart_selects',
+    'alcal',  # App principal con modelos de usuario
     'alumnos',
     'docentes',
     'escuela',
@@ -62,6 +61,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'alcal.middleware.UserProfileMiddleware',  # Middleware para perfiles de usuario
+    'alcal.middleware.RoleBasedAccessMiddleware',  # Middleware para control de acceso por roles
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -131,7 +132,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
-    BASE_DIR / 'alcal' / 'static',
+    BASE_DIR / 'static',
 ]
 
 # Default primary key field type
@@ -166,9 +167,10 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
 
-# Grappelli settings
-GRAPPELLI_ADMIN_TITLE = 'ALCAL - Sistema de Gestión Académica'
-GRAPPELLI_INDEX_DASHBOARD = 'alcal.dashboard.CustomIndexDashboard'
+# Admin settings
+ADMIN_SITE_HEADER = 'ALCAL - Sistema de Gestión Académica'
+ADMIN_SITE_TITLE = 'ALCAL Admin'
+ADMIN_INDEX_TITLE = 'Panel de Administración'
 
 # Login URLs
 LOGIN_URL = '/admin/login/'
