@@ -1,1 +1,105 @@
-ingresar_observaciones.html
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Ingresar Observaciones - ALCAL Sistema Académico{% endblock %}
+
+{% block content_title %}
+<div class="alcal-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="display-5 mb-0">
+                    <i class="bi bi-chat-left-dots"></i> Ingresar Observaciones
+                </h1>
+                <p class="lead mb-0 mt-2">Registrar observaciones disciplinarias y académicas</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <a href="/ingresar/" class="btn btn-outline-light">
+                    <i class="bi bi-arrow-left"></i> Volver
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="container">
+    <nav class="alcal-breadcrumb" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <i class="bi bi-house-door"></i>
+                <a href="/">Inicio</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/ingresar/">Ingresar</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <i class="bi bi-chat-left-dots"></i> Observaciones
+            </li>
+        </ol>
+    </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container alcal-fade-in-up">
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <!-- Info Card -->
+            <div class="alert alcal-alert alert-warning d-flex align-items-center mb-4">
+                <i class="bi bi-info-circle-fill"></i>
+                <div>
+                    <strong>Módulo en Desarrollo</strong><br>
+                    Esta funcionalidad está siendo desarrollada. Pronto estará disponible.
+                </div>
+            </div>
+
+            <!-- Placeholder Form -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="bi bi-chat-left-dots"></i>
+                        Formulario de Observaciones
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="student" class="form-label">Estudiante</label>
+                                <select class="form-select" disabled>
+                                    <option>Seleccionar estudiante...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="type" class="form-label">Tipo de Observación</label>
+                                <select class="form-select" disabled>
+                                    <option>Disciplinaria</option>
+                                    <option>Académica</option>
+                                    <option>Positiva</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="observation" class="form-label">Observación</label>
+                                <textarea class="form-control" rows="4" disabled
+                                    placeholder="Detalle de la observación..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 text-center">
+                            <button type="button" class="btn btn-secondary" disabled>
+                                <i class="bi bi-save"></i> Guardar Observación
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

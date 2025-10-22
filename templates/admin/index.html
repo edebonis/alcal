@@ -1,0 +1,263 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}{% translate 'Site administration' %}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        ALCAL - Sistema de Gestión Académica
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+    .role-dashboard {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .role-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .role-icon {
+        font-size: 3rem;
+        margin-right: 1rem;
+    }
+
+    .role-details h2 {
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 600;
+    }
+
+    .role-details p {
+        margin: 0.5rem 0 0 0;
+        opacity: 0.9;
+        font-size: 1.1rem;
+    }
+
+    .quick-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        display: block;
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+
+    .role-actions {
+        margin-top: 1.5rem;
+    }
+
+    .role-action-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        text-decoration: none;
+        margin-right: 1rem;
+        display: inline-block;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .role-action-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        color: white;
+        text-decoration: none;
+        transform: translateY(-1px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+    <!-- Dashboard específico por rol -->
+    {% if user.is_authenticated and user.perfil %}
+    <div class="role-dashboard">
+        <div class="role-info">
+            <div class="role-icon">
+                {% if user.perfil.rol == 'administrador' %}👨‍💼
+                {% elif user.perfil.rol == 'director' %}🎓
+                {% elif user.perfil.rol == 'preceptor' %}👨‍🏫
+                {% elif user.perfil.rol == 'docente' %}👩‍🏫
+                {% elif user.perfil.rol == 'familiar' %}👨‍👩‍👧‍👦
+                {% elif user.perfil.rol == 'alumno' %}🎒
+                {% else %}👤{% endif %}
+            </div>
+            <div class="role-details">
+                <h2>¡Bienvenido, {{ user.get_full_name|default:user.username }}!</h2>
+                <p>{{ user.perfil.get_rol_display }} - Legajo: {{ user.perfil.legajo|default:"No asignado" }}</p>
+            </div>
+        </div>
+
+        <!-- Estadísticas rápidas según el rol -->
+        <div class="quick-stats">
+            {% if user.perfil.rol == 'administrador' or user.perfil.rol == 'director' %}
+            <div class="stat-card">
+                <span class="stat-number">{{ total_alumnos|default:0 }}</span>
+                <span class="stat-label">Alumnos Totales</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">{{ total_docentes|default:0 }}</span>
+                <span class="stat-label">Docentes</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">{{ total_cursos|default:0 }}</span>
+                <span class="stat-label">Cursos</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">{{ usuarios_activos|default:0 }}</span>
+                <span class="stat-label">Usuarios Activos</span>
+            </div>
+            {% elif user.perfil.rol == 'preceptor' %}
+            <div class="stat-card">
+                <span class="stat-number">{{ asistencias_hoy|default:0 }}</span>
+                <span class="stat-label">Asistencias Hoy</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">{{ ausentes_hoy|default:0 }}</span>
+                <span class="stat-label">Ausentes Hoy</span>
+            </div>
+            {% elif user.perfil.rol == 'docente' %}
+            <div class="stat-card">
+                <span class="stat-number">{{ mis_alumnos|default:0 }}</span>
+                <span class="stat-label">Mis Alumnos</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">{{ calificaciones_pendientes|default:0 }}</span>
+                <span class="stat-label">Calificaciones Pendientes</span>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Acciones rápidas según el rol -->
+        <div class="role-actions">
+            {% if user.perfil.rol == 'administrador' %}
+            <a href="{% url 'admin:auth_user_changelist' %}" class="role-action-btn">👥 Gestionar Usuarios</a>
+            <a href="{% url 'admin:alcal_perfilusuario_changelist' %}" class="role-action-btn">🔧 Perfiles de
+                Usuario</a>
+            <a href="{% url 'admin:alumnos_alumno_changelist' %}" class="role-action-btn">🎒 Ver Alumnos</a>
+            {% elif user.perfil.rol == 'director' %}
+            <a href="{% url 'admin:alumnos_alumno_changelist' %}" class="role-action-btn">🎒 Ver Alumnos</a>
+            <a href="{% url 'admin:docentes_docente_changelist' %}" class="role-action-btn">👩‍🏫 Ver Docentes</a>
+            <a href="{% url 'admin:asistencias_asistencia_changelist' %}" class="role-action-btn">📊 Reportes</a>
+            {% elif user.perfil.rol == 'preceptor' %}
+            <a href="{% url 'admin:asistencias_asistencia_changelist' %}" class="role-action-btn">✅ Gestionar
+                Asistencias</a>
+            <a href="{% url 'admin:alumnos_alumno_changelist' %}" class="role-action-btn">🎒 Ver Alumnos</a>
+            {% elif user.perfil.rol == 'docente' %}
+            <a href="{% url 'admin:calificaciones_calificaciontrimestral_changelist' %}" class="role-action-btn">📝
+                Calificaciones</a>
+            <a href="{% url 'admin:alumnos_alumno_changelist' %}" class="role-action-btn">🎒 Mis Alumnos</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Contenido original del admin -->
+    {% if app_list %}
+    {% for app in app_list %}
+    <div class="app-{{ app.app_label }} module">
+        <table>
+            <caption>
+                <a href="{{ app.app_url }}" class="section"
+                    title="{% blocktranslate with name=app.name %}Models in the {{ name }} application{% endblocktranslate %}">{{
+                    app.name }}</a>
+            </caption>
+            {% for model in app.models %}
+            <tr class="model-{{ model.object_name|lower }}">
+                {% if model.admin_url %}
+                <th scope="row"><a href="{{ model.admin_url }}">{{ model.name }}</a></th>
+                {% else %}
+                <th scope="row">{{ model.name }}</th>
+                {% endif %}
+
+                {% if model.add_url %}
+                <td><a href="{{ model.add_url }}" class="addlink">{% translate 'Add' %}</a></td>
+                {% else %}
+                <td>&nbsp;</td>
+                {% endif %}
+
+                {% if model.admin_url %}
+                {% if model.view_only %}
+                <td><a href="{{ model.admin_url }}" class="viewlink">{% translate 'View' %}</a></td>
+                {% else %}
+                <td><a href="{{ model.admin_url }}" class="changelink">{% translate 'Change' %}</a></td>
+                {% endif %}
+                {% else %}
+                <td>&nbsp;</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>{% translate "You don't have permission to view or edit anything." %}</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <h2>{% translate 'Recent actions' %}</h2>
+        <h3>{% translate 'My actions' %}</h3>
+        {% load log %}
+        {% get_admin_log 10 as admin_log for_user user %}
+        {% if not admin_log %}
+        <p>{% translate 'None available' %}</p>
+        {% else %}
+        <ul class="actionlist">
+            {% for entry in admin_log %}
+            <li
+                class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                {% if entry.is_deletion or not entry.get_admin_url %}
+                {{ entry.object_repr }}
+                {% else %}
+                <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                {% endif %}
+                <br>
+                {% if entry.content_type %}
+                <span class="mini quiet">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
+                {% else %}
+                <span class="mini quiet">{% translate 'Unknown content' %}</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
