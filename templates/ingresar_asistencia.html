@@ -1,34 +1,119 @@
-{% extends "admin/base_site.html" %} {% load i18n grp_tags admin_urls static admin_list %} {% block stylesheets %} {{ block.super }} {{ media.css }} {% endblock %} {% block javascripts %} {{ block.super }} {{ media.js }} {% if cl.formset or action_form %} {% url 'admin:jsi18n' as jsi18nurl %} {% endif %} {% if action_form %} {% endif %} {% if cl.formset %} {% endif %} {% endblock %} {% block content_title %}
+{% extends "base.html" %}
+{% load static %}
 
-{{ cl.opts.verbose_name_plural|capfirst }}
+{% block title %}Ingresar Asistencias - ALCAL Sistema Académico{% endblock %}
 
-{% endblock %} {% block object-tools %}
+{% block content_title %}
+<div class="alcal-header">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-md-8">
+				<h1 class="display-5 mb-0">
+					<i class="bi bi-clipboard-plus"></i> Ingresar Asistencias
+				</h1>
+				<p class="lead mb-0 mt-2">Registrar asistencia de estudiantes</p>
+			</div>
+			<div class="col-md-4 text-end">
+				<a href="/ingresar/" class="btn btn-outline-light">
+					<i class="bi bi-arrow-left"></i> Volver
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
 
 {% block breadcrumbs %}
-    <ul class="grp-horizontal-list">
-        <li><a href="/">{% trans "Home" %}</a></li>
-        <li>Asistencia</li>
-    </ul>
+<div class="container">
+	<nav class="alcal-breadcrumb" aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<i class="bi bi-house-door"></i>
+				<a href="/">Inicio</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="/ingresar/">Ingresar</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				<i class="bi bi-clipboard-plus"></i> Asistencias
+			</li>
+		</ol>
+	</nav>
+</div>
 {% endblock %}
 
-
-
 {% block content %}
-<table>
-	<form method="get" action="/ing_asistencia_cur">
-		<select name="menu">
-			<option value="0" selected> Elegir Curso </option>
-				{% for i in cursos %}
-    				<option value = {{i}}> {{i.curso}}</option> 
-  				{% endfor %}
-		</select>
-		<input type="submit" value="Ver" />{% csrf_token %}
-	</form>
-</table>
+<div class="container alcal-fade-in-up">
 
-<form action="/">
-    <input type="submit" value="Volver">
-</form>
+	<div class="row justify-content-center">
+		<div class="col-md-8">
 
+			<!-- Info Card -->
+			<div class="alert alcal-alert alert-primary d-flex align-items-center mb-4">
+				<i class="bi bi-info-circle-fill"></i>
+				<div>
+					<strong>Módulo en Desarrollo</strong><br>
+					Esta funcionalidad está siendo desarrollada. Pronto estará disponible.
+				</div>
+			</div>
+
+			<!-- Placeholder Form -->
+			<div class="card">
+				<div class="card-header">
+					<h5 class="mb-0">
+						<i class="bi bi-clipboard-plus"></i>
+						Formulario de Asistencias
+					</h5>
+				</div>
+				<div class="card-body">
+					<form>
+						<div class="row g-3">
+							<div class="col-md-6">
+								<label for="course" class="form-label">Curso</label>
+								<select class="form-select" disabled>
+									<option>Seleccionar curso...</option>
+								</select>
+							</div>
+							<div class="col-md-6">
+								<label for="subject" class="form-label">Materia</label>
+								<select class="form-select" disabled>
+									<option>Seleccionar materia...</option>
+								</select>
+							</div>
+							<div class="col-md-6">
+								<label for="date" class="form-label">Fecha</label>
+								<input type="date" class="form-control" disabled>
+							</div>
+							<div class="col-md-6">
+								<label for="period" class="form-label">Período</label>
+								<select class="form-select" disabled>
+									<option>1° Período</option>
+									<option>2° Período</option>
+									<option>3° Período</option>
+									<option>4° Período</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="mt-4">
+							<label class="form-label">Lista de Estudiantes</label>
+							<div class="border rounded p-3 bg-light text-center text-muted">
+								<i class="bi bi-people" style="font-size: 3rem;"></i>
+								<p class="mt-3">Selecciona curso y materia para ver la lista de estudiantes</p>
+							</div>
+						</div>
+
+						<div class="mt-3 text-center">
+							<button type="button" class="btn btn-secondary" disabled>
+								<i class="bi bi-save"></i> Guardar Asistencias
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>
 {% endblock %}

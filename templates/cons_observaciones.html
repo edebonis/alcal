@@ -1,1 +1,118 @@
-cons_observaciones.html
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Consultar Observaciones - ALCAL Sistema Académico{% endblock %}
+
+{% block content_title %}
+<div class="alcal-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="display-5 mb-0">
+                    <i class="bi bi-chat-left-text"></i> Consultar Observaciones
+                </h1>
+                <p class="lead mb-0 mt-2">Revisar observaciones disciplinarias y académicas</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <a href="/consultas/" class="btn btn-outline-light">
+                    <i class="bi bi-arrow-left"></i> Volver
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="container">
+    <nav class="alcal-breadcrumb" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <i class="bi bi-house-door"></i>
+                <a href="/">Inicio</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/consultas/">Consultas</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <i class="bi bi-chat-left-text"></i> Observaciones
+            </li>
+        </ol>
+    </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container alcal-fade-in-up">
+
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+
+            <!-- Info Card -->
+            <div class="alert alcal-alert alert-warning d-flex align-items-center mb-4">
+                <i class="bi bi-info-circle-fill"></i>
+                <div>
+                    <strong>Consulta de Observaciones</strong><br>
+                    Esta funcionalidad está siendo desarrollada. Pronto estará disponible.
+                </div>
+            </div>
+
+            <!-- Filter Form -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="bi bi-funnel"></i> Filtros de Consulta
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="student" class="form-label">Estudiante</label>
+                                <select class="form-select" disabled>
+                                    <option>Seleccionar estudiante...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="type" class="form-label">Tipo</label>
+                                <select class="form-select" disabled>
+                                    <option>Todas</option>
+                                    <option>Disciplinarias</option>
+                                    <option>Académicas</option>
+                                    <option>Positivas</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="date" class="form-label">Fecha</label>
+                                <input type="date" class="form-control" disabled>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <button type="button" class="btn btn-alcal-warning" disabled>
+                                <i class="bi bi-search"></i> Buscar Observaciones
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Results Placeholder -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="bi bi-chat-left-text"></i> Resultados
+                    </h5>
+                </div>
+                <div class="card-body text-center text-muted">
+                    <i class="bi bi-chat-left-dots" style="font-size: 3rem;"></i>
+                    <p class="mt-3">No hay observaciones para mostrar</p>
+                    <small>Selecciona los filtros y presiona "Buscar" para ver las observaciones</small>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

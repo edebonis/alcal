@@ -1,0 +1,21 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="{% static 'admin/img/favicon.ico' %}">
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        <i class="fas fa-graduation-cap" style="margin-right: 10px;"></i>
+        ALCAL - Sistema de Gestión Académica
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

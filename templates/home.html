@@ -1,28 +1,200 @@
-{% extends "admin/base_site.html" %} {% load i18n grp_tags admin_urls static admin_list %} {% block stylesheets %} {{ block.super }} {{ media.css }} {% endblock %} {% block javascripts %} {{ block.super }} {{ media.js }} {% if cl.formset or action_form %} {% url 'admin:jsi18n' as jsi18nurl %} {% endif %} {% if action_form %} {% endif %} {% if cl.formset %} {% endif %} {% endblock %} {% block content_title %}
+{% extends "base.html" %}
+{% load static %}
 
-{{ cl.opts.verbose_name_plural|capfirst }}
+{% block title %}Dashboard - ALCAL Sistema Académico{% endblock %}
 
-{% endblock %} {% block object-tools %}
+{% block content_title %}
+<!-- Header principal del sistema -->
+<div class="alcal-header">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-md-8">
+				<h1 class="display-4 mb-0">
+					<i class="bi bi-building"></i> Sistema Académico ALCAL
+				</h1>
+				<p class="lead mb-0 mt-2">Gestión integral de instituciones educativas</p>
+			</div>
+			<div class="col-md-4 text-end">
+				<div class="d-flex align-items-center justify-content-end">
+					<i class="bi bi-person-circle me-2" style="font-size: 2rem;"></i>
+					<div>
+						<div class="fw-bold">{{ user.get_full_name|default:user.username }}</div>
+						<small class="opacity-75">Administrador</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
+
 {% block breadcrumbs %}
-    <ul class="grp-horizontal-list">
-        <li><a href="/">{% trans "Home" %}</a></li>
-    </ul>
+<div class="container">
+	<nav class="alcal-breadcrumb" aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item active" aria-current="page">
+				<i class="bi bi-house-door"></i> Dashboard
+			</li>
+		</ol>
+	</nav>
+</div>
 {% endblock %}
-
-
 
 {% block content %}
-<table>
-	<form action="/consultas">
-    	<input type="submit" value="Consultas">
-	</form>
-	<form action="/ingresar">
-    	<input type="submit" value="Ingresar">
-	</form>
-</table>
+<div class="container alcal-fade-in-up">
+
+	<!-- Estadísticas principales -->
+	<div class="row mb-4">
+		<div class="col-md-12">
+			<h2 class="h4 mb-3 text-alcal-primary">
+				<i class="bi bi-graph-up"></i> Estado del Sistema
+			</h2>
+		</div>
+
+		<div class="col-md-4 mb-3">
+			<div class="alcal-stat-card primary">
+				<div class="alcal-stat-number text-alcal-primary">2</div>
+				<div class="fw-bold">
+					<i class="bi bi-mortarboard-fill"></i> Carreras
+				</div>
+				<small class="text-muted">Técnico en Programación • Bachiller en Economía</small>
+			</div>
+		</div>
+
+		<div class="col-md-4 mb-3">
+			<div class="alcal-stat-card success">
+				<div class="alcal-stat-number text-alcal-success">13</div>
+				<div class="fw-bold">
+					<i class="bi bi-collection-fill"></i> Cursos
+				</div>
+				<small class="text-muted">Secciones A y B distribuidas</small>
+			</div>
+		</div>
+
+		<div class="col-md-4 mb-3">
+			<div class="alcal-stat-card warning">
+				<div class="alcal-stat-number text-alcal-warning">124</div>
+				<div class="fw-bold">
+					<i class="bi bi-book-fill"></i> Materias
+				</div>
+				<small class="text-muted">Distribuidas por año académico</small>
+			</div>
+		</div>
+	</div>
+
+	<!-- Navegación principal -->
+	<div class="row mb-4">
+		<div class="col-md-12">
+			<h2 class="h4 mb-3 text-alcal-primary">
+				<i class="bi bi-compass"></i> Navegación Principal
+			</h2>
+		</div>
+
+		<div class="col-md-6 mb-3">
+			<a href="/consultas" class="text-decoration-none">
+				<div class="card alcal-nav-card h-100">
+					<div class="card-body">
+						<i class="bi bi-search"></i>
+						<h5 class="card-title text-alcal-primary">Consultas</h5>
+						<p class="card-text text-muted">
+							Consultar asistencias, calificaciones y observaciones de estudiantes
+						</p>
+						<div class="btn btn-alcal-primary">
+							<i class="bi bi-arrow-right"></i> Acceder
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-md-6 mb-3">
+			<a href="/ingresar" class="text-decoration-none">
+				<div class="card alcal-nav-card h-100">
+					<div class="card-body">
+						<i class="bi bi-plus-circle"></i>
+						<h5 class="card-title text-alcal-success">Ingresar Datos</h5>
+						<p class="card-text text-muted">
+							Registrar nueva información de estudiantes y actividades académicas
+						</p>
+						<div class="btn btn-alcal-success">
+							<i class="bi bi-arrow-right"></i> Acceder
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<!-- Accesos rápidos -->
+	<div class="row mb-4">
+		<div class="col-md-12">
+			<h2 class="h4 mb-3 text-alcal-primary">
+				<i class="bi bi-lightning"></i> Accesos Rápidos
+			</h2>
+		</div>
+
+		<div class="col-md-3 mb-3">
+			<a href="/admin/" class="btn btn-alcal-warning w-100 py-3">
+				<i class="bi bi-gear-fill d-block mb-1" style="font-size: 1.5rem;"></i>
+				<span class="fw-bold">Panel Admin</span>
+			</a>
+		</div>
+
+		<div class="col-md-3 mb-3">
+			<a href="/cons_asistencia/" class="btn btn-alcal-primary w-100 py-3">
+				<i class="bi bi-clipboard-check d-block mb-1" style="font-size: 1.5rem;"></i>
+				<span class="fw-bold">Asistencias</span>
+			</a>
+		</div>
+
+		<div class="col-md-3 mb-3">
+			<a href="/cons_calificaciones/" class="btn btn-alcal-success w-100 py-3">
+				<i class="bi bi-bar-chart-fill d-block mb-1" style="font-size: 1.5rem;"></i>
+				<span class="fw-bold">Calificaciones</span>
+			</a>
+		</div>
+
+		<div class="col-md-3 mb-3">
+			<a href="/cons_observaciones/" class="btn btn-alcal-primary w-100 py-3">
+				<i class="bi bi-chat-left-text d-block mb-1" style="font-size: 1.5rem;"></i>
+				<span class="fw-bold">Observaciones</span>
+			</a>
+		</div>
+	</div>
+
+	<!-- Información del sistema -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header bg-alcal-gradient-primary text-white">
+					<h5 class="mb-0">
+						<i class="bi bi-info-circle"></i> Información del Sistema
+					</h5>
+				</div>
+				<div class="card-body">
+					<div class="row align-items-center">
+						<div class="col-md-8">
+							<div class="alert alcal-alert alert-success d-flex align-items-center mb-0">
+								<i class="bi bi-check-circle-fill"></i>
+								<div>
+									<strong>Sistema Operativo</strong><br>
+									Django 4.2.10 • PostgreSQL • Bootstrap 5 (Sin Grappelli)
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 text-end">
+							<div class="text-muted">
+								<small>
+									<i class="bi bi-clock"></i>
+									Última actualización: Junio 2025
+								</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
 {% endblock %}
-
-        
-
-
