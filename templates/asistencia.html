@@ -1,124 +1,89 @@
-{% extends "base.html" %}
+{% extends "base_modern.html" %}
 {% load static %}
 
-{% block title %}Asistencia - ALCAL Sistema Académico{% endblock %}
-
-{% block content_title %}
-<div class="alcal-header">
-	<div class="container">
-		<div class="row align-items-center">
-			<div class="col-md-8">
-				<h1 class="display-5 mb-0">
-					<i class="bi bi-clipboard-check"></i> Asistencia
-				</h1>
-				<p class="lead mb-0 mt-2">Control y registro de asistencias</p>
-			</div>
-			<div class="col-md-4 text-end">
-				<a href="/" class="btn btn-outline-light">
-					<i class="bi bi-arrow-left"></i> Volver al Dashboard
-				</a>
-			</div>
-		</div>
-	</div>
-</div>
-{% endblock %}
-
-{% block breadcrumbs %}
-<div class="container">
-	<nav class="alcal-breadcrumb" aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item">
-				<i class="bi bi-house-door"></i>
-				<a href="/">Inicio</a>
-			</li>
-			<li class="breadcrumb-item active" aria-current="page">
-				<i class="bi bi-clipboard-check"></i> Asistencia
-			</li>
-		</ol>
-	</nav>
-</div>
-{% endblock %}
+{% block title %}Tomar Asistencia - ALCAL{% endblock %}
 
 {% block content %}
-<div class="container alcal-fade-in-up">
+<div class="container-fluid">
 
-	<div class="row justify-content-center">
-		<div class="col-md-12">
-
-			<!-- Info Card -->
-			<div class="alert alcal-alert alert-primary d-flex align-items-center mb-4">
-				<i class="bi bi-info-circle-fill"></i>
-				<div>
-					<strong>Sistema de Control de Asistencias</strong><br>
-					Registra y consulta las asistencias de los estudiantes por curso y materia
-				</div>
+	<div class="glass-header mb-4">
+		<div class="d-flex justify-content-between align-items-center">
+			<div>
+				<h2 class="fw-bold text-white mb-1">Tomar Asistencia</h2>
+				<p class="text-white-50 mb-0">Registro diario de asistencia por curso</p>
 			</div>
-
-			<!-- Quick Actions -->
-			<div class="row g-4 mb-4">
-				<div class="col-md-6">
-					<div class="card h-100">
-						<div class="card-body text-center">
-							<i class="bi bi-clipboard-plus text-alcal-primary" style="font-size: 3rem;"></i>
-							<h5 class="mt-3">Registrar Asistencia</h5>
-							<p class="text-muted">Toma asistencia para una clase específica</p>
-							<a href="/ingresar_asistencia/" class="btn btn-alcal-primary">
-								<i class="bi bi-plus"></i> Registrar
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="card h-100">
-						<div class="card-body text-center">
-							<i class="bi bi-clipboard-data text-alcal-success" style="font-size: 3rem;"></i>
-							<h5 class="mt-3">Consultar Asistencias</h5>
-							<p class="text-muted">Revisa el historial de asistencias</p>
-							<a href="/cons_asistencia/" class="btn btn-alcal-success">
-								<i class="bi bi-search"></i> Consultar
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Current Attendance -->
-			<div class="card">
-				<div class="card-header">
-					<h5 class="mb-0">
-						<i class="bi bi-calendar-check"></i> Registro de Asistencias de Hoy
-					</h5>
-				</div>
-				<div class="card-body">
-					<div class="table-responsive">
-						<table class="table table-hover">
-							<thead class="table-light">
-								<tr>
-									<th><i class="bi bi-clock"></i> Horario</th>
-									<th><i class="bi bi-book"></i> Materia</th>
-									<th><i class="bi bi-mortarboard"></i> Curso</th>
-									<th><i class="bi bi-people"></i> Presentes</th>
-									<th><i class="bi bi-person-x"></i> Ausentes</th>
-									<th><i class="bi bi-percent"></i> Asistencia</th>
-									<th><i class="bi bi-gear"></i> Acciones</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td colspan="7" class="text-center text-muted py-4">
-										<i class="bi bi-clipboard-x" style="font-size: 3rem;"></i>
-										<p class="mt-3">No hay registros de asistencia para hoy</p>
-										<small>Los registros aparecerán aquí cuando se tome asistencia</small>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-
+			<a href="/cons_asistencia/" class="btn btn-light text-primary fw-bold">
+				<i class="bi bi-search me-2"></i> Consultar
+			</a>
 		</div>
 	</div>
 
+	<div class="row justify-content-center">
+		<div class="col-md-8 col-lg-6">
+			<div class="glass-card">
+				<h5 class="fw-bold mb-4 text-primary">
+					<i class="bi bi-funnel-fill me-2"></i> Seleccionar Curso y Fecha
+				</h5>
+
+				<form action="" method="post" class="needs-validation">{% csrf_token %}
+
+					{% if form.errors %}
+					<div class="alert alert-danger rounded-3 mb-4">
+						<i class="bi bi-exclamation-triangle-fill me-2"></i> Por favor corrija los errores
+					</div>
+					{% endif %}
+
+					<div class="mb-4">
+						<label class="form-label text-muted small fw-bold">CURSO</label>
+						<div class="input-group">
+							<span class="input-group-text bg-light border-end-0"><i class="bi bi-collection"></i></span>
+							{{ form.curso }}
+						</div>
+						{% if form.curso.errors %}
+						<div class="text-danger small mt-1">{{ form.curso.errors }}</div>
+						{% endif %}
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-4">
+							<label class="form-label text-muted small fw-bold">TURNO</label>
+							<div class="input-group">
+								<span class="input-group-text bg-light border-end-0"><i class="bi bi-clock"></i></span>
+								{{ form.turno }}
+							</div>
+						</div>
+						<div class="col-md-6 mb-4">
+							<label class="form-label text-muted small fw-bold">FECHA</label>
+							<div class="input-group">
+								<span class="input-group-text bg-light border-end-0"><i
+										class="bi bi-calendar"></i></span>
+								{{ form.fecha }}
+							</div>
+						</div>
+					</div>
+
+					<div class="d-grid gap-2">
+						<button type="submit" class="btn btn-premium py-3">
+							<i class="bi bi-arrow-right-circle me-2"></i> Continuar
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+	// Estilizar los selects de Django automáticamente
+	document.querySelectorAll('select').forEach(el => {
+		el.classList.add('form-select', 'bg-light', 'border-start-0', 'ps-0');
+	});
+
+	// Estilizar inputs de fecha
+	document.querySelectorAll('input[type="date"], input[type="text"]').forEach(el => {
+		el.classList.add('form-control', 'bg-light', 'border-start-0', 'ps-0');
+	});
+</script>
 {% endblock %}
