@@ -1,0 +1,485 @@
+Nº de Registro,ACTIVX,Años,MESES,APELLIDOS,NOMBRES,DOCUMENTO,F.NAC.,NACIONALIDAD,TELÉFONOS,DOMICILIO,CELULAR,M/F,TÉCNICA/ECONOMíA,Nº Ord.,EMAIL,Fecha Alta Doc,Nombre para mostrar,Horas,HMod,H.Lic,H.Sub,H.SinSub,H.Ext,Tit,Prov,Supl,Act,Mod. Act,Años a fecha,Meses a fecha,Fecha para ant,M/F,PDD,
+11.492.836,NO,30,15,Albella ,Elsa Dolores,11.492.836,1955-01-23,Argentina,,,1154673955,Femenino,T/E,1,ealbella@sagradoalcal.edu.ar,,Albella Elsa,0,0,,,,,,,,0,0,24,10,15/05/2019,F,TRUE,Femenino
+17.937.961,NO,20,11,Alfaro ,Cecilia Maria,17.937.961,1966-11-01,Argentina,,,,Femenino,Economía,2,calfaro@sagradoalcal.edu.ar,,Alfaro Cecilia,6,4,,,,,,,,0,0,14,6,15/05/2019,F,TRUE,Femenino
+36.528.600,NO,10,6,Aloi ,Federico,36.528.600,1991-10-30,Argentina,,,1131768003,Masculino,Técnica,3,faloi@sagradoalcal.edu.ar,,Aloi Federico,36,24,36,36,0,0,0,36,0,0,0,4,1,15/05/2019,M,FALSE,Masculino
+27.170.682,SI,22,11,Altamiranda ,Esteban,27.170.682,1979-01-28,Argentina,,Av. La Plata 536 2°9 ,1159536204,Masculino,T/E,4,ealtamiranda@sagradoalcal.edu.ar,,Altamiranda Esteban,"10,5",7,,,,,,,,"10,5",7,16,6,15/05/2019,M,TRUE,Masculino
+,NO,6,5,Altamiranda ,Leandro,26.371.223,1977-11-13,Argentina,,,11 5602-3130,Masculino,Psicologo,5,laltamiranda@sagradoalcal.edu.ar,,Altamiranda Leandro,0,0,,,,,,,,0,0,,,15/05/2019,M,FALSE,Masculino
+32.999.831,SI,11,7,Alvarenga ,Erika,32.999.831,1987-03-29,Argentina,,,1151543160,Femenino,Economía,6,ealvarenga@sagradoalcal.edu.ar,,Alvarenga Erika,,0,,,,,,,,15,10,5,2,15/05/2019,F,TRUE,Femenino
+17.302.664,SI,37,5,Amigo ,Mirta Susana,17.302.664,1964-10-16,Argentina,,, 11 6377-4193,Femenino,T/E,7,mamigo@sagradoalcal.edu.ar,,Amigo Mirta,12,8,,,,,,,,12,8,31,0,15/05/2019,F,TRUE,Femenino
+23.159.996,SI,18,15,Báez ,Marcelo Adolfo,23.158.996,1973-08-18,Argentina,,,1162709497,Masculino,Economia,8,mbaez@sagradoalcal.edu.ar,,Báez Marcelo,9,6,,,,,,,,9,6,12,10,15/05/2019,M,TRUE,Masculino
+33.118.417,SI,13,14,Barakian  ,Layla Belen,33.118.417,1987-04-26,Argentina,,Yatay 430,1161633107,Femenino,T/E,9,lbarakian@sagradoalcal.edu.ar,,Barakian Layla ,,0,,,,,,,,21,14,7,9,15/05/2019,F,TRUE,Femenino
+24.178.975,NO,10,15,Batlle ,Leandro Ernesto,24.178.975,1975-01-03,Argentina,,, 11 6851-1350,Masculino,Técnica,10,lbatlle@sagradoalcal.edu.ar,,Batlle Leandro,18,12,,,,,,,,0,0,4,10,15/05/2019,M,TRUE,Masculino
+29.363.484,SI,8,5,Berone ,Maximiliano Ezequiel,29.363.484,1982-06-12,Argentina,,,1166639692,Masculino,,11,mberone@sagradoalcal.edu.ar,,Berone Maximiliano,6,4,,,,,,,,9,6,2,,15/05/2019,M,FALSE,Masculino
+17.039.073,SI,13,11,Bonifacini ,Elba Sandra,17.039.073,1964-04-02,Argentina,,, 11 6549-7490,Femenino,T/E,12,sbonifacini@sagradoalcal.edu.ar,,Bonifacini Sandra,9,6,,,,,,,,9,6,7,6,15/05/2019,F,TRUE,Femenino
+23.906.881,SI,7,13,Bordón ,José Victor,23.906.881,1974-04-25,Argentina,,,1151776217,Masculino,Técnica,13,jbordon@sagradoalcal.edu.ar,,Bordón José,6,4,,,,,,,,6,4,1,8,15/05/2019,M,FALSE,Masculino
+35.373.917,SI,9,9,Britez Neira ,Guillermo Hernan,35.373.917,1991-02-10,Argentina,,,1140465066,Masculino,T/E,14,gbritez@sagradoalcal.edu.ar,,Britez Neira Guillermo,,0,,,,,,,,12,8,3,4,15/05/2019,M,FALSE,Masculino
+36.724.133,SI,7,5,Bugna ,Gisella Carla,36.724.133,1992-02-27,Argentina,,, 11 3431-3842‬,Femenino,,15,gbugna@sagradoalcal.edu.ar,,Bugna Gisella,,0,,,,,,,,"13,5",9,1,0,15/05/2019,F,FALSE,Femenino
+,SI,8,5,Cáceres ,Mario Nicolás,35.901.972,1991-04-12,Argentina,,,11 3343-4394,Masculino,T/E,16,ncaceres@sagradoalcal.edu.ar,,Cáceres Nicolás,18,12,,,,,,,,18,12,2,,15/05/2019,M,FALSE,Masculino
+29.906.404,SI,16,16,Cajaraville ,Noelia Paola,29.906.404,1982-11-10,Argentina,,,11 5947-6370,Femenino,,17,ncajaraville@sagradoalcal.edu.ar,,Cajaraville Noelia,,0,,,,,,,,12,8,10,11,15/05/2019,F,TRUE,Femenino
+32.669.725,SI,13,16,Calviello ,Matías Damian,32.669.725,1986-11-13,Argentina,,,1167169957,Masculino,T/E,18,mcalviello@sagradoalcal.edu.ar,,Calviello Matías,,0,,,,,,,,12,8,7,11,15/05/2019,M,TRUE,Masculino
+23.159.996,SI,19,16,Carballo ,Matías Exequiel,30.448.248,1983-08-14,Argentina,,,1121809566,Masculino,Técnica,19,mcarballo@sagradoalcal.edu.ar,,Carballo Matías,30,20,,,,,,,,30,20,13,11,15/05/2019,M,TRUE,Masculino
+35.999.055,SI,13,7,Carrizo  ,Cayetano Jesus ,35.999.055,1991-04-02,Argentina,4228-7778,Potosí 2750,1131682992,Masculino,T/E  Preceptor,20,ccarrizo@sagradoalcal.edu.ar,,Carrizo Cayetano ,,0,,,,,,,,12,8,7,2,15/05/2019,M,TRUE,Masculino
+33.557.737,SI,10,10,Chiesa ,Leonardo Alejandro,33.557.737,1988-03-23,Argentina,,,11 2321-6970,Masculino,T/E,21,lchiesa@sagradoalcal.edu.ar,,Chiesa Leonardo,,0,,,,,,,,"10,5",7,4,5,15/05/2019,M,FALSE,Masculino
+33.362.053,SI,10,6,Cordoba,Pablo Damian,33.362.053,1987-10-16,Argentina,---------------,Adolfo Alsina 2115,1133541215,Masculino,Preceptor,22,pcordoba@sagradoalcal.edu.ar,,Córdoba Pablo,,0,,,,,,,,0,0,4,1,15/05/2019,M,FALSE,Masculino
+35.367.137,SI,7,14,Cortés ,Martina,35.367.137,1990-11-14,Argentina,,,11 6176-8564,Femenino,Técnica,23,mcortes@sagradoalcal.edu.ar,,Cortés Martina,30,20,,,,,,,,30,20,1,9,15/05/2019,F,FALSE,Femenino
+34.454.018,SI,14,13,Crippa ,Andrés Miguel,34.454.018,1989-02-28,Argentina,,,1130236227,Masculino,T/E,24,acrippa@sagradoalcal.edu.ar,,Crippa Andrés,9,6,,,,,,,,9,6,8,8,15/05/2019,M,FALSE,Masculino
+24.856.517,SI,27,5,Crismai ,Natalia Andrea,24.856.517,1975-10-14,Argentina,3980-2797,Tacuarí 2194,1133709879,Femenino,Pro secretaria,25,ncrismai@sagradoalcal.edu.ar,,Crismai Natalia,,0,,,,,,,,0,0,21,0,15/05/2019,F,TRUE,Femenino
+34.401.422,SI,13,16,Cruz ,Camila,34.401.422,1989-03-04,Argentina,,,1138093185,Femenino,Técnica,26,ccruz@sagradoalcal.edu.ar,,Cruz Camila,,0,,,,,,,,9,6,7,11,15/05/2019,F,TRUE,Femenino
+,SI,6,5,Cuesta ,Federico Martin,33.740.804,1988-07-23,Argentina,,,165209012,Masculino,T/E,27,fcuesta@sagradoalcal.edu.ar,,Cuesta Federico,,0,,,,,,,,0,,,,15/05/2019,M,FALSE,Masculino
+29.502.721,SI,22,5,De Bonis ,Esteban Miguel,29.502.721,1982-05-04,Argentina,20680937,,1133847501,Masculino,Jefe de Taller,28,edebonis@sagradoalcal.edu.ar,13/12/2020,De Bonis Esteban,24,16,0,16,0,0,24,0,0,24,16,16,0,15/05/2019,M,TRUE,Masculino
+33.982.204,NO,7,16,Exposto ,Emiliano,33.982.204,1988-09-09,Argentina,,,11 5481-5653,Masculino,T/E,29,eexposto@sagradoalcal.edu.ar,,Exposto Emiliano,6,4,,,,,,,,0,0,1,11,15/05/2019,M,FALSE,Masculino
+29.318.467,SI,16,15,Ferrero ,Maria Victoria ,29.318.467,1982-02-03,Argentina,,,1159639246,Femenino,T/E,30,vferrero@sagradoalcal.edu.ar,,Ferrero Victoria,,0,,,,,,,,"13,5",9,10,10,15/05/2019,F,TRUE,Femenino
+20.504.750,SI,30,13,Flores ,Rafael Alejandro,20.504.750,1968-11-14,Argentina,,,1569439828,Masculino,Economia,31,raflores@sagradoalcal.edu.ar,,Flores Rafael,,0,,,,,,,,"7,5",5,24,8,15/05/2019,M,TRUE,Masculino
+27.788.671,SI,7,14,García ,Yanina Mariel,27.788.671,1979-12-04,Argentina,,, 11 3909-9080,Femenino,Técnica,32,ygarcia@sagradoalcal.edu.ar,,García Yanina,,0,,,,,,,,12,8,1,9,15/05/2019,F,FALSE,Femenino
+36.367.137,SI,9,13,Giaimo ,Paula Jimena,25.632.269,1976-09-01,Argentina,,,11 5043-0735,Femenino,Técnica,33,pgiaimo@sagradoalcal.edu.ar,,Giaimo Paula,,0,,,,,,,,"13,5",9,3,8,15/05/2019,F,FALSE,Femenino
+31.032.584,SI,12,7,González ,Maria Lorena ,31.032.584,1984-08-24,Argentina,,,1140369257,Femenino,T/E,34,lgonzalez@sagradoalcal.edu.ar,,González Lorena,,0,,,,,,,,0,0,6,2,15/05/2019,F,TRUE,Femenino
+34.146.389,SI,17,5,Gubitosi ,Florencia Dulcinea ,34.146.389,1988-10-23,Argentina,,Av. Rivadavia 5871,1130609344,Femenino,T/E,35,dgubitosi@sagradoalcal.edu.ar,10/3/2008,Gubitosi Dulcinea,,0,,,,,,,,"22,5",15,11,0,15/05/2019,F,TRUE,Femenino
+23.170.224,SI,17,14,Guerrero ,Ana Carina,23.170.224,1973-05-26,Argentina,,Gral. Hornos 736,1557185843,Femenino,Preceptora,36,cguerrero@sagradoalcal.edu.ar,,Guerrero Carina,,0,,,,,,,,0,0,11,9,15/05/2019,F,TRUE,Femenino
+30.557.204,SI,13,10,Herrera ,Patricia Daniela,30.557.204,1983-10-13,Argentina,,,11 2451-2696,Femenino,,37,pherrera@sagradoalcal.edu.ar,,Herrera Patricia,,0,,,,,,,,9,6,7,5,15/05/2019,F,TRUE,Femenino
+960.593,SI,46,12,Kulik ,Andres,13.697.848,1957-07-29,Argentina,,,1560066647,Masculino,Ayudante de Trabajos Prácticos,38,akulik@sagradoalcal.edu.ar,,Kulik Andrés,,0,,,,,,,,0,0,40,7,15/05/2019,M,TRUE,Masculino
+31.000.127,SI,17,9,Laborde ,Paula Gabriela,31.000.127,1984-07-22,Argentina,,,1151439117,Femenino,,39,plaborde@sagradoalcal.edu.ar,,Laborde Paula,,0,,,,,,,,18,12,11,4,15/05/2019,F,TRUE,Femenino
+23.060.738,NO,31,5,Leonik ,Karina Lorena,23.060.738,1973-02-17,Argentina,4952-3077,Uriburu 619  3°A,1155671702,Femenino,Secretaria,40,kleonik@sagradoalcal.edu.ar,,Leonik Karina,,0,,,,,,,,0,0,25,0,15/05/2019,F,TRUE,Femenino
+23.969.512,SI,15,14,Lezcano  ,Gastón Leopoldo,23.969.512,1974-04-28,Argentina,4285-5050,Ricardo Palma 2081,11 2632-3376,Masculino,Técnica,41,glezcano@sagradoalcal.edu.ar,,Lezcano Gastón ,,0,,,,,,,,30,20,9,9,15/05/2019,M,TRUE,Masculino
+37.980.021,NO,6,5,Lotero ,Ivana Araceli,37.980.021,1994-05-16,Argentina,,,,Femenino,Economía,42,ilotero@sagradoalcal.edu.ar,,Lotero Ivana,,0,,,,,,,,0,0,0,0,15/05/2019,F,FALSE,Femenino
+39.656.105,NO,6,5,Luna ,Maria Alejandra ,39.656.105,1996-06-20,Argentina,,,11 3483-4833‬,Femenino,,43,aluna@sagradoalcal.edu.ar,,Luna Alejandra,,0,,,,,,,,0,0,0,0,15/05/2019,F,FALSE,Femenino
+30.436.014,SI,7,13,Márquez ,Rodrigo Sebastian ,30.436.014,1983-07-19,Argentina,,,11 5493-7067,Masculino,Técnica,44,rmarquez@sagradoalcal.edu.ar,,Márquez Rodrigo,,0,,,,,,,,30,20,1,8,15/05/2019,M,FALSE,Masculino
+29.461.709,SI,9,6,Martín ,Luciana,29.461.709,1982-05-25,Argentina,,Jose Bonifacio 1682 ,1165221716,Femenino,Técnica,45,lmartin@sagradoalcal.edu.ar,,Martín Luciana,,0,,,,,,,,3,2,3,1,15/05/2019,F,FALSE,Femenino
+30.664.214,NO,12,16,Morales ,Lorena Noemi,30.664.214,1983-12-18,Argentina,,,11 5857-9177,Femenino,Técnica,46,lmorales@sagradoalcal.edu.ar,,Morales Lorena,,0,,,,,,,,0,0,6,11,15/05/2019,F,TRUE,Femenino
+32.198.998,NO,15,5,Olmedo, Juan Pablo,32.198.998,1980-03-05,Argentina,,,11 4414-1247,Masculino,T/E,47,jolmedo@sagradoalcal.edu.ar,,Olmedo Juan Pablo,,0,,,,,,,,0,0,9,0,15/05/2019,M,TRUE,Masculino
+32.123.730,SI,15,16,Pabón ,Andrea Carmen,32.123.730,1986-01-31,Argentina,,,1137852359,Femenino,T/E,48,apabon@sagradoalcal.edu.ar,,Pabón Andrea,,0,,,,,,,,18,12,9,11,15/05/2019,F,TRUE,Femenino
+30.448.248,SI,11,5,Papaianni ,Mariano Emmanuel Raul,32.359.854,1986-05-27,Argentina,,,1149804342,Masculino,Técnica,49,mpapaianni@sagradoalcal.edu.ar,,Papaianni Mariano,"37,5",25,0,"37,5",0,0,0,30,"7,5","37,5",25,5,0,15/05/2019,M,FALSE,Masculino
+30.055.444,SI,21,8,Perasso ,Tomás Agustin,30.055.444,1983-03-07,Argentina,,,11 5658-4064,Masculino,ViceDirector,50,tperasso@sagradoalcal.edu.ar,,Perasso Tomás,,0,,,,,,,,0,0,15,3,15/05/2019,M,TRUE,Masculino
+31.050.362,NO,9,15,Puente ,Maria Soledad,31.050.362,1984-08-11,Argentina,------------,Faraday 1510 1°12,1156917586,Femenino,Preceptora,51,spuente@sagradoalcal.edu.ar,,Puente Soledad,,0,,,,,,,,0,0,3,10,15/05/2019,F,FALSE,Femenino
+29.592.661,NO,17,14,Rodríguez ,Heber Hernan,29.592.661,1982-06-28,Argentina,,,1156570661,Masculino,Economia,52,hrodriguez@sagradoalcal.edu.ar,,Rodríguez Heber,,0,,,,,,,,0,0,11,9,15/05/2019,M,FALSE,Masculino
+26.822.193,SI,17,15,Rojas ,Claudio Alberto,26.822.193,1978-10-02,Argentina,4209-7590,Warnes 3921,1157576030,Masculino,Economia,53,crojas@sagradoalcal.edu.ar,,Rojas Claudio,,0,,,,,,,,0,,11,10,15/05/2019,M,TRUE,Masculino
+30.408.797,SI,17,8,Romero ,Juan Pablo,30.408.797,1983-07-28,Argentina,,,1153279160,Masculino,Técnica,54,jromero@sagradoalcal.edu.ar,,Romero Juan Pablo,,0,,,,,,,,"10,5",7,11,3,15/05/2019,M,FALSE,Masculino
+491.449,SI,50,5,Sen ,Estanislao,12.667.279,1956-07-01,Argentina,,,11 5517-9277,Masculino,Director,55,esen@sagradoalcal.edu.ar,,Sen Estanislao,,0,,,,,,,,0,0,44,0,15/05/2019,M,TRUE,Masculino
+31.977.296,SI,7,14,Sequeira ,Sabrina Soledad,31.977.296,1985-10-20,Argentina,,,11 6276-6183,Femenino,T/E,56,ssequeira@sagradoalcal.edu.ar,,Sequeira Sabrina,,0,,,,,,,,12,8,1,9,15/05/2019,F,TRUE,Femenino
+34.748.211,SI,7,6,Sierra Bueno ,Camila Micaela,34.748.211,1989-09-03,Boliviana,--------------,MIro 1965,11 3309-8999,Femenino,ECONOMÍA,57,csierrabueno@sagradoalcal.edu.ar,,Sierra Bueno Camila,,0,,,,,,,,9,6,1,1,15/05/2019,F,FALSE,Femenino
+92.898.558,NO,9,14,Sierra Bueno ,Andrea Alejandra,92.898.558,1985-08-30,Boliviana,3965-3502,Casullo 1034,1168340304,Femenino,Tecnica,58,asierrabueno@sagradoalcal.edu.ar,,Sierra Bueno Andrea,,0,,,,,,,,0,0,3,9,15/05/2019,F,FALSE,Femenino
+958.680,SI,32,5,Taliercio ,Maria Gracia,13.992.303,1959-09-28,Argentina,,,1151559719,Femenino,T/E,59,gtaliercio@sagradoalcal.edu.ar,,Taliercio Graciela,18,12,,,,,,,,18,12,26,0,15/05/2019,F,TRUE,Femenino
+23.906.541,SI,14,16,Ughetti ,Javier Martin,23.906.541,1974-04-05,Argentina,,Yatay 430,1138422531,Masculino,T/E,60,jughetti@sagradoalcal.edu.ar,,Ughetti Javier,,0,,,,,,,,21,14,8,11,15/05/2019,M,TRUE,Masculino
+22.983.335,SI,15,15,Villalba ,Lucia Carolina,22.983.335,1972-12-17,Argentina,,,1161735574,Femenino,Economia,61,cvillalba@sagradoalcal.edu.ar,,Villalba Carolina,,0,,,,,,,,6,4,9,10,15/05/2019,F,TRUE,Femenino
+16.537.883,NO,7,16,Villalonga ,Jorge Horacio,16.937.883,1963-09-20,Argentina,,,1126640955,Masculino,T/E,62,jvillalonga@sagradoalcal.edu.ar,,Villalonga Jorge,,0,,,,,,,,0,0,1,11,15/05/2019,M,FALSE,Masculino
+,SI,6,5,Vitullo ,Ezequiel,38.066.241,1994-02-01,Argentina,4362-5976,Dr. Enrique Finochietto 480 9°A,1131779891,Masculino,Voluntariado,63,evitullo@sagradoalcal.edu.ar,,Vitullo Ezequiel,,0,,,,,,,,0,0,,,15/05/2019,M,TRUE,Masculino
+,NO,13,14,Martinez,Gastón,,,Argentina,,,,,,64,gmartinez@sagradoalcal.edu.ar,,Martínez Gastón,,0,,,,,,,,0,0,7,9,15/05/2019,M,FALSE,Masculino
+,SI,6,5,Gonzales ,Claudia,20.383.336,1968-12-03,Argentina,,,,,,66,,,,,0,,,,,,,,0,0,,,15/05/2019,F,FALSE,Femenino
+,NO,6,5,Oliva,Anabella Yasmín,,,,,,,,,67,aoliva@sagradoalcal.edu.ar,,Oliva Anabella,,0,,,,,,,,0,0,,,15/05/2019,F,FALSE,Femenino
+,NO,6,5,Moyano,Sebastián,,,,,,,,,68,smoyano@sagradoalcal.edu.ar,,Moyano Sebastián,,0,,,,,,,,0,0,,,15/05/2019,M,FALSE,Masculino
+,SI,6,11,Valenzuela Colman,Gustavo Andrés,35.972.430,1991-05-05,Argentina,,,,,,69,gvalenzuela@sagradoalcal.edu.ar,,Valenzuela Gustavo,,0,,,,,,,,3,2,0,6,15/05/2019,M,FALSE,Masculino
+,SI,6,13,Prieto,Florencia,37.557.835,,,,,,,,70,florencia.prieto@sagradoalcal.edu.ar,,Prieto Florencia,,0,,,,,,,,3,2,0,8,15/05/2019,F,FALSE,Femenino
+,NO,6,11,Peresson,Arianna,,,,,,,,,71,aperesson@sagradoalcal.edu.ar,,Peresson Arianna,,0,,,,,,,,0,0,0,6,15/05/2019,F,FALSE,Femenino
+,NO,6,6,Acevedo,María Noel,,,,,,,,,72,macevedo@sagradoalcal.edu.ar,,Acevedo María,,0,,,,,,,,"10,5",7,0,1,15/05/2019,F,FALSE,Femenino
+,SI,25,16,Gómez,Diego,24.312.730,,,,,,,,73,dgomez@sagradoalcal.edu.ar,,Gómez Diego,,0,,,,,,,,9,6,19,11,15/05/2019,M,TRUE,Masculino
+,SI,6,6,Del Corro,Miguel Calixto,25.755.100,,,,,,,,74,mdelcorro@sagradoalcal.edu.ar,,Del Corro Miguel,,0,,,,,,,,"7,5",5,0,1,15/05/2019,M,FALSE,Masculino
+,SI,6,6,Blanco,Marisol,23.768.514,,,,,,,,75,mblanco@sagradoalcal.edu.ar,,Blanco Marisol,,0,,,,,,,,"16,5",11,0,1,15/05/2019,F,FALSE,Femenino
+,SI,6,6,Trombiero,Solange,,,,,,,,,76,strombiero@sagradoalcal.edu.ar,,Trombiero Solange,,0,,,,,,,,12,8,0,1,15/05/2019,F,FALSE,Femenino
+,SI,6,5,Cáceres,Lilian Soledad,37.120.267,,,,,,,,77,scaceres@sagradoalcal.edu.ar,,Cáceres Soledad,,0,,,,,,,,0,0,,,15/05/2019,F,FALSE,Femenino
+,SI,6,6,Gómez,Carlos Andrés,33.944.642,,,,,,,,78,cgomez@sagradoalcal.edu.ar,,Gómez Carlos,,0,,,,,,,,6,4,0,1,15/05/2019,M,FALSE,Masculino
+,NO,6,5,Pruebas,Alcal,,,,,,,,,79,pruebas@sagradoalcal.edu.ar,,Pruebas Alcal,,0,,,,,,,,0,0,,,15/05/2019,,FALSE,Masculino
+,SI,6,6,Martín ,Soledad Gabriela,34.490.654,,,,,,,,80,smartin@sagradoalcal.edu.ar,,Martín Soledad,,0,,,,,,,,12,8,0,1,15/05/2019,F,FALSE,Femenino
+,NO,6,5,Spigariol,Lucas,,,,,,,,,81,,,,,0,,,,,,,,0,0,,,15/05/2019,M,FALSE,Masculino
+,NO,6,5,De La Fuente,Gustavo,,,,,,,,,82,,,,,0,,,,,,,,0,0,,,15/05/2019,M,FALSE,Masculino
+,NO,6,5,Palumbo,Nahuel,,,,,,,,,83,,,,,0,,,,,,,,0,0,,,15/05/2019,M,FALSE,Masculino
+,NO,6,6,Torres,Adriana,,,,,,,,,84,,,,,0,,,,,,,,0,,0,1,15/05/2019,F,FALSE,Femenino
+,NO,6,16,Abálsamo,Manuel,,,,,,,,,86,,,,,0,,,,,,,,0,,0,11,15/05/2019,M,FALSE,Masculino
+,SI,0,5,Demonte,Carolina,,,,,,,,,87,cdemonte@sagradoalcal.edu.ar,,Demonte Carolina,,0,,,,,,,,0,,,,15/05/2019,F,FALSE,Femenino
+,SI,0,5,Sabatini,Natalia,,,,,,,,,88,nsabatini@sagradoalcal.edu.ar,,Sabatini Natalia,,0,,,,,,,,0,,,,15/05/2019,F,FALSE,Femenino
+,SI,6,5,Navas,Pablo,,,,,,,,,89,pnavas@sagradoalcal.edu.ar,,Navas Pablo,,0,,,,,,,,0,,,,15/05/2019,M,FALSE,Masculino
+,SI,0,0,Pontoriero,Lina Luján,,,,,,,,,90,lpontoriero@sagradoalcal.edu.ar,,Pontoriero Lina,,0,,,,,,,,0,,0,0,22/10/2025,F,FALSE,Femenino
+,SI,0,0,Scalercio,Sofía Antonella,,,,,,,,,,sscalercio@sagradoalcal.edu.ar,,Scalercio Sofía,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE
+,,,,,,,,,,,,,,,,,,,0,,,,,,,,0,,,,,,FALSE,FALSE

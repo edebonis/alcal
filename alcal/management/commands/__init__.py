@@ -1,1 +1,1 @@
-# Commands package for ALCAL 
+# Management commands

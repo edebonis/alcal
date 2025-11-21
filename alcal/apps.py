@@ -17,4 +17,4 @@ class AlcalConfig(AppConfig):
         Código que se ejecuta cuando la aplicación está lista
         """
         # Importar configuración del admin
-        from . import admin 
+        # from . import admin 
