@@ -10,7 +10,8 @@ Sistema integral de gestión para instituciones educativas desarrollado en Djang
 - **📊 Sistema de Calificaciones**: Notas trimestrales y parciales
 - **📅 Control de Asistencias**: Sistema complejo de códigos de asistencia
 - **📝 Observaciones**: Registro de incidentes y seguimiento estudiantil
-- **🔐 API REST**: Endpoints para integración con aplicaciones externas
+- **🔐 API REST**: Endpoints completos para integración con aplicaciones externas
+- **📖 Documentación Automática**: Swagger UI y ReDoc
 
 ## 🛠️ Tecnologías
 
@@ -19,6 +20,8 @@ Sistema integral de gestión para instituciones educativas desarrollado en Djang
 - **API**: Django REST Framework
 - **Admin Interface**: Django Grappelli
 - **Testing**: pytest + coverage
+- **API Documentation**: drf-spectacular (Swagger/OpenAPI)
+- **Filtering**: django-filter
 
 ## 📋 Requisitos
 
@@ -136,10 +139,17 @@ ALLOWED_HOSTS=your-domain.com,localhost
 
 ### Recursos (Requieren autenticación)
 
-- `GET /api/alumnos/` - Listar alumnos
-- `GET /api/docentes/` - Listar docentes
-- `GET /api/cursos/` - Listar cursos
-- `GET /api/calificaciones/` - Listar calificaciones
+- `GET /api/v1/alumnos/` - Listar alumnos
+- `GET /api/v1/docentes/` - Listar docentes  [PENDIENTE]
+- `GET /api/v1/cursos/` - Listar cursos
+- `GET /api/v1/asistencias/` - Listar/crear asistencias
+- `GET /api/v1/calificaciones/` - Listar calificaciones [PENDIENTE]
+
+**Documentación interactiva**:
+- Swagger UI: `http://127.0.0.1:8000/api/v1/docs/`
+- ReDoc: `http://127.0.0.1:8000/api/v1/redoc/`
+
+Para más información, consultar [API_DOCUMENTATION.md](file:///home/esteban/Documentos/alcal/API_DOCUMENTATION.md)
 
 ## 🚀 Deployment
 
@@ -181,15 +191,23 @@ Para reportar bugs o solicitar nuevas funcionalidades, crear un issue en GitHub.
 - [x] Configurar variables de entorno
 - [x] Implementar tests básicos
 - [x] Mejorar seguridad
+- [x] **Refactorización**: Service Layer para lógica de negocio
 
-### Fase 2 - Modernización (En Progreso)
+### Fase 2 - API REST ✅
 
-- [ ] Crear API REST completa
+- [x] Crear serializers para modelos principales
+- [x] Implementar ViewSets con filtros y búsqueda
+- [x] Configurar Swagger/OpenAPI con drf-spectacular
+- [x] Documentación completa de API
+- [ ] Crear endpoints para Docentes y Calificaciones
+
+### Fase 3 - Modernización (Próxima)
+
 - [ ] Implementar frontend moderno
 - [ ] Dashboard interactivo
 - [ ] Sistema de reportes
 
-### Fase 3 - Funcionalidades Avanzadas
+### Fase 4 - Funcionalidades Avanzadas
 
 - [ ] App móvil
 - [ ] Sistema de notificaciones

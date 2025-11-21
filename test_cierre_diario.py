@@ -24,7 +24,7 @@ from asistencias.models import (
     ResumenDiarioAlumno,
     Turno,
 )
-from asistencias.views import _procesar_cierre_fecha
+from asistencias.services import AsistenciaService
 from escuela.models import Anio, Curso
 
 
@@ -209,7 +209,7 @@ def probar_cierre_diario():
     
     # Procesar cierre
     print(f"\n🔄 PROCESANDO CIERRE...")
-    resultado = _procesar_cierre_fecha(fecha_prueba, usuario, "Prueba automática del sistema")
+    resultado = AsistenciaService.procesar_cierre_fecha(fecha_prueba, usuario, "Prueba automática del sistema")
     
     if resultado['success']:
         print(f"✅ CIERRE EXITOSO!")

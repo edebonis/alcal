@@ -11,7 +11,10 @@ urlpatterns = [
     path('', views.home, name='home'),  
     path('grappelli/', include('grappelli.urls')),  
     path('admin/', admin.site.urls),  
-    path('chaining/', include('smart_selects.urls')),  
+    path('chaining/', include('smart_selects.urls')),
+    
+    # API v1
+    path('api/v1/', include('alcal.api_urls')),
     
     # URLs principales de navegación - SELECTORES
     path('consultas/', views.consultas_selector, name='consultas'),  

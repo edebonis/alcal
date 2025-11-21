@@ -19,6 +19,7 @@ from .models import (
     ResumenDiarioAlumno,
     Turno,
 )
+from .services import AsistenciaService
 
 
 @login_required
@@ -308,7 +309,7 @@ def procesar_cierre_diario(request):
             return redirect('cierre_diario_seleccion')
         
         # Procesar cierre
-        resultado = _procesar_cierre_fecha(fecha_cierre, request.user, observaciones)
+        resultado = AsistenciaService.procesar_cierre_fecha(fecha_cierre, request.user, observaciones)
         
         if resultado['success']:
             messages.success(request, 
@@ -327,155 +328,3 @@ def procesar_cierre_diario(request):
     return redirect('cierre_diario_seleccion')
 
 
-def _procesar_cierre_fecha(fecha, usuario, observaciones=''):
-    """
-    Función auxiliar para procesar el cierre de una fecha específica
-    """
-    try:
-        with transaction.atomic():
-            # Crear registro de cierre
-            cierre = CierreDiario.objects.create(
-                fecha=fecha,
-                usuario_cierre=usuario,
-                observaciones_cierre=observaciones
-            )
-            
-            # Obtener todas las asistencias de la fecha que no han sido procesadas
-            asistencias = Asistencia.objects.filter(
-                fecha=fecha,
-                procesado=False
-            ).select_related('alumno', 'turno', 'codigo')
-            
-            # Agrupar por alumno
-            alumnos_asistencias = {}
-            for asistencia in asistencias:
-                alumno_legajo = asistencia.alumno.legajo  # Usar legajo en lugar de id
-                if alumno_legajo not in alumnos_asistencias:
-                    alumnos_asistencias[alumno_legajo] = {
-                        'alumno': asistencia.alumno,
-                        'turnos': {}
-                    }
-                
-                turno_nombre = asistencia.turno.nombre
-                alumnos_asistencias[alumno_legajo]['turnos'][turno_nombre] = {
-                    'codigo': asistencia.codigo.codigo,
-                    'asistencia': asistencia
-                }
-            
-            alumnos_procesados = 0
-            asistencias_procesadas = 0
-            
-            # Procesar cada alumno
-            for alumno_legajo, data in alumnos_asistencias.items():
-                alumno = data['alumno']
-                turnos = data['turnos']
-                
-                # Determinar qué turnos tuvo clase
-                tuvo_mañana = 'mañana' in turnos
-                tuvo_tarde = 'tarde' in turnos
-                tuvo_educacion_fisica = 'educacion_fisica' in turnos
-                
-                # Obtener códigos
-                codigo_mañana = turnos.get('mañana', {}).get('codigo')
-                codigo_tarde = turnos.get('tarde', {}).get('codigo')
-                codigo_educacion_fisica = turnos.get('educacion_fisica', {}).get('codigo')
-                
-                # AQUÍ SE APLICARÁ LA LÓGICA DE CÁLCULO DE FALTAS
-                # Por ahora, uso la lógica básica hasta que me pases la tabla
-                valor_falta_final = _calcular_valor_falta_temporal(
-                    codigo_mañana, codigo_tarde, codigo_educacion_fisica,
-                    tuvo_mañana, tuvo_tarde, tuvo_educacion_fisica
-                )
-                
-                # Crear resumen diario
-                ResumenDiarioAlumno.objects.create(
-                    cierre_diario=cierre,
-                    alumno=alumno,
-                    fecha=fecha,
-                    codigo_mañana=codigo_mañana,
-                    codigo_tarde=codigo_tarde,
-                    codigo_educacion_fisica=codigo_educacion_fisica,
-                    tuvo_mañana=tuvo_mañana,
-                    tuvo_tarde=tuvo_tarde,
-                    tuvo_educacion_fisica=tuvo_educacion_fisica,
-                    valor_falta_final=valor_falta_final
-                )
-                
-                # Actualizar asistencias como procesadas y con valor calculado
-                for turno_data in turnos.values():
-                    asistencia = turno_data['asistencia']
-                    asistencia.procesado = True
-                    asistencia.valor_falta_calculado = valor_falta_final
-                    asistencia.save()
-                    asistencias_procesadas += 1
-                
-                alumnos_procesados += 1
-            
-            # Actualizar estadísticas del cierre
-            cierre.total_alumnos_procesados = alumnos_procesados
-            cierre.total_asistencias_procesadas = asistencias_procesadas
-            cierre.total_cursos_procesados = asistencias.values('curso').distinct().count()
-            cierre.save()
-            
-            return {
-                'success': True,
-                'alumnos_procesados': alumnos_procesados,
-                'asistencias_procesadas': asistencias_procesadas
-            }
-            
-    except Exception as e:
-        return {
-            'success': False,
-            'error': str(e)
-        }
-
-
-def _calcular_valor_falta_temporal(codigo_mañana, codigo_tarde, codigo_ef, tuvo_mañana, tuvo_tarde, tuvo_ef):
-    """
-    Función temporal para calcular faltas hasta que se defina la tabla completa
-    """
-    # Mapeo básico de códigos a valores
-    valores_base = {
-        'P': 0.0,    # Presente
-        't': 0.5,    # Tarde menos 15 min
-        'T': 1.0,    # Tarde más 15 min  
-        'A': 1.0,    # Ausente
-        'r': 0.0,    # Retirado menos 15 min
-        'R': 0.5,    # Retirado más 15 min
-    }
-    
-    total_turnos = sum([tuvo_mañana, tuvo_tarde, tuvo_ef])
-    if total_turnos == 0:
-        return 0.0
-    
-    valor_total = 0.0
-    
-    # Aplicar valores según turnos
-    if tuvo_mañana and codigo_mañana:
-        if total_turnos == 1:
-            # Solo mañana: valores completos
-            valor_total += valores_base.get(codigo_mañana, 0.0)
-        else:
-            # Múltiples turnos: valores proporcionales
-            valor_base = valores_base.get(codigo_mañana, 0.0)
-            valor_total += valor_base / total_turnos
-    
-    if tuvo_tarde and codigo_tarde:
-        if total_turnos == 1:
-            # Solo tarde: valores completos
-            valor_total += valores_base.get(codigo_tarde, 0.0)
-        else:
-            # Múltiples turnos: valores proporcionales
-            valor_base = valores_base.get(codigo_tarde, 0.0)
-            valor_total += valor_base / total_turnos
-    
-    if tuvo_ef and codigo_ef:
-        if total_turnos == 1:
-            # Solo educación física: valores completos
-            valor_total += valores_base.get(codigo_ef, 0.0)
-        else:
-            # Múltiples turnos: valores proporcionales
-            valor_base = valores_base.get(codigo_ef, 0.0)
-            valor_total += valor_base / total_turnos
-    
-    return round(valor_total, 2)

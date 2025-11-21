@@ -1,4 +1,4 @@
-#!/Users/edebonis/alcal/venv/bin/python
+#!/home/esteban/Documentos/alcal/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
