@@ -1,210 +1,76 @@
-{% extends "base.html" %}
+{% extends "base_modern.html" %}
 {% load static %}
 
-{% block title %}Consultas - ALCAL Sistema Académico{% endblock %}
-
-{% block content_title %}
-<div class="alcal-header">
-	<div class="container">
-		<div class="row align-items-center">
-			<div class="col-md-8">
-				<h1 class="display-5 mb-0">
-					<i class="bi bi-search"></i> Consultas del Sistema
-				</h1>
-				<p class="lead mb-0 mt-2">Accede a la información académica</p>
-			</div>
-			<div class="col-md-4 text-end">
-				<a href="/" class="btn btn-outline-light">
-					<i class="bi bi-arrow-left"></i> Volver al Dashboard
-				</a>
-			</div>
-		</div>
-	</div>
-</div>
-{% endblock %}
-
-{% block breadcrumbs %}
-<div class="container">
-	<nav class="alcal-breadcrumb" aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item">
-				<i class="bi bi-house-door"></i>
-				<a href="/">Inicio</a>
-			</li>
-			<li class="breadcrumb-item active" aria-current="page">
-				<i class="bi bi-search"></i> Consultas
-			</li>
-		</ol>
-	</nav>
-</div>
-{% endblock %}
+{% block title %}Consultas - ALCAL{% endblock %}
 
 {% block content %}
-<div class="container alcal-fade-in-up">
+<div class="container-fluid">
 
-	<!-- Descripción de la sección -->
-	<div class="row mb-4">
-		<div class="col-md-12">
-			<div class="alert alcal-alert alert-info d-flex align-items-center">
-				<i class="bi bi-info-circle-fill"></i>
-				<div>
-					<strong>Centro de Consultas</strong><br>
-					Selecciona el tipo de información que deseas consultar sobre los estudiantes
-				</div>
-			</div>
-		</div>
+	<div class="glass-header mb-4">
+		<h2 class="fw-bold text-white mb-1">Consultas Académicas</h2>
+		<p class="text-white-50 mb-0">Acceda a la información histórica y reportes</p>
 	</div>
 
-	<!-- Opciones de consulta -->
 	<div class="row g-4">
-
-		<!-- Asistencias -->
+		<!-- Asistencia -->
 		<div class="col-md-4">
-			<a href="/cons_asistencia" class="text-decoration-none">
-				<div class="card alcal-nav-card h-100">
-					<div class="card-body text-center">
-						<div class="mb-3">
-							<i class="bi bi-clipboard-check text-alcal-primary" style="font-size: 4rem;"></i>
+			<div class="glass-card h-100 p-0 overflow-hidden hover-scale">
+				<div class="p-4 bg-soft-primary">
+					<div class="d-flex align-items-center mb-3">
+						<div class="stat-icon blue me-3">
+							<i class="bi bi-clipboard-data"></i>
 						</div>
-						<h5 class="card-title text-alcal-primary">Asistencias</h5>
-						<p class="card-text text-muted">
-							Consultar registros de asistencia por estudiante, curso o período
-						</p>
-						<div class="d-grid gap-2">
-							<div class="btn btn-alcal-primary">
-								<i class="bi bi-search"></i> Consultar Asistencias
-							</div>
-						</div>
-
-						<!-- Características -->
-						<div class="mt-3">
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Por estudiante
-							</small>
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Por curso
-							</small>
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Por período
-							</small>
-						</div>
+						<h4 class="fw-bold mb-0">Asistencia</h4>
 					</div>
+					<p class="text-muted small mb-0">Reportes de asistencia por alumno y curso.</p>
 				</div>
-			</a>
+				<div class="p-3 border-top">
+					<a href="/cons_asistencia/" class="btn btn-light w-100 text-start">
+						<i class="bi bi-search me-2 text-primary"></i> Consultar Asistencias
+					</a>
+				</div>
+			</div>
 		</div>
 
 		<!-- Calificaciones -->
 		<div class="col-md-4">
-			<a href="/cons_calificaciones" class="text-decoration-none">
-				<div class="card alcal-nav-card h-100">
-					<div class="card-body text-center">
-						<div class="mb-3">
-							<i class="bi bi-bar-chart-fill text-alcal-success" style="font-size: 4rem;"></i>
+			<div class="glass-card h-100 p-0 overflow-hidden hover-scale">
+				<div class="p-4 bg-soft-success">
+					<div class="d-flex align-items-center mb-3">
+						<div class="stat-icon green me-3">
+							<i class="bi bi-journal-check"></i>
 						</div>
-						<h5 class="card-title text-alcal-success">Calificaciones</h5>
-						<p class="card-text text-muted">
-							Revisar notas y evaluaciones de los estudiantes por materia
-						</p>
-						<div class="d-grid gap-2">
-							<div class="btn btn-alcal-success">
-								<i class="bi bi-search"></i> Consultar Calificaciones
-							</div>
-						</div>
-
-						<!-- Características -->
-						<div class="mt-3">
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Por materia
-							</small>
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Por estudiante
-							</small>
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Promedios
-							</small>
-						</div>
+						<h4 class="fw-bold mb-0">Calificaciones</h4>
 					</div>
+					<p class="text-muted small mb-0">Historial de notas y promedios.</p>
 				</div>
-			</a>
+				<div class="p-3 border-top">
+					<a href="/cons_calificaciones/" class="btn btn-light w-100 text-start">
+						<i class="bi bi-search me-2 text-success"></i> Consultar Notas
+					</a>
+				</div>
+			</div>
 		</div>
 
 		<!-- Observaciones -->
 		<div class="col-md-4">
-			<a href="/cons_observaciones" class="text-decoration-none">
-				<div class="card alcal-nav-card h-100">
-					<div class="card-body text-center">
-						<div class="mb-3">
-							<i class="bi bi-chat-left-text text-alcal-warning" style="font-size: 4rem;"></i>
+			<div class="glass-card h-100 p-0 overflow-hidden hover-scale">
+				<div class="p-4 bg-soft-warning">
+					<div class="d-flex align-items-center mb-3">
+						<div class="stat-icon orange me-3">
+							<i class="bi bi-eye"></i>
 						</div>
-						<h5 class="card-title text-alcal-warning">Observaciones</h5>
-						<p class="card-text text-muted">
-							Consultar observaciones disciplinarias y académicas
-						</p>
-						<div class="d-grid gap-2">
-							<div class="btn btn-alcal-warning">
-								<i class="bi bi-search"></i> Consultar Observaciones
-							</div>
-						</div>
-
-						<!-- Características -->
-						<div class="mt-3">
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Disciplinarias
-							</small>
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Académicas
-							</small>
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Historial completo
-							</small>
-						</div>
+						<h4 class="fw-bold mb-0">Observaciones</h4>
 					</div>
+					<p class="text-muted small mb-0">Seguimiento conductual y académico.</p>
 				</div>
-			</a>
-		</div>
-
-	</div>
-
-	<!-- Información adicional -->
-	<div class="row mt-5">
-		<div class="col-md-12">
-			<div class="card">
-				<div class="card-header bg-alcal-gradient-primary text-white">
-					<h5 class="mb-0">
-						<i class="bi bi-lightbulb"></i> Consejos para Consultas
-					</h5>
-				</div>
-				<div class="card-body">
-					<div class="row">
-						<div class="col-md-4">
-							<h6 class="text-alcal-primary">
-								<i class="bi bi-speedometer2"></i> Consultas Rápidas
-							</h6>
-							<p class="small text-muted">
-								Utiliza los filtros para encontrar información específica más rápidamente
-							</p>
-						</div>
-						<div class="col-md-4">
-							<h6 class="text-alcal-success">
-								<i class="bi bi-download"></i> Exportar Datos
-							</h6>
-							<p class="small text-muted">
-								Muchas consultas permiten exportar los resultados a PDF o Excel
-							</p>
-						</div>
-						<div class="col-md-4">
-							<h6 class="text-alcal-warning">
-								<i class="bi bi-shield-check"></i> Privacidad
-							</h6>
-							<p class="small text-muted">
-								Los datos están protegidos según normativas de privacidad estudiantil
-							</p>
-						</div>
-					</div>
+				<div class="p-3 border-top">
+					<a href="/cons_observaciones/" class="btn btn-light w-100 text-start">
+						<i class="bi bi-search me-2 text-warning"></i> Ver Observaciones
+					</a>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </div>
 {% endblock %}

@@ -307,6 +307,16 @@ def calificaciones_selector(request):
     """Vista principal para elegir entre consultar calificaciones por alumno o por curso"""
     return render(request, 'calificaciones_selector.html')
 
+def ingresar_calificaciones(request):
+    """Vista selectora para ingresar calificaciones"""
+    from escuela.models import Curso, Materia
+    cursos = Curso.objects.all()
+    materias = Materia.objects.all()
+    return render(request, 'ingresar_calificaciones.html', {
+        'cursos': cursos,
+        'materias': materias
+    })
+
 def ingresar_selector(request):
     """Vista principal para elegir entre ingresar datos por alumno o por curso"""
     return render(request, 'ingresar_selector.html')

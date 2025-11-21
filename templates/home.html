@@ -7,124 +7,119 @@
 <div class="container-fluid">
 
 	<!-- Header Section -->
-	<div class="glass-header d-flex justify-content-between align-items-center">
+	<div class="d-flex justify-content-between align-items-center mb-4">
 		<div>
-			<h1 class="fw-bold mb-1">Bienvenido, {{ user.first_name|default:user.username }}</h1>
-			<p class="mb-0 opacity-75">Resumen académico del día</p>
+			<h2 class="fw-bold mb-0">Dashboard</h2>
+			<p class="text-muted mb-0">Resumen del día</p>
 		</div>
 		<div class="d-none d-md-block">
-			<span class="badge bg-white text-primary px-3 py-2 rounded-pill">
+			<span class="badge bg-light text-dark border px-3 py-2 rounded-pill">
 				<i class="bi bi-calendar-event me-1"></i> {% now "l, d F Y" %}
 			</span>
 		</div>
 	</div>
 
-	<!-- KPI Cards -->
-	<div class="row g-4 mb-4">
+	<!-- KPI Cards (Simplified) -->
+	<div class="row g-3 mb-4">
 		<div class="col-md-4">
-			<div class="stat-card">
-				<div class="stat-info">
-					<h3>130</h3>
-					<p>Alumnos Activos</p>
-				</div>
-				<div class="stat-icon blue">
+			<div class="glass-card p-3 d-flex align-items-center h-100">
+				<div class="stat-icon blue me-3" style="width: 48px; height: 48px; font-size: 1.2rem;">
 					<i class="bi bi-people-fill"></i>
 				</div>
-			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="stat-card">
-				<div class="stat-info">
-					<h3>13</h3>
-					<p>Cursos Totales</p>
-				</div>
-				<div class="stat-icon green">
-					<i class="bi bi-collection-fill"></i>
+				<div>
+					<h4 class="fw-bold mb-0">130</h4>
+					<small class="text-muted">Alumnos Activos</small>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="stat-card">
-				<div class="stat-info">
-					<h3>85%</h3>
-					<p>Asistencia Promedio</p>
+			<div class="glass-card p-3 d-flex align-items-center h-100">
+				<div class="stat-icon green me-3" style="width: 48px; height: 48px; font-size: 1.2rem;">
+					<i class="bi bi-check-circle-fill"></i>
 				</div>
-				<div class="stat-icon orange">
-					<i class="bi bi-graph-up-arrow"></i>
+				<div>
+					<h4 class="fw-bold mb-0">92%</h4>
+					<small class="text-muted">Asistencia Hoy</small>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="glass-card p-3 d-flex align-items-center h-100">
+				<div class="stat-icon orange me-3" style="width: 48px; height: 48px; font-size: 1.2rem;">
+					<i class="bi bi-exclamation-triangle-fill"></i>
+				</div>
+				<div>
+					<h4 class="fw-bold mb-0">5</h4>
+					<small class="text-muted">Alertas de Faltas</small>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- Charts Section -->
-	<div class="row g-4 mb-4">
-		<div class="col-lg-8">
+	<!-- Main Actions Section -->
+	<div class="row g-4">
+		<!-- Asistencia -->
+		<div class="col-md-6">
 			<div class="glass-card h-100">
-				<div class="d-flex justify-content-between align-items-center mb-4">
-					<h5 class="fw-bold mb-0">Asistencia por Curso</h5>
-					<button class="btn btn-sm btn-light rounded-pill">
-						<i class="bi bi-download"></i> Exportar
-					</button>
+				<div class="d-flex justify-content-between align-items-center mb-3">
+					<h5 class="fw-bold mb-0"><i class="bi bi-clipboard-check text-primary me-2"></i>Asistencia</h5>
 				</div>
-				<div id="attendanceChart"></div>
+				<div class="row g-2">
+					<div class="col-6">
+						<a href="/tomar_asistencia_curso/"
+							class="btn btn-light w-100 py-3 text-start border hover-scale">
+							<i class="bi bi-collection-fill d-block mb-2 text-primary fs-4"></i>
+							<span class="fw-bold d-block">Por Curso</span>
+							<small class="text-muted">Tomar lista grupal</small>
+						</a>
+					</div>
+					<div class="col-6">
+						<a href="/ingresar_asistencia_alumno/"
+							class="btn btn-light w-100 py-3 text-start border hover-scale">
+							<i class="bi bi-person-fill d-block mb-2 text-primary fs-4"></i>
+							<span class="fw-bold d-block">Individual</span>
+							<small class="text-muted">Falta particular</small>
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="col-lg-4">
+
+		<!-- Calificaciones -->
+		<div class="col-md-6">
 			<div class="glass-card h-100">
-				<h5 class="fw-bold mb-4">Distribución de Faltas</h5>
-				<div id="donutChart"></div>
-				<div class="mt-4">
-					<div class="d-flex justify-content-between mb-2">
-						<span class="text-muted"><i class="bi bi-circle-fill text-success me-2"></i>Presentes</span>
-						<span class="fw-bold">75%</span>
+				<div class="d-flex justify-content-between align-items-center mb-3">
+					<h5 class="fw-bold mb-0"><i class="bi bi-bar-chart-fill text-success me-2"></i>Calificaciones</h5>
+				</div>
+				<div class="row g-2">
+					<div class="col-6">
+						<a href="/ingresar_calificaciones_curso/"
+							class="btn btn-light w-100 py-3 text-start border hover-scale">
+							<i class="bi bi-grid-3x3-gap-fill d-block mb-2 text-success fs-4"></i>
+							<span class="fw-bold d-block">Por Curso</span>
+							<small class="text-muted">Carga masiva</small>
+						</a>
 					</div>
-					<div class="d-flex justify-content-between mb-2">
-						<span class="text-muted"><i class="bi bi-circle-fill text-warning me-2"></i>Tardes</span>
-						<span class="fw-bold">15%</span>
-					</div>
-					<div class="d-flex justify-content-between">
-						<span class="text-muted"><i class="bi bi-circle-fill text-danger me-2"></i>Ausentes</span>
-						<span class="fw-bold">10%</span>
+					<div class="col-6">
+						<a href="/ingresar_calificaciones_alumno/"
+							class="btn btn-light w-100 py-3 text-start border hover-scale">
+							<i class="bi bi-person-lines-fill d-block mb-2 text-success fs-4"></i>
+							<span class="fw-bold d-block">Individual</span>
+							<small class="text-muted">Nota particular</small>
+						</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- Quick Actions -->
-	<h5 class="fw-bold mb-3 text-muted">ACCESOS DIRECTOS</h5>
-	<div class="row g-3">
-		<div class="col-md-3">
-			<a href="/ingresar/" class="text-decoration-none">
-				<div class="glass-card text-center p-4 hover-scale">
-					<i class="bi bi-plus-circle fs-1 text-primary mb-3"></i>
-					<h6 class="fw-bold text-dark">Ingresar Datos</h6>
-				</div>
-			</a>
-		</div>
-		<div class="col-md-3">
-			<a href="/cons_asistencia/" class="text-decoration-none">
-				<div class="glass-card text-center p-4 hover-scale">
-					<i class="bi bi-clipboard-check fs-1 text-success mb-3"></i>
-					<h6 class="fw-bold text-dark">Asistencias</h6>
-				</div>
-			</a>
-		</div>
-		<div class="col-md-3">
-			<a href="/cons_calificaciones/" class="text-decoration-none">
-				<div class="glass-card text-center p-4 hover-scale">
-					<i class="bi bi-bar-chart-fill fs-1 text-warning mb-3"></i>
-					<h6 class="fw-bold text-dark">Calificaciones</h6>
-				</div>
-			</a>
-		</div>
-		<div class="col-md-3">
-			<a href="/api/v1/docs/" target="_blank" class="text-decoration-none">
-				<div class="glass-card text-center p-4 hover-scale">
-					<i class="bi bi-code-slash fs-1 text-info mb-3"></i>
-					<h6 class="fw-bold text-dark">API Docs</h6>
-				</div>
-			</a>
+	<!-- Charts Section (Simplified) -->
+	<div class="row mt-4">
+		<div class="col-12">
+			<div class="glass-card">
+				<h6 class="fw-bold mb-3 text-muted text-uppercase small">Tendencia de Asistencia Semanal</h6>
+				<div id="attendanceChart" style="min-height: 250px;"></div>
+			</div>
 		</div>
 	</div>
 
@@ -133,80 +128,42 @@
 
 {% block extra_js %}
 <script>
-	// Configuración de Gráficos
 	document.addEventListener('DOMContentLoaded', function () {
-
-		// 1. Bar Chart - Asistencia por Curso
 		var optionsBar = {
 			series: [{
 				name: 'Asistencia',
-				data: [92, 88, 75, 95, 82, 90]
+				data: [92, 88, 95, 82, 90]
 			}],
 			chart: {
-				type: 'bar',
-				height: 350,
+				type: 'area',
+				height: 250,
 				toolbar: { show: false },
-				fontFamily: 'Outfit, sans-serif'
+				fontFamily: 'Outfit, sans-serif',
+				sparkline: { enabled: false }
 			},
-			plotOptions: {
-				bar: {
-					borderRadius: 8,
-					columnWidth: '40%',
+			stroke: { curve: 'smooth', width: 2 },
+			fill: {
+				type: 'gradient',
+				gradient: {
+					shadeIntensity: 1,
+					opacityFrom: 0.7,
+					opacityTo: 0.2,
+					stops: [0, 90, 100]
 				}
 			},
-			dataLabels: { enabled: false },
-			stroke: { show: true, width: 2, colors: ['transparent'] },
 			xaxis: {
-				categories: ['1°A', '1°B', '2°A', '2°B', '3°A', '3°B'],
+				categories: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie'],
 				axisBorder: { show: false },
 				axisTicks: { show: false }
 			},
-			fill: {
-				opacity: 1,
-				colors: ['#6366f1']
-			},
-			grid: {
-				borderColor: '#f1f5f9',
-				strokeDashArray: 4,
-			}
+			yaxis: { show: false },
+			grid: { show: false },
+			colors: ['#6366f1'],
+			dataLabels: { enabled: false }
 		};
 
 		var chartBar = new ApexCharts(document.querySelector("#attendanceChart"), optionsBar);
 		chartBar.render();
-
-		// 2. Donut Chart - Distribución
-		var optionsDonut = {
-			series: [75, 15, 10],
-			labels: ['Presentes', 'Tardes', 'Ausentes'],
-			chart: {
-				type: 'donut',
-				height: 300,
-				fontFamily: 'Outfit, sans-serif'
-			},
-			colors: ['#10b981', '#f59e0b', '#ef4444'],
-			plotOptions: {
-				pie: {
-					donut: {
-						size: '70%',
-						labels: {
-							show: true,
-							total: {
-								show: true,
-								label: 'Total',
-								formatter: function (w) {
-									return w.globals.seriesTotals.reduce((a, b) => a + b, 0) + "%"
-								}
-							}
-						}
-					}
-				}
-			},
-			dataLabels: { enabled: false },
-			legend: { show: false }
-		};
-
-		var chartDonut = new ApexCharts(document.querySelector("#donutChart"), optionsDonut);
-		chartDonut.render();
 	});
 </script>
 {% endblock %}

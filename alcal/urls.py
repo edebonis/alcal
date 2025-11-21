@@ -51,6 +51,7 @@ urlpatterns = [
     # URLs para calificaciones POR ALUMNO (nuevas)
     path('ing_calificaciones_alumno/', views.ing_calificaciones_alumno, name='ing_calificaciones_alumno'),
     path('cons_calificaciones_alumno/', views.cons_calificaciones_alumno, name='cons_calificaciones_alumno'),
+    path('ingresar_calificaciones/', views.ingresar_calificaciones, name='ingresar_calificaciones'),
     
     # URLs para observaciones (mantener existentes)
     path('observaciones/', views.observaciones, name='observaciones'),
