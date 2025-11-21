@@ -1,0 +1,195 @@
+{% extends "base_modern.html" %}
+{% load static %}
+
+{% block title %}Ingresar Calificaciones por Curso - ALCAL{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <div class="glass-header mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold text-white mb-1">Calificaciones Grupales</h2>
+                <p class="text-white-50 mb-0">Carga masiva de notas por curso y materia</p>
+            </div>
+            <a href="/ingresar_calificaciones/" class="btn btn-light text-success fw-bold">
+                <i class="bi bi-arrow-left me-2"></i> Volver
+            </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="glass-card">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-bold mb-0 text-success">
+                        <i class="bi bi-grid-3x3-gap-fill me-2"></i> Planilla de Calificaciones
+                    </h5>
+                    {% if curso_seleccionado %}
+                    <div class="d-flex gap-2">
+                        <span class="badge bg-soft-primary text-primary rounded-pill px-3 py-2">
+                            {{ curso_seleccionado }}
+                        </span>
+                        <span class="badge bg-soft-success text-success rounded-pill px-3 py-2">
+                            {{ materia_seleccionada }}
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <!-- Header Controls -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label text-muted small fw-bold">TIPO DE CALIFICACIÓN</label>
+                            <select class="form-select bg-light" name="tipo_calificacion" id="tipo_calificacion"
+                                required>
+                                <option value="trimestral">Trimestral</option>
+                                <option value="parcial">Parcial</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4" id="periodo-container">
+                            <label class="form-label text-muted small fw-bold">TRIMESTRE</label>
+                            <select class="form-select bg-light" name="trimestre" required>
+                                <option value="1">Primer Trimestre</option>
+                                <option value="2">Segundo Trimestre</option>
+                                <option value="3">Tercer Trimestre</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4" id="parcial-container" style="display: none;">
+                            <label class="form-label text-muted small fw-bold">NÚMERO DE PARCIAL</label>
+                            <select class="form-select bg-light" name="parcial_numero">
+                                <option value="1">Primer Parcial</option>
+                                <option value="2">Segundo Parcial</option>
+                                <option value="3">Tercer Parcial</option>
+                                <option value="4">Cuarto Parcial</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label text-muted small fw-bold">FECHA</label>
+                            <input type="date" class="form-control bg-light" id="fecha" name="fecha" required>
+                        </div>
+                    </div>
+
+                    <!-- Students Table -->
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle modern-table mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 35%;">Estudiante</th>
+                                    <th style="width: 20%;">Nota (1-10)</th>
+                                    <th style="width: 15%;">Estado</th>
+                                    <th style="width: 30%;">Observaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if alumnos %}
+                                {% for alumno in alumnos %}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-circle me-3 bg-soft-success text-success fw-bold">
+                                                {{ alumno.nombre|slice:":1" }}{{ alumno.apellido|slice:":1" }}
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold">{{ alumno.apellido }}, {{ alumno.nombre }}</div>
+                                                <small class="text-muted">Legajo: {{ alumno.legajo|default:"-"
+                                                    }}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="number"
+                                            class="form-control bg-light text-center fw-bold grade-input"
+                                            name="nota_{{ alumno.id }}" min="1" max="10" step="0.1"
+                                            data-student-id="{{ alumno.id }}">
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-light text-muted w-100 py-2"
+                                            id="status_{{ alumno.id }}">-</span>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm bg-light border-0"
+                                            name="observacion_{{ alumno.id }}" placeholder="Nota...">
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center py-5">
+                                        <div class="text-muted">
+                                            <i class="bi bi-people fs-1 d-block mb-3"></i>
+                                            <p class="mb-0">No hay estudiantes para mostrar</p>
+                                            <small>Selecciona un curso y materia para comenzar</small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Submit Button -->
+                    {% if alumnos %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 pt-3 border-top">
+                        <button type="submit" class="btn btn-premium px-5">
+                            <i class="bi bi-save me-2"></i> Guardar Calificaciones
+                        </button>
+                    </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Set today's date
+        document.getElementById('fecha').valueAsDate = new Date();
+
+        // Toggle Parcial/Trimestral
+        const typeSelect = document.getElementById('tipo_calificacion');
+        const parcialContainer = document.getElementById('parcial-container');
+
+        typeSelect.addEventListener('change', function () {
+            if (this.value === 'parcial') {
+                parcialContainer.style.display = 'block';
+                parcialContainer.classList.add('animate__animated', 'animate__fadeIn');
+            } else {
+                parcialContainer.style.display = 'none';
+            }
+        });
+
+        // Auto-calculate status
+        document.querySelectorAll('.grade-input').forEach(input => {
+            input.addEventListener('input', function () {
+                const studentId = this.dataset.studentId;
+                const statusBadge = document.getElementById(`status_${studentId}`);
+                const grade = parseFloat(this.value);
+
+                if (!isNaN(grade)) {
+                    if (grade >= 7) {
+                        statusBadge.className = 'badge bg-soft-success text-success w-100 py-2';
+                        statusBadge.textContent = 'Aprobado';
+                    } else if (grade >= 4) {
+                        statusBadge.className = 'badge bg-soft-warning text-warning w-100 py-2';
+                        statusBadge.textContent = 'Regular';
+                    } else {
+                        statusBadge.className = 'badge bg-soft-danger text-danger w-100 py-2';
+                        statusBadge.textContent = 'Desaprobado';
+                    }
+                } else {
+                    statusBadge.className = 'badge bg-light text-muted w-100 py-2';
+                    statusBadge.textContent = '-';
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

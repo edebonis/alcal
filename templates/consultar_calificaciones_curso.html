@@ -1,0 +1,117 @@
+{% extends "base_modern.html" %}
+{% load static %}
+
+{% block title %}Planilla de Calificaciones - ALCAL{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <div class="glass-header mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold text-white mb-1">Planilla de Calificaciones</h2>
+                <p class="text-white-50 mb-0">Vista general de notas por curso</p>
+            </div>
+            <a href="/cons_calificaciones/" class="btn btn-light text-success fw-bold">
+                <i class="bi bi-arrow-left me-2"></i> Volver
+            </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="glass-card">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-bold mb-0 text-success">
+                        <i class="bi bi-table me-2"></i> Planilla del Curso
+                    </h5>
+                    {% if curso_seleccionado %}
+                    <div class="d-flex gap-2">
+                        <span class="badge bg-soft-primary text-primary rounded-pill px-3 py-2">
+                            {{ curso_seleccionado }}
+                        </span>
+                        <span class="badge bg-soft-success text-success rounded-pill px-3 py-2">
+                            {{ materia_seleccionada }}
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if alumnos %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle modern-table mb-0 table-bordered">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="sticky-col first-col" style="min-width: 250px;">Estudiante</th>
+                                <th class="text-center" colspan="3">Trimestre 1</th>
+                                <th class="text-center" colspan="3">Trimestre 2</th>
+                                <th class="text-center" colspan="3">Trimestre 3</th>
+                                <th class="text-center bg-soft-success text-success">Final</th>
+                            </tr>
+                            <tr class="text-muted small">
+                                <th class="sticky-col first-col"></th>
+                                <th class="text-center">P1</th>
+                                <th class="text-center">P2</th>
+                                <th class="text-center fw-bold">T1</th>
+                                <th class="text-center">P1</th>
+                                <th class="text-center">P2</th>
+                                <th class="text-center fw-bold">T2</th>
+                                <th class="text-center">P1</th>
+                                <th class="text-center">P2</th>
+                                <th class="text-center fw-bold">T3</th>
+                                <th class="text-center bg-soft-success">Prom</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for alumno in alumnos %}
+                            <tr>
+                                <td class="sticky-col first-col bg-white fw-bold">
+                                    {{ alumno.apellido }}, {{ alumno.nombre }}
+                                </td>
+                                <!-- Trimestre 1 -->
+                                <td class="text-center">-</td>
+                                <td class="text-center">-</td>
+                                <td class="text-center fw-bold bg-soft-light">-</td>
+                                <!-- Trimestre 2 -->
+                                <td class="text-center">-</td>
+                                <td class="text-center">-</td>
+                                <td class="text-center fw-bold bg-soft-light">-</td>
+                                <!-- Trimestre 3 -->
+                                <td class="text-center">-</td>
+                                <td class="text-center">-</td>
+                                <td class="text-center fw-bold bg-soft-light">-</td>
+                                <!-- Final -->
+                                <td class="text-center fw-bold text-success bg-soft-success">-</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-3 text-end">
+                    <small class="text-muted fst-italic">* P: Parcial, T: Nota Trimestral</small>
+                </div>
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-info-circle fs-1 text-muted mb-3 d-block"></i>
+                    <p class="text-muted mb-0">No se encontraron registros para este curso y materia.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .sticky-col {
+        position: -webkit-sticky;
+        position: sticky;
+        background-color: white;
+        z-index: 2;
+    }
+
+    .first-col {
+        left: 0;
+        border-right: 2px solid #f0f0f0 !important;
+    }
+</style>
+{% endblock %}

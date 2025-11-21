@@ -1,85 +1,48 @@
-{% extends "base.html" %}
+{% extends "base_modern.html" %}
 {% load static %}
 
-{% block title %}Consultar Asistencias por Alumno - ALCAL Sistema Académico{% endblock %}
-
-{% block content_title %}
-<div class="alcal-header">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-8">
-                <h1 class="display-5 mb-0">
-                    <i class="bi bi-person-check"></i> Consultar Asistencias por Alumno
-                </h1>
-                <p class="lead mb-0 mt-2">Revisa el historial de asistencias individual</p>
-            </div>
-            <div class="col-md-4 text-end">
-                <a href="/asistencia/" class="btn btn-outline-light">
-                    <i class="bi bi-arrow-left"></i> Volver a Asistencias
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
-{% block breadcrumbs %}
-<div class="container">
-    <nav class="alcal-breadcrumb" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <i class="bi bi-house-door"></i>
-                <a href="/">Inicio</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a href="/asistencia/">Asistencias</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">
-                <i class="bi bi-person-check"></i> Por Alumno
-            </li>
-        </ol>
-    </nav>
-</div>
-{% endblock %}
+{% block title %}Consultar Asistencias por Alumno - ALCAL{% endblock %}
 
 {% block content %}
-<div class="container alcal-fade-in-up">
+<div class="container-fluid">
+
+    <div class="glass-header mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold text-white mb-1">Asistencia Individual</h2>
+                <p class="text-white-50 mb-0">Historial detallado de asistencias por estudiante</p>
+            </div>
+            <a href="/cons_asistencia/" class="btn btn-light text-primary fw-bold">
+                <i class="bi bi-arrow-left me-2"></i> Volver
+            </a>
+        </div>
+    </div>
 
     <!-- Selector de Alumno -->
     <div class="row justify-content-center mb-4">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">
-                        <i class="bi bi-person-search"></i> Seleccionar Estudiante
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <form method="get" class="row g-3 align-items-end">
-                        <div class="col-md-8">
-                            <label for="alumno_id" class="form-label">
-                                <i class="bi bi-person"></i> Estudiante
-                            </label>
-                            <select name="alumno_id" id="alumno_id" class="form-select form-select-lg">
-                                <option value="" selected>👤 Elegir Estudiante...</option>
-                                {% for alumno in alumnos %}
-                                <option value="{{ alumno.legajo }}" {% if alumno_seleccionado and
-                                    alumno.legajo==alumno_seleccionado.legajo %}selected{% endif %}>
-                                    {{ alumno.apellido }}, {{ alumno.nombre }} - Legajo: {{ alumno.legajo }} ({{
-                                    alumno.curso }})
-                                </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-alcal-primary btn-lg">
-                                    <i class="bi bi-search"></i> Consultar
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+        <div class="col-lg-8">
+            <div class="glass-card">
+                <h5 class="fw-bold mb-4 text-primary">
+                    <i class="bi bi-person-search me-2"></i> Seleccionar Estudiante
+                </h5>
+                <form method="get" class="row g-3 align-items-end">
+                    <div class="col-md-9">
+                        <label for="alumno_id" class="form-label text-muted small fw-bold">ESTUDIANTE</label>
+                        <select name="alumno_id" id="alumno_id" class="form-select bg-light">
+                            <option value="" selected>Seleccione un estudiante...</option>
+                            {% for alumno in alumnos %}
+                            <option value="{{ alumno.legajo }}" {% if alumno_seleccionado and alumno.legajo == alumno_seleccionado.legajo %}selected{% endif %}>
+                                {{ alumno.apellido }}, {{ alumno.nombre }} - {{ alumno.curso }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-premium w-100">
+                            <i class="bi bi-search me-2"></i> Consultar
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -87,26 +50,26 @@
     {% if alumno_seleccionado %}
     <!-- Información del Alumno -->
     <div class="row justify-content-center mb-4">
-        <div class="col-md-10">
-            <div class="card border-primary">
-                <div class="card-header bg-alcal-primary text-white">
-                    <div class="row align-items-center">
-                        <div class="col-md-8">
-                            <h5 class="mb-0">
-                                <i class="bi bi-person-badge"></i>
+        <div class="col-lg-10">
+            <div class="glass-card bg-soft-primary border-0">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <div class="avatar-circle me-3 bg-primary text-white fs-4">
+                            {{ alumno_seleccionado.nombre|slice:":1" }}{{ alumno_seleccionado.apellido|slice:":1" }}
+                        </div>
+                        <div>
+                            <h4 class="fw-bold mb-0 text-primary">
                                 {{ alumno_seleccionado.apellido }}, {{ alumno_seleccionado.nombre }}
-                            </h5>
-                            <p class="mb-0 small opacity-75">
-                                Legajo: {{ alumno_seleccionado.legajo }} | Curso: {{ alumno_seleccionado.curso }}
+                            </h4>
+                            <p class="mb-0 text-muted">
+                                Legajo: <strong>{{ alumno_seleccionado.legajo }}</strong> | Curso: <strong>{{
+                                    alumno_seleccionado.curso }}</strong>
                             </p>
                         </div>
-                        <div class="col-md-4 text-end">
-                            <span class="badge bg-light text-dark fs-6">
-                                {{ asistencias_alumno|length }} registro{% if asistencias_alumno|length != 1 %}s{% endif
-                                %}
-                            </span>
-                        </div>
                     </div>
+                    <span class="badge bg-white text-primary rounded-pill px-3 py-2 shadow-sm">
+                        {{ asistencias_alumno|length }} Registros
+                    </span>
                 </div>
             </div>
         </div>
@@ -115,146 +78,104 @@
     <!-- Resultados de Asistencias -->
     {% if asistencias_alumno %}
     <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">
-                        <i class="bi bi-calendar-check"></i> Historial de Asistencias
-                    </h5>
+        <div class="col-lg-10">
+            <div class="glass-card">
+                <h6 class="fw-bold mb-3 text-muted text-uppercase small">Historial de Asistencias</h6>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle modern-table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Curso</th>
+                                <th>Estado</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for asistencia in asistencias_alumno %}
+                            <tr>
+                                <td>
+                                    <div class="fw-bold">{{ asistencia.fecha|date:"d/m/Y" }}</div>
+                                    <small class="text-muted">{{ asistencia.fecha|date:"l" }}</small>
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark border">
+                                        {{ asistencia.curso }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if asistencia.codigo.codigo == 'A/A' %}
+                                    <span class="badge bg-soft-danger text-danger rounded-pill">
+                                        <i class="bi bi-x-circle-fill me-1"></i> Ausente
+                                    </span>
+                                    {% elif 'P' in asistencia.codigo.codigo %}
+                                    <span class="badge bg-soft-success text-success rounded-pill">
+                                        <i class="bi bi-check-circle-fill me-1"></i> Presente
+                                    </span>
+                                    {% elif 'T' in asistencia.codigo.codigo %}
+                                    <span class="badge bg-soft-warning text-warning rounded-pill">
+                                        <i class="bi bi-clock-fill me-1"></i> Tardanza
+                                    </span>
+                                    {% elif 'R' in asistencia.codigo.codigo %}
+                                    <span class="badge bg-soft-info text-info rounded-pill">
+                                        <i class="bi bi-box-arrow-right me-1"></i> Retiro
+                                    </span>
+                                    {% else %}
+                                    <span class="badge bg-soft-secondary text-secondary rounded-pill">
+                                        {{ asistencia.codigo.codigo }}
+                                    </span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if asistencia.codigo.cantidad == 1.0 %}
+                                    <span class="text-danger fw-bold">1 Falta</span>
+                                    {% elif asistencia.codigo.cantidad == 0.5 %}
+                                    <span class="text-warning fw-bold">0.5 Falta</span>
+                                    {% elif asistencia.codigo.cantidad == 0.0 %}
+                                    <span class="text-success fw-bold">-</span>
+                                    {% else %}
+                                    <span class="fw-bold">{{ asistencia.codigo.cantidad }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th><i class="bi bi-calendar-date"></i> Fecha</th>
-                                    <th><i class="bi bi-book"></i> Curso</th>
-                                    <th><i class="bi bi-clipboard-check"></i> Código</th>
-                                    <th><i class="bi bi-info-circle"></i> Estado</th>
-                                    <th><i class="bi bi-calculator"></i> Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for asistencia in asistencias_alumno %}
-                                <tr>
-                                    <td>
-                                        <strong>{{ asistencia.fecha|date:"d/m/Y" }}</strong>
-                                        <br><small class="text-muted">{{ asistencia.fecha|date:"l" }}</small>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-alcal-secondary">
-                                            {{ asistencia.curso }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <code class="bg-light text-dark p-1 rounded">
-											{{ asistencia.codigo.codigo }}
-										</code>
-                                    </td>
-                                    <td>
-                                        {% if asistencia.codigo.codigo == 'A/A' %}
-                                        <span class="badge bg-danger">
-                                            <i class="bi bi-x-circle"></i> Ausente
-                                        </span>
-                                        {% elif 'P' in asistencia.codigo.codigo %}
-                                        <span class="badge bg-success">
-                                            <i class="bi bi-check-circle"></i> Presente
-                                        </span>
-                                        {% elif 'T' in asistencia.codigo.codigo %}
-                                        <span class="badge bg-warning">
-                                            <i class="bi bi-clock"></i> Tardanza
-                                        </span>
-                                        {% elif 'R' in asistencia.codigo.codigo %}
-                                        <span class="badge bg-info">
-                                            <i class="bi bi-door-open"></i> Retiro
-                                        </span>
-                                        {% else %}
-                                        <span class="badge bg-secondary">
-                                            <i class="bi bi-question-circle"></i> Otro
-                                        </span>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        <span class="fw-bold">
-                                            {% if asistencia.codigo.cantidad == 1.0 %}
-                                            <span class="text-danger">{{ asistencia.codigo.cantidad }} falta</span>
-                                            {% elif asistencia.codigo.cantidad == 0.5 %}
-                                            <span class="text-warning">{{ asistencia.codigo.cantidad }} falta</span>
-                                            {% elif asistencia.codigo.cantidad == 0.0 %}
-                                            <span class="text-success">Sin falta</span>
-                                            {% else %}
-                                            {{ asistencia.codigo.cantidad }}
-                                            {% endif %}
-                                        </span>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
 
-                    <!-- Resumen estadístico -->
-                    <div class="row mt-4">
-                        <div class="col-md-12">
-                            <div class="alert alert-info">
-                                <div class="row text-center">
-                                    <div class="col-md-3">
-                                        <h5 class="text-success mb-1">
-                                            {% with presentes=asistencias_alumno|length %}
-                                            {% with ausentes=0 %}
-                                            {% for asistencia in asistencias_alumno %}
-                                            {% if asistencia.codigo.cantidad == 0.0 %}
-                                            {% with presentes=presentes|add:1 %}{% endwith %}
-                                            {% endif %}
-                                            {% endfor %}
-                                            {{ presentes }}
-                                            {% endwith %}
-                                            {% endwith %}
-                                        </h5>
-                                        <small>Total Registros</small>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <h5 class="text-danger mb-1">
-                                            {% with total_faltas=0 %}
-                                            {% for asistencia in asistencias_alumno %}
-                                            {% if asistencia.codigo.cantidad > 0 %}
-                                            {% with total_faltas=total_faltas|add:asistencia.codigo.cantidad %}{%
-                                            endwith %}
-                                            {% endif %}
-                                            {% endfor %}
-                                            {{ total_faltas|default:"0" }}
-                                            {% endwith %}
-                                        </h5>
-                                        <small>Total Faltas</small>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <h5 class="text-warning mb-1">
-                                            {% with tardanzas=0 %}
-                                            {% for asistencia in asistencias_alumno %}
-                                            {% if 'T' in asistencia.codigo.codigo %}
-                                            {% with tardanzas=tardanzas|add:1 %}{% endwith %}
-                                            {% endif %}
-                                            {% endfor %}
-                                            {{ tardanzas }}
-                                            {% endwith %}
-                                        </h5>
-                                        <small>Tardanzas</small>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <h5 class="text-info mb-1">
-                                            {% with retiros=0 %}
-                                            {% for asistencia in asistencias_alumno %}
-                                            {% if 'R' in asistencia.codigo.codigo %}
-                                            {% with retiros=retiros|add:1 %}{% endwith %}
-                                            {% endif %}
-                                            {% endfor %}
-                                            {{ retiros }}
-                                            {% endwith %}
-                                        </h5>
-                                        <small>Retiros</small>
-                                    </div>
-                                </div>
-                            </div>
+
+                <!-- Resumen estadístico -->
+                <div class="row g-3 mt-4">
+                    <div class="col-md-3">
+                        <div class="p-3 rounded bg-soft-success text-center">
+                            <h3 class="fw-bold text-success mb-0">
+                                {{ stats.presentes|default:"0" }}
+                            </h3>
+                            <small class="text-muted fw-bold">PRESENTES</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 rounded bg-soft-danger text-center">
+                            <h3 class="fw-bold text-danger mb-0">
+                                {{ stats.faltas|default:"0" }}
+                            </h3>
+                            <small class="text-muted fw-bold">FALTAS TOTALES</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 rounded bg-soft-warning text-center">
+                            <h3 class="fw-bold text-warning mb-0">
+                                {{ stats.tardanzas|default:"0" }}
+                            </h3>
+                            <small class="text-muted fw-bold">TARDANZAS</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 rounded bg-soft-info text-center">
+                            <h3 class="fw-bold text-info mb-0">
+                                {{ stats.retiros|default:"0" }}
+                            </h3>
+                            <small class="text-muted fw-bold">RETIROS</small>
                         </div>
                     </div>
                 </div>
@@ -264,13 +185,11 @@
     {% else %}
     <!-- Sin registros -->
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="alert alert-warning text-center">
-                <i class="bi bi-info-circle fs-1 text-warning"></i>
-                <h5 class="mt-3">Sin Registros de Asistencia</h5>
-                <p class="mb-0">
-                    El estudiante seleccionado no tiene registros de asistencia en el sistema.
-                </p>
+        <div class="col-lg-6">
+            <div class="alert glass-alert text-center border-0">
+                <i class="bi bi-info-circle-fill fs-1 text-primary mb-3 d-block"></i>
+                <h5 class="fw-bold text-primary">Sin Registros</h5>
+                <p class="text-muted mb-0">El estudiante seleccionado no tiene registros de asistencia.</p>
             </div>
         </div>
     </div>
@@ -279,15 +198,13 @@
     {% else %}
     <!-- Instrucciones -->
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card text-center">
-                <div class="card-body">
-                    <i class="bi bi-arrow-up-circle fs-1 text-alcal-primary"></i>
-                    <h5 class="mt-3">Selecciona un Estudiante</h5>
-                    <p class="text-muted">
-                        Elige un estudiante del menú desplegable para ver su historial de asistencias completo.
-                    </p>
+        <div class="col-lg-6">
+            <div class="text-center py-5">
+                <div class="mb-4">
+                    <i class="bi bi-arrow-up-circle fs-1 text-primary opacity-50"></i>
                 </div>
+                <h4 class="fw-bold text-muted">Seleccione un Estudiante</h4>
+                <p class="text-muted">Utilice el buscador superior para ver el historial de asistencias.</p>
             </div>
         </div>
     </div>
@@ -295,13 +212,13 @@
 
 </div>
 
+{% block extra_js %}
 <script>
-    // Mejorar la experiencia de búsqueda
     document.getElementById('alumno_id').addEventListener('change', function () {
         if (this.value) {
-            // Auto-submit cuando se selecciona un alumno
             this.form.submit();
         }
     });
 </script>
+{% endblock %}
 {% endblock %}

@@ -1,1 +1,165 @@
- 
+{% extends "base_modern.html" %}
+{% load static %}
+
+{% block title %}Consultar Asistencia por Curso - ALCAL{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <div class="glass-header mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold text-white mb-1">Reporte de Asistencia</h2>
+                <p class="text-white-50 mb-0">Consulta detallada por curso y fecha</p>
+            </div>
+            <a href="/cons_asistencia/" class="btn btn-light text-primary fw-bold">
+                <i class="bi bi-arrow-left me-2"></i> Volver
+            </a>
+        </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="glass-card">
+                <h5 class="fw-bold mb-3 text-primary">
+                    <i class="bi bi-funnel me-2"></i> Filtros de Búsqueda
+                </h5>
+                <form method="get" class="row g-3 align-items-end">
+                    <div class="col-md-3">
+                        <label class="form-label text-muted small fw-bold">CURSO</label>
+                        <select name="curso" class="form-select bg-light" required>
+                            <option value="">Seleccione curso...</option>
+                            {% for c in cursos %}
+                            <option value="{{ c.id }}" {% if filtros.curso_id == c.id|stringformat:'s' or filtros.curso_id|stringformat:'s' == c.id|stringformat:'s' %}selected{% endif %}>>
+                                {{ c.curso }} - {{ c.carrera.nombre }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label text-muted small fw-bold">TURNO</label>
+                        <select name="turno" class="form-select bg-light">
+                            <option value="">Todos los turnos</option>
+                            {% for t in turnos %}
+                            <option value="{{ t.id }}" {% if filtros.turno_id == t.id|stringformat:'s' or filtros.turno_id|stringformat:'s' == t.id|stringformat:'s' %}selected{% endif %}>>
+                                {{ t.get_nombre_display }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label text-muted small fw-bold">DESDE</label>
+                        <input type="date" name="fecha_desde" class="form-control bg-light"
+                            value="{{ filtros.fecha_desde|default:'' }}">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label text-muted small fw-bold">HASTA</label>
+                        <input type="date" name="fecha_hasta" class="form-control bg-light"
+                            value="{{ filtros.fecha_hasta|default:'' }}">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-premium w-100">
+                            <i class="bi bi-search me-2"></i> Consultar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% if asistencias %}
+    <!-- Estadísticas Rápidas -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="glass-card bg-soft-primary text-center py-3">
+                <h3 class="fw-bold text-primary mb-0">{{ estadisticas.total_registros }}</h3>
+                <small class="text-muted fw-bold text-uppercase">Total Registros</small>
+            </div>
+        </div>
+        {% for stat in estadisticas.por_codigo %}
+        <div class="col-md-2">
+            <div class="glass-card text-center py-3">
+                <h4 class="fw-bold mb-0 
+                    {% if stat.codigo__codigo == 'P' %}text-success
+                    {% elif stat.codigo__codigo == 'A' %}text-danger
+                    {% else %}text-warning{% endif %}">
+                    {{ stat.cantidad }}
+                </h4>
+                <small class="text-muted fw-bold">{{ stat.codigo__descripcion }}</small>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Tabla de Resultados -->
+    <div class="glass-card p-0 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle modern-table mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4">Fecha</th>
+                        <th>Turno</th>
+                        <th>Alumno</th>
+                        <th class="text-center">Estado</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for asistencia in asistencias %}
+                    <tr>
+                        <td class="ps-4 fw-bold text-muted">{{ asistencia.fecha|date:"d/m/Y" }}</td>
+                        <td>
+                            <span class="badge bg-light text-dark border">
+                                {{ asistencia.turno.get_nombre_display }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-circle bg-primary text-white me-2 d-flex align-items-center justify-content-center rounded-circle"
+                                    style="width: 32px; height: 32px; font-size: 0.8rem;">
+                                    {{ asistencia.alumno.nombre.0 }}{{ asistencia.alumno.apellido.0 }}
+                                </div>
+                                <div>
+                                    <span class="fw-bold text-dark">{{ asistencia.alumno.apellido }}, {{
+                                        asistencia.alumno.nombre }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            {% if asistencia.codigo.codigo == 'P' %}
+                            <span class="badge bg-soft-success text-success rounded-pill px-3">Presente</span>
+                            {% elif asistencia.codigo.codigo == 'A' %}
+                            <span class="badge bg-soft-danger text-danger rounded-pill px-3">Ausente</span>
+                            {% elif asistencia.codigo.codigo == 'T' or asistencia.codigo.codigo == 't' %}
+                            <span class="badge bg-soft-warning text-warning rounded-pill px-3">Tardanza</span>
+                            {% else %}
+                            <span class="badge bg-soft-info text-info rounded-pill px-3">{{
+                                asistencia.codigo.descripcion }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-muted small">{{ asistencia.observaciones|default:"-" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% elif filtros.curso_id %}
+    <div class="glass-card text-center py-5">
+        <div class="mb-3">
+            <i class="bi bi-inbox fs-1 text-muted opacity-50"></i>
+        </div>
+        <h5 class="text-muted">No se encontraron registros para los filtros seleccionados.</h5>
+    </div>
+    {% else %}
+    <div class="glass-card text-center py-5">
+        <div class="mb-3">
+            <i class="bi bi-search fs-1 text-primary opacity-50"></i>
+        </div>
+        <h5 class="text-muted">Seleccione un curso para ver el reporte.</h5>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

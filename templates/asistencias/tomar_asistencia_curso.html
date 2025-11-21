@@ -1,222 +1,139 @@
-{% extends 'base.html' %}
+{% extends "base_modern.html" %}
 {% load static %}
 
 {% block title %}Tomar Asistencia por Curso - ALCAL{% endblock %}
 
-{% block extra_css %}
-<style>
-    .codigo-badge {
-        font-family: 'Courier New', monospace;
-        font-weight: bold;
-        font-size: 1.1em;
-        padding: 8px 12px;
-        border-radius: 6px;
-        margin: 2px;
-        display: inline-block;
-        min-width: 40px;
-        text-align: center;
-    }
-
-    .codigo-P {
-        background-color: #d4edda;
-        color: #155724;
-    }
-
-    .codigo-t {
-        background-color: #fff3cd;
-        color: #856404;
-    }
-
-    .codigo-T {
-        background-color: #ffeaa7;
-        color: #b8860b;
-    }
-
-    .codigo-A {
-        background-color: #f8d7da;
-        color: #721c24;
-    }
-
-    .codigo-r {
-        background-color: #d1ecf1;
-        color: #0c5460;
-    }
-
-    .codigo-R {
-        background-color: #e2e3e5;
-        color: #383d41;
-    }
-
-    .form-card {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 12px;
-        border: none;
-    }
-
-    .header-icon {
-        font-size: 2.5rem;
-        color: #007bff;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
-<div class="container-fluid py-4">
+<div class="container-fluid">
 
-    <!-- Header -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex align-items-center">
-                <i class="fas fa-clipboard-list header-icon me-3"></i>
-                <div>
-                    <h1 class="h2 mb-1">Tomar Asistencia por Curso</h1>
-                    <p class="text-muted mb-0">Sistema de registro de asistencias con códigos específicos</p>
-                </div>
+    <div class="glass-header mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold text-white mb-1">Tomar Asistencia</h2>
+                <p class="text-white-50 mb-0">Registro de asistencia grupal por curso</p>
             </div>
+            <a href="/ingresar/" class="btn btn-light text-primary fw-bold">
+                <i class="bi bi-arrow-left me-2"></i> Volver
+            </a>
         </div>
     </div>
 
     <!-- Mensajes -->
     {% if messages %}
     {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <div class="alert glass-alert text-white d-flex align-items-center mb-4 border-0 {% if message.tags == 'success' %}bg-success{% else %}bg-danger{% endif %}"
+        style="--bs-bg-opacity: .2; backdrop-filter: blur(10px);">
         <i
-            class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' %}exclamation-triangle{% else %}info-circle{% endif %} me-2"></i>
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            class="bi {% if message.tags == 'success' %}bi-check-circle{% else %}bi-exclamation-triangle{% endif %} me-3 fs-4"></i>
+        <div>
+            {{ message }}
+        </div>
+        <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="alert"></button>
     </div>
     {% endfor %}
     {% endif %}
 
-    <div class="row">
+    <div class="row g-4">
         <!-- Formulario de Selección -->
         <div class="col-lg-8">
-            <div class="card form-card">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">
-                        <i class="fas fa-calendar-plus me-2"></i>
-                        Seleccionar Curso y Turno
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <form method="post" action="{% url 'lista_alumnos_curso' %}" class="needs-validation" novalidate>
-                        {% csrf_token %}
+            <div class="glass-card h-100">
+                <h5 class="fw-bold mb-4 text-primary">
+                    <i class="bi bi-calendar-plus me-2"></i> Seleccionar Curso y Turno
+                </h5>
 
-                        <div class="row g-3">
-                            <!-- Curso -->
-                            <div class="col-md-6">
-                                <label for="curso" class="form-label">
-                                    <i class="fas fa-graduation-cap me-1"></i>
-                                    Curso *
-                                </label>
-                                <select class="form-select form-select-lg" id="curso" name="curso" required>
-                                    <option value="">Seleccionar curso...</option>
-                                    {% for curso in cursos %}
-                                    <option value="{{ curso.id }}">{{ curso.curso }} - {{ curso.carrera.nombre }}
-                                    </option>
-                                    {% endfor %}
-                                </select>
-                                <div class="invalid-feedback">
-                                    Por favor seleccione un curso.
-                                </div>
-                            </div>
+                <form method="post" action="{% url 'lista_alumnos_curso' %}" class="needs-validation" novalidate>
+                    {% csrf_token %}
 
-                            <!-- Turno -->
-                            <div class="col-md-6">
-                                <label for="turno" class="form-label">
-                                    <i class="fas fa-clock me-1"></i>
-                                    Turno *
-                                </label>
-                                <select class="form-select form-select-lg" id="turno" name="turno" required>
-                                    <option value="">Seleccionar turno...</option>
-                                    {% for turno in turnos %}
-                                    <option value="{{ turno.id }}">
-                                        {{ turno.get_nombre_display }} ({{ turno.hora_inicio }} - {{ turno.hora_fin }})
-                                    </option>
-                                    {% endfor %}
-                                </select>
-                                <div class="invalid-feedback">
-                                    Por favor seleccione un turno.
-                                </div>
-                            </div>
-
-                            <!-- Fecha -->
-                            <div class="col-md-6">
-                                <label for="fecha" class="form-label">
-                                    <i class="fas fa-calendar me-1"></i>
-                                    Fecha *
-                                </label>
-                                <input type="date" class="form-control form-control-lg" id="fecha" name="fecha"
-                                    value="{% now 'Y-m-d' %}" required>
-                                <div class="invalid-feedback">
-                                    Por favor seleccione una fecha.
-                                </div>
-                            </div>
-
-                            <!-- Botón -->
-                            <div class="col-md-6 d-flex align-items-end">
-                                <button type="submit" class="btn btn-primary btn-lg w-100">
-                                    <i class="fas fa-list me-2"></i>
-                                    Ver Lista de Alumnos
-                                </button>
-                            </div>
+                    <div class="row g-3">
+                        <!-- Curso -->
+                        <div class="col-md-6">
+                            <label for="curso" class="form-label text-muted small fw-bold">CURSO</label>
+                            <select class="form-select bg-light" id="curso" name="curso" required>
+                                <option value="">Seleccionar curso...</option>
+                                {% for curso in cursos %}
+                                <option value="{{ curso.id }}">{{ curso.curso }} - {{ curso.carrera.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="invalid-feedback">Por favor seleccione un curso.</div>
                         </div>
-                    </form>
-                </div>
+
+                        <!-- Turno -->
+                        <div class="col-md-6">
+                            <label for="turno" class="form-label text-muted small fw-bold">TURNO</label>
+                            <select class="form-select bg-light" id="turno" name="turno" required>
+                                <option value="">Seleccionar turno...</option>
+                                {% for turno in turnos %}
+                                <option value="{{ turno.id }}">
+                                    {{ turno.get_nombre_display }} ({{ turno.hora_inicio }} - {{ turno.hora_fin }})
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <div class="invalid-feedback">Por favor seleccione un turno.</div>
+                        </div>
+
+                        <!-- Fecha -->
+                        <div class="col-md-6">
+                            <label for="fecha" class="form-label text-muted small fw-bold">FECHA</label>
+                            <input type="date" class="form-control bg-light" id="fecha" name="fecha"
+                                value="{% now 'Y-m-d' %}" required>
+                            <div class="invalid-feedback">Por favor seleccione una fecha.</div>
+                        </div>
+
+                        <!-- Botón -->
+                        <div class="col-md-6 d-flex align-items-end">
+                            <button type="submit" class="btn btn-premium w-100">
+                                <i class="bi bi-list-check me-2"></i> Ver Lista de Alumnos
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
 
         <!-- Información de Códigos -->
         <div class="col-lg-4">
-            <div class="card form-card">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">
-                        <i class="fas fa-info-circle me-2"></i>
-                        Códigos de Asistencia
-                    </h5>
+            <div class="glass-card h-100 bg-soft-primary">
+                <h5 class="fw-bold mb-4 text-primary">
+                    <i class="bi bi-info-circle me-2"></i> Códigos de Asistencia
+                </h5>
+
+                <div class="d-flex flex-column gap-3">
+                    <div class="d-flex align-items-center bg-white p-2 rounded shadow-sm">
+                        <span class="badge bg-success rounded-pill me-3" style="width: 30px;">P</span>
+                        <small class="fw-bold text-muted">Presente</small>
+                    </div>
+
+                    <div class="d-flex align-items-center bg-white p-2 rounded shadow-sm">
+                        <span class="badge bg-warning text-dark rounded-pill me-3" style="width: 30px;">t</span>
+                        <small class="fw-bold text-muted">Tarde (< 15m)</small>
+                    </div>
+
+                    <div class="d-flex align-items-center bg-white p-2 rounded shadow-sm">
+                        <span class="badge bg-warning text-dark rounded-pill me-3" style="width: 30px;">T</span>
+                        <small class="fw-bold text-muted">Tarde (> 15m)</small>
+                    </div>
+
+                    <div class="d-flex align-items-center bg-white p-2 rounded shadow-sm">
+                        <span class="badge bg-danger rounded-pill me-3" style="width: 30px;">A</span>
+                        <small class="fw-bold text-muted">Ausente</small>
+                    </div>
+
+                    <div class="d-flex align-items-center bg-white p-2 rounded shadow-sm">
+                        <span class="badge bg-info text-dark rounded-pill me-3" style="width: 30px;">r</span>
+                        <small class="fw-bold text-muted">Retirado (< 15m)</small>
+                    </div>
+
+                    <div class="d-flex align-items-center bg-white p-2 rounded shadow-sm">
+                        <span class="badge bg-secondary rounded-pill me-3" style="width: 30px;">R</span>
+                        <small class="fw-bold text-muted">Retirado (> 15m)</small>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <h6 class="text-muted mb-2">Códigos disponibles:</h6>
 
-                        <div class="d-flex flex-wrap gap-1 mb-2">
-                            <span class="codigo-badge codigo-P">P</span>
-                            <small class="align-self-center">Presente</small>
-                        </div>
-
-                        <div class="d-flex flex-wrap gap-1 mb-2">
-                            <span class="codigo-badge codigo-t">t</span>
-                            <small class="align-self-center">Tarde (menos de 15 min)</small>
-                        </div>
-
-                        <div class="d-flex flex-wrap gap-1 mb-2">
-                            <span class="codigo-badge codigo-T">T</span>
-                            <small class="align-self-center">Tarde (más de 15 min)</small>
-                        </div>
-
-                        <div class="d-flex flex-wrap gap-1 mb-2">
-                            <span class="codigo-badge codigo-A">A</span>
-                            <small class="align-self-center">Ausente</small>
-                        </div>
-
-                        <div class="d-flex flex-wrap gap-1 mb-2">
-                            <span class="codigo-badge codigo-r">r</span>
-                            <small class="align-self-center">Retirado (menos de 15 min antes)</small>
-                        </div>
-
-                        <div class="d-flex flex-wrap gap-1 mb-2">
-                            <span class="codigo-badge codigo-R">R</span>
-                            <small class="align-self-center">Retirado (más de 15 min antes)</small>
-                        </div>
-                    </div>
-
-                    <div class="alert alert-light border">
-                        <small class="text-muted">
-                            <i class="fas fa-lightbulb me-1"></i>
-                            <strong>Tip:</strong> Los códigos T y R cuentan como media falta (0.5),
-                            mientras que A cuenta como falta completa (1.0).
-                        </small>
-                    </div>
+                <div class="mt-4 p-3 bg-white rounded border border-primary border-opacity-10">
+                    <small class="text-muted d-block">
+                        <i class="bi bi-lightbulb-fill text-warning me-1"></i>
+                        <strong>Tip:</strong> Los códigos T y R cuentan como media falta (0.5).
+                    </small>
                 </div>
             </div>
         </div>
@@ -225,28 +142,21 @@
     <!-- Acciones Rápidas -->
     <div class="row mt-4">
         <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <h6 class="card-title">
-                        <i class="fas fa-bolt me-2"></i>
-                        Acciones Rápidas
+            <div class="glass-card py-3">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                    <h6 class="mb-0 fw-bold text-muted">
+                        <i class="bi bi-lightning-charge-fill text-warning me-2"></i> Acciones Rápidas
                     </h6>
-                    <div class="d-flex flex-wrap gap-2">
-                        <a href="{% url 'consultar_asistencia_curso' %}" class="btn btn-outline-primary">
-                            <i class="fas fa-search me-1"></i>
-                            Consultar Asistencias
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'consultar_asistencia_curso' %}" class="btn btn-sm btn-light text-primary">
+                            <i class="bi bi-search me-1"></i> Consultar
                         </a>
-                        <a href="{% url 'cierre_diario_seleccion' %}" class="btn btn-outline-warning">
-                            <i class="fas fa-calendar-check me-1"></i>
-                            Cierre Diario
+                        <a href="{% url 'cierre_diario_seleccion' %}" class="btn btn-sm btn-light text-warning">
+                            <i class="bi bi-calendar-check me-1"></i> Cierre Diario
                         </a>
-                        <a href="{% url 'admin:asistencias_asistencia_changelist' %}" class="btn btn-outline-secondary">
-                            <i class="fas fa-cog me-1"></i>
-                            Administrar Asistencias
-                        </a>
-                        <a href="{% url 'home' %}" class="btn btn-outline-info">
-                            <i class="fas fa-home me-1"></i>
-                            Volver al Inicio
+                        <a href="{% url 'admin:asistencias_asistencia_changelist' %}"
+                            class="btn btn-sm btn-light text-secondary">
+                            <i class="bi bi-gear me-1"></i> Admin
                         </a>
                     </div>
                 </div>
