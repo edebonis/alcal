@@ -1,64 +1,14 @@
-{% extends 'base.html' %}
+{% extends "base_modern.html" %}
 {% load static %}
 
 {% block title %}Lista de Asistencia - {{ curso.curso }} - ALCAL{% endblock %}
 
 {% block extra_css %}
 <style>
-    .codigo-badge {
-        font-family: 'Courier New', monospace;
-        font-weight: bold;
-        font-size: 1.1em;
-        padding: 8px 12px;
-        border-radius: 6px;
-        margin: 2px;
-        display: inline-block;
-        min-width: 40px;
-        text-align: center;
-    }
-
-    .codigo-P {
-        background-color: #d4edda;
-        color: #155724;
-    }
-
-    .codigo-t {
-        background-color: #fff3cd;
-        color: #856404;
-    }
-
-    .codigo-T {
-        background-color: #ffeaa7;
-        color: #b8860b;
-    }
-
-    .codigo-A {
-        background-color: #f8d7da;
-        color: #721c24;
-    }
-
-    .codigo-r {
-        background-color: #d1ecf1;
-        color: #0c5460;
-    }
-
-    .codigo-R {
-        background-color: #e2e3e5;
-        color: #383d41;
-    }
-
-    .alumno-row {
-        transition: background-color 0.2s;
-    }
-
-    .alumno-row:hover {
-        background-color: #f8f9fa;
-    }
-
     .codigo-selector {
         display: flex;
-        gap: 5px;
-        flex-wrap: wrap;
+        gap: 4px;
+        justify-content: center;
     }
 
     .codigo-radio {
@@ -67,207 +17,227 @@
 
     .codigo-label {
         cursor: pointer;
-        transition: all 0.2s;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-weight: bold;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+        border: 2px solid transparent;
         opacity: 0.6;
-        transform: scale(0.9);
     }
 
     .codigo-radio:checked+.codigo-label {
         opacity: 1;
-        transform: scale(1);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transform: scale(1.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    .info-header {
-        background: linear-gradient(135deg, #007bff, #0056b3);
-        color: white;
-        border-radius: 12px 12px 0 0;
+    /* Colores específicos por código */
+    .codigo-P {
+        background-color: #d1e7dd;
+        color: #0f5132;
     }
 
-    .sticky-header {
+    .codigo-radio:checked+.codigo-P {
+        border-color: #0f5132;
+    }
+
+    .codigo-t {
+        background-color: #fff3cd;
+        color: #664d03;
+    }
+
+    .codigo-radio:checked+.codigo-t {
+        border-color: #664d03;
+    }
+
+    .codigo-T {
+        background-color: #ffe69c;
+        color: #664d03;
+    }
+
+    .codigo-radio:checked+.codigo-T {
+        border-color: #997404;
+    }
+
+    .codigo-A {
+        background-color: #f8d7da;
+        color: #842029;
+    }
+
+    .codigo-radio:checked+.codigo-A {
+        border-color: #842029;
+    }
+
+    .codigo-r {
+        background-color: #cff4fc;
+        color: #055160;
+    }
+
+    .codigo-radio:checked+.codigo-r {
+        border-color: #055160;
+    }
+
+    .codigo-R {
+        background-color: #e2e3e5;
+        color: #41464b;
+    }
+
+    .codigo-radio:checked+.codigo-R {
+        border-color: #41464b;
+    }
+
+    .sticky-header th {
         position: sticky;
         top: 0;
-        z-index: 100;
-        background: white;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: #f8f9fa;
+        z-index: 10;
+        box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid py-4">
+<div class="container-fluid">
 
-    <!-- Header con información del curso -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header info-header">
-                    <div class="row align-items-center">
-                        <div class="col-md-8">
-                            <h3 class="mb-1">
-                                <i class="fas fa-clipboard-list me-2"></i>
-                                Lista de Asistencia
-                            </h3>
-                            <div class="d-flex flex-wrap gap-3">
-                                <span><i class="fas fa-graduation-cap me-1"></i> <strong>{{ curso.curso }}</strong> - {{
-                                    curso.carrera.nombre }}</span>
-                                <span><i class="fas fa-clock me-1"></i> <strong>{{ turno.get_nombre_display }}</strong>
-                                    ({{ turno.hora_inicio }} - {{ turno.hora_fin }})</span>
-                                <span><i class="fas fa-calendar me-1"></i> <strong>{{ fecha_obj|date:"d/m/Y"
-                                        }}</strong></span>
-                            </div>
-                        </div>
-                        <div class="col-md-4 text-end">
-                            <div class="badge bg-light text-dark fs-6">
-                                {{ alumnos|length }} estudiante{{ alumnos|length|pluralize }}
-                            </div>
-                        </div>
-                    </div>
+    <!-- Header Info -->
+    <div class="glass-header mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold text-white mb-1">Lista de Asistencia</h2>
+                <div class="d-flex gap-3 text-white-50">
+                    <span><i class="bi bi-mortarboard me-1"></i> {{ curso.curso }}</span>
+                    <span><i class="bi bi-clock me-1"></i> {{ turno.get_nombre_display }}</span>
+                    <span><i class="bi bi-calendar-event me-1"></i> {{ fecha_obj|date:"d/m/Y" }}</span>
                 </div>
+            </div>
+            <div class="text-end">
+                <span class="badge bg-white text-primary fs-6 px-3 py-2 rounded-pill shadow-sm">
+                    {{ alumnos|length }} Estudiantes
+                </span>
             </div>
         </div>
     </div>
 
-    <!-- Formulario de asistencia -->
     <form method="post" action="{% url 'guardar_asistencia_curso' %}" id="asistenciaForm">
         {% csrf_token %}
         <input type="hidden" name="curso_id" value="{{ curso.id }}">
         <input type="hidden" name="turno_id" value="{{ turno.id }}">
         <input type="hidden" name="fecha" value="{{ fecha }}">
 
-        <!-- Controles rápidos -->
-        <div class="row mb-3">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body py-2">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h6 class="mb-0">Acciones Rápidas:</h6>
-                            </div>
-                            <div class="d-flex gap-2">
-                                <button type="button" class="btn btn-sm btn-success" onclick="marcarTodos('P')">
-                                    <span class="codigo-badge codigo-P">P</span> Todos Presentes
-                                </button>
-                                <button type="button" class="btn btn-sm btn-danger" onclick="marcarTodos('A')">
-                                    <span class="codigo-badge codigo-A">A</span> Todos Ausentes
-                                </button>
-                                <button type="button" class="btn btn-sm btn-secondary" onclick="limpiarTodos()">
-                                    <i class="fas fa-eraser me-1"></i> Limpiar Todo
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Controles Rápidos -->
+        <div class="glass-card mb-4 py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h6 class="mb-0 fw-bold text-primary"><i class="bi bi-lightning-charge me-2"></i>Acciones Rápidas</h6>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-sm btn-soft-success fw-bold" onclick="marcarTodos('P')">
+                        <i class="bi bi-check-all me-1"></i> Todos Presentes
+                    </button>
+                    <button type="button" class="btn btn-sm btn-soft-danger fw-bold" onclick="marcarTodos('A')">
+                        <i class="bi bi-x-circle me-1"></i> Todos Ausentes
+                    </button>
+                    <button type="button" class="btn btn-sm btn-soft-secondary" onclick="limpiarTodos()">
+                        <i class="bi bi-eraser me-1"></i> Limpiar
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- Lista de alumnos -->
-        <div class="card">
-            <div class="card-header sticky-header">
-                <div class="row align-items-center">
-                    <div class="col-md-4">
-                        <h6 class="mb-0">Estudiante</h6>
-                    </div>
-                    <div class="col-md-6">
-                        <h6 class="mb-0 text-center">Código de Asistencia</h6>
-                    </div>
-                    <div class="col-md-2">
-                        <h6 class="mb-0">Observaciones</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body p-0">
-                {% for alumno in alumnos %}
-                <div class="alumno-row p-3 border-bottom">
-                    <div class="row align-items-center">
-                        <!-- Información del alumno -->
-                        <div class="col-md-4">
-                            <div class="d-flex align-items-center">
-                                <div class="me-3">
-                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
+        <!-- Tabla de Alumnos -->
+        <div class="glass-card p-0 overflow-hidden">
+            <div class="table-responsive" style="max-height: 65vh;">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light sticky-header">
+                        <tr>
+                            <th class="ps-4 py-3">Estudiante</th>
+                            <th class="text-center py-3">Asistencia</th>
+                            <th class="pe-4 py-3" style="width: 25%;">Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for alumno in alumnos %}
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-circle bg-primary text-white me-3 d-flex align-items-center justify-content-center rounded-circle"
                                         style="width: 40px; height: 40px; font-weight: bold;">
                                         {{ alumno.nombre.0 }}{{ alumno.apellido.0 }}
                                     </div>
+                                    <div>
+                                        <h6 class="mb-0 fw-bold text-dark">{{ alumno.apellido }}, {{ alumno.nombre }}
+                                        </h6>
+                                        <small class="text-muted">Legajo: {{ alumno.legajo }}</small>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h6 class="mb-0">{{ alumno.apellido }}, {{ alumno.nombre }}</h6>
-                                    <small class="text-muted">Legajo: {{ alumno.legajo }}</small>
+                            </td>
+                            <td class="text-center">
+                                <div class="codigo-selector">
+                                    {% for codigo in codigos %}
+                                    <div class="position-relative">
+                                        <input type="radio" class="codigo-radio"
+                                            id="codigo_{{ alumno.id }}_{{ codigo.codigo }}"
+                                            name="codigo_{{ alumno.legajo }}" value="{{ codigo.codigo }}" {% if
+                                            asistencias_existentes|get_item:alumno.legajo|get_item:'codigo'==codigo.codigo
+                                            %}checked{% endif %}>
+                                        <label for="codigo_{{ alumno.id }}_{{ codigo.codigo }}"
+                                            class="codigo-label codigo-{{ codigo.codigo }}"
+                                            title="{{ codigo.descripcion }}">
+                                            {{ codigo.codigo }}
+                                        </label>
+                                    </div>
+                                    {% endfor %}
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Códigos de asistencia -->
-                        <div class="col-md-6">
-                            <div class="codigo-selector justify-content-center">
-                                {% for codigo in codigos %}
-                                <input type="radio" class="codigo-radio" id="codigo_{{ alumno.id }}_{{ codigo.codigo }}"
-                                    name="asistencia_{{ alumno.id }}" value="{{ codigo.codigo }}" {% if
-                                    asistencias_existentes|get_item:alumno.id==codigo.codigo %}checked{% endif %}>
-                                <label for="codigo_{{ alumno.id }}_{{ codigo.codigo }}"
-                                    class="codigo-label codigo-badge codigo-{{ codigo.codigo }}"
-                                    title="{{ codigo.descripcion }}">
-                                    {{ codigo.codigo }}
-                                </label>
-                                {% endfor %}
-                            </div>
-                        </div>
-
-                        <!-- Observaciones -->
-                        <div class="col-md-2">
-                            <input type="text" class="form-control form-control-sm" name="observacion_{{ alumno.id }}"
-                                placeholder="Observación..." maxlength="100">
-                        </div>
-                    </div>
-                </div>
-                {% empty %}
-                <div class="text-center py-5">
-                    <i class="fas fa-users text-muted" style="font-size: 3rem;"></i>
-                    <h5 class="text-muted mt-3">No hay alumnos en este curso</h5>
-                    <p class="text-muted">Verifique que el curso seleccionado tenga estudiantes activos.</p>
-                </div>
-                {% endfor %}
+                            </td>
+                            <td class="pe-4">
+                                <input type="text" class="form-control bg-light border-0"
+                                    name="observaciones_{{ alumno.legajo }}" placeholder="Agregar nota..."
+                                    value="{{ asistencias_existentes|get_item:alumno.legajo|get_item:'observaciones'|default:'' }}"
+                                    maxlength="100">
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center py-5">
+                                <i class="bi bi-people text-muted fs-1 d-block mb-3"></i>
+                                <h5 class="text-muted">No hay alumnos en este curso</h5>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <!-- Botones de acción -->
-        <div class="row mt-4">
-            <div class="col-12">
-                <div class="d-flex justify-content-between">
-                    <a href="{% url 'tomar_asistencia_curso' %}" class="btn btn-outline-secondary">
-                        <i class="fas fa-arrow-left me-2"></i>
-                        Volver
-                    </a>
-
-                    <div class="d-flex gap-2">
-                        <button type="button" class="btn btn-outline-warning" onclick="validarFormulario()">
-                            <i class="fas fa-check me-2"></i>
-                            Validar
-                        </button>
-                        <button type="submit" class="btn btn-success btn-lg">
-                            <i class="fas fa-save me-2"></i>
-                            Guardar Asistencia
-                        </button>
-                    </div>
-                </div>
+        <!-- Botones Finales -->
+        <div class="d-flex justify-content-between align-items-center mt-4 mb-5">
+            <a href="{% url 'tomar_asistencia_curso' %}" class="btn btn-light text-muted fw-bold">
+                <i class="bi bi-arrow-left me-2"></i> Volver
+            </a>
+            <div class="d-flex gap-2">
+                <button type="button" class="btn btn-light text-warning fw-bold" onclick="validarFormulario()">
+                    <i class="bi bi-check2-circle me-2"></i> Validar
+                </button>
+                <button type="submit" class="btn btn-premium px-5">
+                    <i class="bi bi-save me-2"></i> Guardar Asistencia
+                </button>
             </div>
         </div>
     </form>
 </div>
 
 <script>
-    // Funciones para acciones rápidas
     function marcarTodos(codigo) {
         const radios = document.querySelectorAll(`input[type="radio"][value="${codigo}"]`);
-        radios.forEach(radio => {
-            radio.checked = true;
-        });
+        radios.forEach(radio => radio.checked = true);
     }
 
     function limpiarTodos() {
         const radios = document.querySelectorAll('input[type="radio"]');
-        radios.forEach(radio => {
-            radio.checked = false;
-        });
+        radios.forEach(radio => radio.checked = false);
     }
 
     function validarFormulario() {
@@ -282,15 +252,14 @@
 
     if (marcados < alumnos) {
         const faltantes = alumnos - marcados;
-        const confirmar = confirm(`⚠️ Faltan marcar ${faltantes} estudiante(s).\n\n¿Deseas continuar de todas formas?`);
+        const confirmar = confirm(`⚠️ Faltan marcar ${faltantes} estudiante(s).\n\n¿Deseas continuar?`);
         if (!confirmar) return false;
     }
 
     alert(`✅ Formulario válido: ${marcados}/${alumnos} estudiantes marcados.`);
     return true;
-}
+    }
 
-    // Validación antes de enviar
     document.getElementById('asistenciaForm').addEventListener('submit', function (e) {
         const alumnos = {{ alumnos| length
     }};
@@ -311,36 +280,20 @@
         }
     }
 
-    // Mostrar indicador de carga
-    const submitBtn = document.querySelector('button[type="submit"]');
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Guardando...';
+    const submitBtn = this.querySelector('button[type="submit"]');
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Guardando...';
     submitBtn.disabled = true;
-});
+    });
 
     // Atajos de teclado
     document.addEventListener('keydown', function (e) {
         if (e.ctrlKey || e.metaKey) {
-            switch (e.key) {
-                case 'p':
-                    e.preventDefault();
-                    marcarTodos('P');
-                    break;
-                case 'a':
-                    e.preventDefault();
-                    marcarTodos('A');
-                    break;
-                case 'l':
-                    e.preventDefault();
-                    limpiarTodos();
-                    break;
+            switch (e.key.toLowerCase()) {
+                case 'p': e.preventDefault(); marcarTodos('P'); break;
+                case 'a': e.preventDefault(); marcarTodos('A'); break;
+                case 'l': e.preventDefault(); limpiarTodos(); break;
             }
         }
     });
-
-    // Mostrar atajos de teclado
-    console.log('🎯 Atajos de teclado disponibles:');
-    console.log('   Ctrl+P: Marcar todos como Presentes');
-    console.log('   Ctrl+A: Marcar todos como Ausentes');
-    console.log('   Ctrl+L: Limpiar todas las selecciones');
 </script>
 {% endblock %}

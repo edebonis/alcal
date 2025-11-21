@@ -28,9 +28,9 @@ urlpatterns = [
     
     # URLs para asistencias POR CURSO (existentes)
     path('ing_asistencia/', views.ing_asistencia, name='ing_asistencia'),  
-    path('ing_asistencia_cur/', views.ing_asistencia_cur, name='ing_asistencia_cur'),  
+    # path('ing_asistencia_cur/', views.ing_asistencia_cur, name='ing_asistencia_cur'),  # Replaced by tomar_asistencia_curso
     path('cons_asistencia/', views.cons_asistencia, name='cons_asistencia'),  
-    path('cons_asistencia_cur/', views.cons_asistencia_cur, name='cons_asistencia_cur'),  
+    # path('cons_asistencia_cur/', views.cons_asistencia_cur, name='cons_asistencia_cur'),  # Replaced by consultar_asistencia_curso
     
     # URLs para asistencias POR ALUMNO (nuevas)
     path('ing_asistencia_alumno/', views.ing_asistencia_alumno, name='ing_asistencia_alumno'),
@@ -44,13 +44,16 @@ urlpatterns = [
     
     # URLs para calificaciones POR CURSO (existentes)
     path('ing_calificaciones/', views.ing_calificaciones, name='ing_calificaciones'),  
-    path('ing_calificaciones_cur/', views.ing_calificaciones_cur, name='ing_calificaciones_cur'),  
+    path('ingresar_calificaciones_curso/', views.ingresar_calificaciones_curso, name='ingresar_calificaciones_curso'),  
     path('cons_calificaciones/', views.cons_calificaciones, name='cons_calificaciones'),  
-    path('cons_calificaciones_cur/', views.cons_calificaciones_cur, name='cons_calificaciones_cur'),  
+    path('cons_calificaciones/', views.cons_calificaciones, name='cons_calificaciones'),  
+    # path('cons_calificaciones_cur/', views.cons_calificaciones_cur, name='cons_calificaciones_cur'),  # Replaced by consultar_calificaciones_curso
+    path('consultar_calificaciones_curso/', views.consultar_calificaciones_curso, name='consultar_calificaciones_curso'),
     
     # URLs para calificaciones POR ALUMNO (nuevas)
     path('ing_calificaciones_alumno/', views.ing_calificaciones_alumno, name='ing_calificaciones_alumno'),
     path('cons_calificaciones_alumno/', views.cons_calificaciones_alumno, name='cons_calificaciones_alumno'),
+    path('consultar_calificaciones_alumno/', views.cons_calificaciones_alumno, name='consultar_calificaciones_alumno'),
     path('ingresar_calificaciones/', views.ingresar_calificaciones, name='ingresar_calificaciones'),
     
     # URLs para observaciones (mantener existentes)

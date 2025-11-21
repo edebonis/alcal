@@ -1,15 +1,16 @@
 # ALCAL - Sistema de Gestión Académica
 
-Sistema integral de gestión para instituciones educativas desarrollado en Django.
+Sistema integral de gestión para instituciones educativas desarrollado en Django con interfaz moderna y premium.
 
 ## 🚀 Características
 
 - **👥 Gestión de Alumnos**: Registro completo con datos familiares
 - **👨‍🏫 Gestión de Docentes**: Control de profesores y materias
 - **🏫 Estructura Académica**: Carreras, cursos, materias y ciclos lectivos
-- **📊 Sistema de Calificaciones**: Notas trimestrales y parciales
-- **📅 Control de Asistencias**: Sistema complejo de códigos de asistencia
+- **📊 Sistema de Calificaciones**: Notas trimestrales y parciales (individual y grupal)
+- **📅 Control de Asistencias**: Sistema complejo de códigos de asistencia (individual y grupal)
 - **📝 Observaciones**: Registro de incidentes y seguimiento estudiantil
+- **🎨 UI/UX Premium**: Diseño moderno con Glassmorphism y branding institucional
 - **🔐 API REST**: Endpoints completos para integración con aplicaciones externas
 - **📖 Documentación Automática**: Swagger UI y ReDoc
 
@@ -206,7 +207,12 @@ Para reportar bugs o solicitar nuevas funcionalidades, crear un issue en GitHub.
 - [x] Implementar Design System (Glassmorphism)
 - [x] Crear Layout con Sidebar moderno
 - [x] Dashboard interactivo con gráficos
-- [x] Refactorizar vistas principales (Asistencia)
+- [x] Refactorizar vistas principales (Asistencia y Calificaciones)
+- [x] **Fase 3.5**: Unificación de estilos y flujos (Consistencia UI/UX)
+  - [x] Modernizar todas las páginas con `base_modern.html`
+  - [x] Implementar backend para formularios individuales
+  - [x] Corregir errores de template y vistas
+  - [x] Integrar branding institucional (favicon + logo)
 
 ### Fase 4 - Funcionalidades Avanzadas (Próxima)
 

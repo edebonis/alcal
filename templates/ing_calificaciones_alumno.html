@@ -1,412 +1,273 @@
-{% extends "base.html" %}
+{% extends "base_modern.html" %}
+{% load static %}
 
-{% block title %}ALCAL - Ingresar Calificaciones por Alumno{% endblock %}
+{% block title %}Ingresar Calificaciones por Alumno - ALCAL{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <!-- Header Section -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card border-primary">
-                <div class="card-header bg-primary text-white">
-                    <h2 class="card-title mb-0">
-                        <i class="fas fa-star me-2"></i>
-                        Ingresar Calificaciones por Alumno
-                    </h2>
-                </div>
-                <div class="card-body">
-                    <p class="lead">Registre las calificaciones de un estudiante específico</p>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
-                            <li class="breadcrumb-item"><a href="{% url 'ingresar_selector' %}">Ingresar</a></li>
-                            <li class="breadcrumb-item"><a href="{% url 'calificaciones_selector' %}">Calificaciones</a>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">Por Alumno</li>
-                        </ol>
-                    </nav>
-                </div>
+<div class="container-fluid">
+
+    <div class="glass-header mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold text-white mb-1">Calificación Individual</h2>
+                <p class="text-white-50 mb-0">Registre las calificaciones de un estudiante específico</p>
             </div>
+            <a href="/ingresar_calificaciones/" class="btn btn-light text-success fw-bold">
+                <i class="bi bi-arrow-left me-2"></i> Volver
+            </a>
         </div>
     </div>
 
-    <!-- Form Section -->
-    <div class="row">
-        <div class="col-lg-10 mx-auto">
-            <div class="card shadow-sm">
-                <div class="card-header bg-light">
-                    <h4 class="card-title mb-0">
-                        <i class="fas fa-edit me-2"></i>
-                        Formulario de Calificaciones
-                    </h4>
-                </div>
-                <div class="card-body">
-                    <form method="post" class="needs-validation" novalidate>
-                        {% csrf_token %}
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="glass-card">
+                <h5 class="fw-bold mb-4 text-success">
+                    <i class="bi bi-journal-check me-2"></i> Formulario de Calificaciones
+                </h5>
 
-                        <!-- Student Selection -->
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <label for="alumno" class="form-label">
-                                    <i class="fas fa-user me-1"></i>
-                                    Seleccionar Alumno *
-                                </label>
-                                <select class="form-select" id="alumno" name="alumno" required>
+                <form method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+
+                    <div class="row g-4">
+                        <!-- Left Column: Selection -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="alumno" class="form-label text-muted small fw-bold">ALUMNO *</label>
+                                <select class="form-select bg-light" id="alumno" name="alumno" required>
                                     <option value="">Seleccione un alumno...</option>
                                     {% for alumno in alumnos %}
                                     <option value="{{ alumno.id }}">{{ alumno.apellido }}, {{ alumno.nombre }} - {{
                                         alumno.curso }}</option>
                                     {% endfor %}
                                 </select>
-                                <div class="invalid-feedback">
-                                    Por favor seleccione un alumno.
-                                </div>
+                                <div class="invalid-feedback">Seleccione un alumno.</div>
                             </div>
 
-                            <div class="col-md-6">
-                                <label for="materia" class="form-label">
-                                    <i class="fas fa-book me-1"></i>
-                                    Materia *
-                                </label>
-                                <select class="form-select" id="materia" name="materia" required>
+                            <div class="mb-3">
+                                <label for="materia" class="form-label text-muted small fw-bold">MATERIA *</label>
+                                <select class="form-select bg-light" id="materia" name="materia" required>
                                     <option value="">Seleccione una materia...</option>
                                     {% for materia in materias %}
                                     <option value="{{ materia.id }}">{{ materia.nombre }}</option>
                                     {% endfor %}
                                 </select>
-                                <div class="invalid-feedback">
-                                    Por favor seleccione una materia.
+                                <div class="invalid-feedback">Seleccione una materia.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label text-muted small fw-bold d-block">TIPO DE CALIFICACIÓN
+                                    *</label>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="tipo_calificacion" id="trimestral"
+                                        value="trimestral" required>
+                                    <label class="btn btn-outline-primary" for="trimestral">Trimestral</label>
+
+                                    <input type="radio" class="btn-check" name="tipo_calificacion" id="parcial"
+                                        value="parcial" required>
+                                    <label class="btn btn-outline-info" for="parcial">Parcial</label>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Grade Type Selection -->
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <label class="form-label">
-                                    <i class="fas fa-clipboard-list me-1"></i>
-                                    Tipo de Calificación *
-                                </label>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="tipo_calificacion"
-                                                id="trimestral" value="trimestral" required>
-                                            <label class="form-check-label" for="trimestral">
-                                                <span class="badge bg-primary me-2">T</span>
-                                                Calificación Trimestral
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="tipo_calificacion"
-                                                id="parcial" value="parcial" required>
-                                            <label class="form-check-label" for="parcial">
-                                                <span class="badge bg-info me-2">P</span>
-                                                Calificación Parcial
-                                            </label>
-                                        </div>
-                                    </div>
+                        <!-- Right Column: Details -->
+                        <div class="col-md-6">
+                            <div id="periodo-section" style="display: none;">
+                                <div class="mb-3">
+                                    <label for="trimestre" class="form-label text-muted small fw-bold"
+                                        id="periodo-label">TRIMESTRE *</label>
+                                    <select class="form-select bg-light" id="trimestre" name="trimestre">
+                                        <option value="">Seleccione...</option>
+                                        <option value="1">Primer Trimestre</option>
+                                        <option value="2">Segundo Trimestre</option>
+                                        <option value="3">Tercer Trimestre</option>
+                                    </select>
                                 </div>
-                                <div class="invalid-feedback">
-                                    Por favor seleccione el tipo de calificación.
+
+                                <div class="mb-3" id="parcial-section" style="display: none;">
+                                    <label for="parcial_numero" class="form-label text-muted small fw-bold">NÚMERO DE
+                                        PARCIAL *</label>
+                                    <select class="form-select bg-light" id="parcial_numero" name="parcial_numero">
+                                        <option value="">Seleccione...</option>
+                                        <option value="1">Primer Parcial</option>
+                                        <option value="2">Segundo Parcial</option>
+                                        <option value="3">Tercer Parcial</option>
+                                        <option value="4">Cuarto Parcial</option>
+                                    </select>
                                 </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label for="calificacion" class="form-label text-muted small fw-bold">NOTA (1-10)
+                                        *</label>
+                                    <input type="number" class="form-control bg-light fw-bold text-center fs-5"
+                                        id="calificacion" name="calificacion" min="1" max="10" step="0.1" required>
+                                </div>
+                                <div class="col-6">
+                                    <label for="fecha" class="form-label text-muted small fw-bold">FECHA *</label>
+                                    <input type="date" class="form-control bg-light" id="fecha" name="fecha" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="estado" class="form-label text-muted small fw-bold">ESTADO
+                                    AUTOMÁTICO</label>
+                                <input type="text" class="form-control-plaintext fw-bold" id="estado_display" value="-"
+                                    readonly>
+                                <input type="hidden" name="estado" id="estado">
                             </div>
                         </div>
-
-                        <!-- Trimester/Period Selection -->
-                        <div class="row mb-4" id="periodo-section" style="display: none;">
-                            <div class="col-md-6">
-                                <label for="trimestre" class="form-label" id="periodo-label">
-                                    <i class="fas fa-calendar-alt me-1"></i>
-                                    Trimestre *
-                                </label>
-                                <select class="form-select" id="trimestre" name="trimestre">
-                                    <option value="">Seleccione...</option>
-                                    <option value="1">Primer Trimestre</option>
-                                    <option value="2">Segundo Trimestre</option>
-                                    <option value="3">Tercer Trimestre</option>
-                                </select>
-                                <div class="invalid-feedback">
-                                    Por favor seleccione el período.
-                                </div>
-                            </div>
-
-                            <div class="col-md-6" id="parcial-section" style="display: none;">
-                                <label for="parcial_numero" class="form-label">
-                                    <i class="fas fa-list-ol me-1"></i>
-                                    Número de Parcial *
-                                </label>
-                                <select class="form-select" id="parcial_numero" name="parcial_numero">
-                                    <option value="">Seleccione...</option>
-                                    <option value="1">Primer Parcial</option>
-                                    <option value="2">Segundo Parcial</option>
-                                    <option value="3">Tercer Parcial</option>
-                                    <option value="4">Cuarto Parcial</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Grade Input -->
-                        <div class="row mb-4">
-                            <div class="col-md-4">
-                                <label for="calificacion" class="form-label">
-                                    <i class="fas fa-star me-1"></i>
-                                    Calificación *
-                                </label>
-                                <input type="number" class="form-control" id="calificacion" name="calificacion" min="1"
-                                    max="10" step="0.1" required>
-                                <div class="form-text">Escala del 1 al 10</div>
-                                <div class="invalid-feedback">
-                                    Por favor ingrese una calificación válida (1-10).
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <label for="fecha" class="form-label">
-                                    <i class="fas fa-calendar me-1"></i>
-                                    Fecha *
-                                </label>
-                                <input type="date" class="form-control" id="fecha" name="fecha" required>
-                                <div class="invalid-feedback">
-                                    Por favor ingrese una fecha válida.
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <label for="estado" class="form-label">
-                                    <i class="fas fa-check-circle me-1"></i>
-                                    Estado
-                                </label>
-                                <select class="form-select" id="estado" name="estado">
-                                    <option value="A">Aprobado</option>
-                                    <option value="R">Regular</option>
-                                    <option value="D">Desaprobado</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Observations -->
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <label for="observaciones" class="form-label">
-                                    <i class="fas fa-comment me-1"></i>
-                                    Observaciones (opcional)
-                                </label>
-                                <textarea class="form-control" id="observaciones" name="observaciones" rows="3"
-                                    placeholder="Agregue cualquier observación sobre la calificación..."></textarea>
-                            </div>
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <a href="{% url 'calificaciones_selector' %}"
-                                        class="btn btn-outline-secondary me-md-2">
-                                        <i class="fas fa-arrow-left me-2"></i>
-                                        Volver
-                                    </a>
-                                    <button type="reset" class="btn btn-outline-warning me-md-2">
-                                        <i class="fas fa-undo me-2"></i>
-                                        Limpiar
-                                    </button>
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-save me-2"></i>
-                                        Guardar Calificación
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Help Section -->
-    <div class="row mt-4">
-        <div class="col-12">
-            <div class="alert alert-info">
-                <h5 class="alert-heading">
-                    <i class="fas fa-info-circle me-2"></i>
-                    Información sobre Calificaciones
-                </h5>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h6>Tipos de Calificación:</h6>
-                        <ul class="mb-0">
-                            <li><strong>Trimestral:</strong> Calificación final del trimestre</li>
-                            <li><strong>Parcial:</strong> Calificaciones parciales dentro del trimestre</li>
-                        </ul>
                     </div>
-                    <div class="col-md-6">
-                        <h6>Estados:</h6>
-                        <ul class="mb-0">
-                            <li><strong>Aprobado:</strong> Calificación ≥ 7</li>
-                            <li><strong>Regular:</strong> Calificación entre 4-6</li>
-                            <li><strong>Desaprobado:</strong> Calificación < 4</li>
-                        </ul>
+
+                    <div class="mb-4">
+                        <label for="observaciones" class="form-label text-muted small fw-bold">OBSERVACIONES
+                            (OPCIONAL)</label>
+                        <textarea class="form-control bg-light" id="observaciones" name="observaciones" rows="2"
+                            placeholder="Comentarios sobre el desempeño..."></textarea>
                     </div>
-                </div>
+
+                    <!-- Action Buttons -->
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end border-top pt-3">
+                        <button type="reset" class="btn btn-light me-md-2">
+                            <i class="bi bi-arrow-counterclockwise me-2"></i> Limpiar
+                        </button>
+                        <button type="submit" class="btn btn-premium px-4">
+                            <i class="bi bi-save me-2"></i> Guardar Calificación
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
     <!-- Recent Records -->
-    <div class="row mt-4">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">
-                        <i class="fas fa-history me-2"></i>
-                        Calificaciones Recientes
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-sm table-hover">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Fecha</th>
-                                    <th>Alumno</th>
-                                    <th>Materia</th>
-                                    <th>Tipo</th>
-                                    <th>Calificación</th>
-                                    <th>Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% if calificaciones_recientes %}
-                                {% for calificacion in calificaciones_recientes %}
-                                <tr>
-                                    <td>{{ calificacion.fecha|date:"d/m/Y" }}</td>
-                                    <td>{{ calificacion.alumno.apellido }}, {{ calificacion.alumno.nombre }}</td>
-                                    <td>{{ calificacion.materia.nombre }}</td>
-                                    <td>
-                                        {% if calificacion.tipo == 'trimestral' %}
-                                        <span class="badge bg-primary">Trimestral</span>
-                                        {% else %}
-                                        <span class="badge bg-info">Parcial</span>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        <span
-                                            class="badge {% if calificacion.calificacion >= 7 %}bg-success{% elif calificacion.calificacion >= 4 %}bg-warning{% else %}bg-danger{% endif %}">
-                                            {{ calificacion.calificacion }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        {% if calificacion.estado == 'A' %}
-                                        <span class="badge bg-success">Aprobado</span>
-                                        {% elif calificacion.estado == 'R' %}
-                                        <span class="badge bg-warning">Regular</span>
-                                        {% else %}
-                                        <span class="badge bg-danger">Desaprobado</span>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                                {% else %}
-                                <tr>
-                                    <td colspan="6" class="text-center text-muted">No hay calificaciones recientes</td>
-                                </tr>
-                                {% endif %}
-                            </tbody>
-                        </table>
-                    </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-lg-10">
+            <div class="glass-card">
+                <h6 class="fw-bold mb-3 text-muted text-uppercase small">Calificaciones Recientes</h6>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle modern-table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Alumno</th>
+                                <th>Materia</th>
+                                <th>Tipo</th>
+                                <th>Nota</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if calificaciones_recientes %}
+                            {% for calificacion in calificaciones_recientes %}
+                            <tr>
+                                <td>{{ calificacion.fecha|date:"d/m/Y" }}</td>
+                                <td>{{ calificacion.alumno.apellido }}, {{ calificacion.alumno.nombre }}</td>
+                                <td>{{ calificacion.materia.nombre }}</td>
+                                <td>
+                                    {% if calificacion.tipo == 'trimestral' %}
+                                    <span class="badge bg-soft-primary text-primary rounded-pill">Trimestral</span>
+                                    {% else %}
+                                    <span class="badge bg-soft-info text-info rounded-pill">Parcial</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <span
+                                        class="fw-bold {% if calificacion.calificacion >= 7 %}text-success{% elif calificacion.calificacion >= 4 %}text-warning{% else %}text-danger{% endif %}">
+                                        {{ calificacion.calificacion }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if calificacion.estado == 'A' %}
+                                    <span class="badge bg-soft-success text-success rounded-pill">Aprobado</span>
+                                    {% elif calificacion.estado == 'R' %}
+                                    <span class="badge bg-soft-warning text-warning rounded-pill">Regular</span>
+                                    {% else %}
+                                    <span class="badge bg-soft-danger text-danger rounded-pill">Desaprobado</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <tr>
+                                <td colspan="6" class="text-center text-muted py-4">No hay calificaciones recientes</td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
 <script>
-    // Set today's date as default
-    document.getElementById('fecha').valueAsDate = new Date();
+    document.addEventListener('DOMContentLoaded', function () {
+        // Set today's date
+        document.getElementById('fecha').valueAsDate = new Date();
 
-    // Show/hide period sections based on grade type
-    document.querySelectorAll('input[name="tipo_calificacion"]').forEach(function (radio) {
-        radio.addEventListener('change', function () {
-            const periodoSection = document.getElementById('periodo-section');
-            const parcialSection = document.getElementById('parcial-section');
-            const periodoLabel = document.getElementById('periodo-label');
-            const trimestreSelect = document.getElementById('trimestre');
+        // Show/hide period sections
+        const radios = document.querySelectorAll('input[name="tipo_calificacion"]');
+        const periodoSection = document.getElementById('periodo-section');
+        const parcialSection = document.getElementById('parcial-section');
+        const trimestreSelect = document.getElementById('trimestre');
 
-            if (this.value === 'trimestral') {
+        radios.forEach(radio => {
+            radio.addEventListener('change', function () {
                 periodoSection.style.display = 'block';
-                parcialSection.style.display = 'none';
-                periodoLabel.innerHTML = '<i class="fas fa-calendar-alt me-1"></i>Trimestre *';
-                trimestreSelect.required = true;
-            } else if (this.value === 'parcial') {
-                periodoSection.style.display = 'block';
-                parcialSection.style.display = 'block';
-                periodoLabel.innerHTML = '<i class="fas fa-calendar-alt me-1"></i>Trimestre *';
-                trimestreSelect.required = true;
+                periodoSection.classList.add('animate__animated', 'animate__fadeIn');
+
+                if (this.value === 'trimestral') {
+                    parcialSection.style.display = 'none';
+                    trimestreSelect.required = true;
+                } else if (this.value === 'parcial') {
+                    parcialSection.style.display = 'block';
+                    trimestreSelect.required = true;
+                }
+            });
+        });
+
+        // Auto-set status
+        const calificacionInput = document.getElementById('calificacion');
+        const estadoInput = document.getElementById('estado');
+        const estadoDisplay = document.getElementById('estado_display');
+
+        calificacionInput.addEventListener('input', function () {
+            const grade = parseFloat(this.value);
+            if (!isNaN(grade)) {
+                if (grade >= 7) {
+                    estadoInput.value = 'A';
+                    estadoDisplay.value = 'APROBADO';
+                    estadoDisplay.className = 'form-control-plaintext fw-bold text-success';
+                } else if (grade >= 4) {
+                    estadoInput.value = 'R';
+                    estadoDisplay.value = 'REGULAR';
+                    estadoDisplay.className = 'form-control-plaintext fw-bold text-warning';
+                } else {
+                    estadoInput.value = 'D';
+                    estadoDisplay.value = 'DESAPROBADO';
+                    estadoDisplay.className = 'form-control-plaintext fw-bold text-danger';
+                }
+            } else {
+                estadoDisplay.value = '-';
+                estadoDisplay.className = 'form-control-plaintext fw-bold';
             }
         });
+
+        // Bootstrap validation
+        var forms = document.querySelectorAll('.needs-validation');
+        Array.prototype.slice.call(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
     });
-
-    // Auto-set status based on grade
-    document.getElementById('calificacion').addEventListener('input', function () {
-        const grade = parseFloat(this.value);
-        const statusSelect = document.getElementById('estado');
-
-        if (grade >= 7) {
-            statusSelect.value = 'A';
-        } else if (grade >= 4) {
-            statusSelect.value = 'R';
-        } else if (grade > 0) {
-            statusSelect.value = 'D';
-        }
-    });
-
-    // Bootstrap form validation
-    (function () {
-        'use strict';
-        window.addEventListener('load', function () {
-            var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms, function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
 </script>
-
-<style>
-    .form-check-label {
-        cursor: pointer;
-    }
-
-    .badge {
-        font-size: 0.8rem;
-    }
-
-    .alert {
-        border-radius: 10px;
-    }
-
-    .card {
-        border-radius: 12px;
-    }
-
-    .card-header {
-        border-radius: 12px 12px 0 0 !important;
-    }
-
-    #calificacion:invalid {
-        border-color: #dc3545;
-    }
-
-    #calificacion:valid {
-        border-color: #198754;
-    }
-</style>
 {% endblock %}
