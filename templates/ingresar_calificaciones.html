@@ -1,117 +1,89 @@
-{% extends "base.html" %}
+{% extends "base_modern.html" %}
 {% load static %}
 
-{% block title %}Ingresar Calificaciones - ALCAL Sistema Académico{% endblock %}
-
-{% block content_title %}
-<div class="alcal-header">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-8">
-                <h1 class="display-5 mb-0">
-                    <i class="bi bi-journal-plus"></i> Ingresar Calificaciones
-                </h1>
-                <p class="lead mb-0 mt-2">Registrar notas y evaluaciones de estudiantes</p>
-            </div>
-            <div class="col-md-4 text-end">
-                <a href="/ingresar/" class="btn btn-outline-light">
-                    <i class="bi bi-arrow-left"></i> Volver
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
-{% block breadcrumbs %}
-<div class="container">
-    <nav class="alcal-breadcrumb" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <i class="bi bi-house-door"></i>
-                <a href="/">Inicio</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a href="/ingresar/">Ingresar</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">
-                <i class="bi bi-journal-plus"></i> Calificaciones
-            </li>
-        </ol>
-    </nav>
-</div>
-{% endblock %}
+{% block title %}Ingresar Calificaciones - ALCAL{% endblock %}
 
 {% block content %}
-<div class="container alcal-fade-in-up">
+<div class="container-fluid">
 
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-
-            <!-- Info Card -->
-            <div class="alert alcal-alert alert-success d-flex align-items-center mb-4">
-                <i class="bi bi-info-circle-fill"></i>
-                <div>
-                    <strong>Módulo en Desarrollo</strong><br>
-                    Esta funcionalidad está siendo desarrollada. Pronto estará disponible.
-                </div>
+    <div class="glass-header mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold text-white mb-1">Ingresar Calificaciones</h2>
+                <p class="text-white-50 mb-0">Registro académico de notas</p>
             </div>
-
-            <!-- Placeholder Form -->
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">
-                        <i class="bi bi-journal-plus"></i>
-                        Formulario de Calificaciones
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <form>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="student" class="form-label">Estudiante</label>
-                                <select class="form-select" disabled>
-                                    <option>Seleccionar estudiante...</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="subject" class="form-label">Materia</label>
-                                <select class="form-select" disabled>
-                                    <option>Seleccionar materia...</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="evaluation" class="form-label">Tipo de Evaluación</label>
-                                <select class="form-select" disabled>
-                                    <option>Examen Parcial</option>
-                                    <option>Trabajo Práctico</option>
-                                    <option>Examen Final</option>
-                                    <option>Evaluación Continua</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="grade" class="form-label">Calificación</label>
-                                <input type="number" class="form-control" min="1" max="10" step="0.1" disabled
-                                    placeholder="Ingrese la nota (1-10)">
-                            </div>
-                            <div class="col-12">
-                                <label for="observations" class="form-label">Observaciones</label>
-                                <textarea class="form-control" rows="3" disabled
-                                    placeholder="Comentarios sobre la evaluación (opcional)..."></textarea>
-                            </div>
-                        </div>
-
-                        <div class="mt-3 text-center">
-                            <button type="button" class="btn btn-secondary" disabled>
-                                <i class="bi bi-save"></i> Guardar Calificación
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
+            <a href="/cons_calificaciones/" class="btn btn-light text-success fw-bold">
+                <i class="bi bi-search me-2"></i> Consultar Notas
+            </a>
         </div>
     </div>
 
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="glass-card">
+                <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active rounded-pill px-4" id="pills-curso-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-curso" type="button" role="tab">
+                            <i class="bi bi-collection me-2"></i> Por Curso
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link rounded-pill px-4" id="pills-alumno-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-alumno" type="button" role="tab">
+                            <i class="bi bi-person me-2"></i> Por Alumno
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="pills-tabContent">
+                    <!-- Por Curso -->
+                    <div class="tab-pane fade show active" id="pills-curso" role="tabpanel">
+                        <form action="/ingresar_calificaciones_curso/" method="get">
+                            <div class="mb-3">
+                                <label class="form-label text-muted small fw-bold">CURSO</label>
+                                <select name="curso" class="form-select bg-light">
+                                    <option value="">-- Seleccione --</option>
+                                    {% for curso in cursos %}
+                                    <option value="{{ curso.id }}">{{ curso }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label text-muted small fw-bold">MATERIA</label>
+                                <select name="materia" class="form-select bg-light">
+                                    <option value="">-- Seleccione --</option>
+                                    {% for materia in materias %}
+                                    <option value="{{ materia.id }}">{{ materia }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-premium w-100 py-2">
+                                <i class="bi bi-arrow-right-circle me-2"></i> Continuar
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Por Alumno -->
+                    <div class="tab-pane fade" id="pills-alumno" role="tabpanel">
+                        <form action="/ingresar_calificaciones_alumno/" method="get">
+                            <div class="mb-4">
+                                <label class="form-label text-muted small fw-bold">BUSCAR ALUMNO</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i
+                                            class="bi bi-search"></i></span>
+                                    <input type="text" name="q" class="form-control bg-light border-start-0 ps-0"
+                                        placeholder="Nombre, Apellido o DNI...">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-premium w-100 py-2">
+                                <i class="bi bi-search me-2"></i> Buscar Alumno
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

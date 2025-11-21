@@ -1,169 +1,82 @@
-{% extends "base.html" %}
+{% extends "base_modern.html" %}
 {% load static %}
 
-{% block title %}Ingresar Datos - ALCAL Sistema Académico{% endblock %}
-
-{% block content_title %}
-<div class="alcal-header">
-	<div class="container">
-		<div class="row align-items-center">
-			<div class="col-md-8">
-				<h1 class="display-5 mb-0">
-					<i class="bi bi-plus-circle"></i> Ingresar Datos
-				</h1>
-				<p class="lead mb-0 mt-2">Registrar nueva información académica</p>
-			</div>
-			<div class="col-md-4 text-end">
-				<a href="/" class="btn btn-outline-light">
-					<i class="bi bi-arrow-left"></i> Volver al Dashboard
-				</a>
-			</div>
-		</div>
-	</div>
-</div>
-{% endblock %}
-
-{% block breadcrumbs %}
-<div class="container">
-	<nav class="alcal-breadcrumb" aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item">
-				<i class="bi bi-house-door"></i>
-				<a href="/">Inicio</a>
-			</li>
-			<li class="breadcrumb-item active" aria-current="page">
-				<i class="bi bi-plus-circle"></i> Ingresar Datos
-			</li>
-		</ol>
-	</nav>
-</div>
-{% endblock %}
+{% block title %}Ingresar Datos - ALCAL{% endblock %}
 
 {% block content %}
-<div class="container alcal-fade-in-up">
+<div class="container-fluid">
 
-	<!-- Descripción de la sección -->
-	<div class="row mb-4">
-		<div class="col-md-12">
-			<div class="alert alcal-alert alert-success d-flex align-items-center">
-				<i class="bi bi-plus-circle-fill"></i>
-				<div>
-					<strong>Centro de Ingreso de Datos</strong><br>
-					Selecciona el tipo de información que deseas registrar
-				</div>
-			</div>
-		</div>
+	<div class="glass-header mb-4">
+		<h2 class="fw-bold text-white mb-1">Ingreso de Datos</h2>
+		<p class="text-white-50 mb-0">Seleccione el tipo de información a registrar</p>
 	</div>
 
-	<!-- Opciones de ingreso -->
 	<div class="row g-4">
-
-		<!-- Asistencias -->
+		<!-- Asistencia -->
 		<div class="col-md-4">
-			<a href="/ing_asistencia" class="text-decoration-none">
-				<div class="card alcal-nav-card h-100">
-					<div class="card-body text-center">
-						<div class="mb-3">
-							<i class="bi bi-clipboard-plus text-alcal-primary" style="font-size: 4rem;"></i>
+			<div class="glass-card h-100 p-0 overflow-hidden hover-scale">
+				<div class="p-4 bg-soft-primary">
+					<div class="d-flex align-items-center mb-3">
+						<div class="stat-icon blue me-3">
+							<i class="bi bi-clipboard-check"></i>
 						</div>
-						<h5 class="card-title text-alcal-primary">Ingresar Asistencias</h5>
-						<p class="card-text text-muted">
-							Registrar asistencia de estudiantes por curso y materia
-						</p>
-						<div class="d-grid gap-2">
-							<div class="btn btn-alcal-primary">
-								<i class="bi bi-plus"></i> Registrar Asistencias
-							</div>
-						</div>
-
-						<!-- Características -->
-						<div class="mt-3">
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Por curso
-							</small>
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Por materia
-							</small>
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Por fecha
-							</small>
-						</div>
+						<h4 class="fw-bold mb-0">Asistencia</h4>
 					</div>
+					<p class="text-muted small mb-0">Registro de presentes, ausentes y tardanzas.</p>
 				</div>
-			</a>
+				<div class="p-3 border-top">
+					<a href="/tomar_asistencia_curso/" class="btn btn-light w-100 mb-2 text-start">
+						<i class="bi bi-collection me-2 text-primary"></i> Por Curso (Grupal)
+					</a>
+					<a href="/ingresar_asistencia_alumno/" class="btn btn-light w-100 text-start">
+						<i class="bi bi-person me-2 text-primary"></i> Por Alumno (Individual)
+					</a>
+				</div>
+			</div>
 		</div>
 
 		<!-- Calificaciones -->
 		<div class="col-md-4">
-			<a href="/ing_calificaciones" class="text-decoration-none">
-				<div class="card alcal-nav-card h-100">
-					<div class="card-body text-center">
-						<div class="mb-3">
-							<i class="bi bi-journal-plus text-alcal-success" style="font-size: 4rem;"></i>
+			<div class="glass-card h-100 p-0 overflow-hidden hover-scale">
+				<div class="p-4 bg-soft-success">
+					<div class="d-flex align-items-center mb-3">
+						<div class="stat-icon green me-3">
+							<i class="bi bi-bar-chart-fill"></i>
 						</div>
-						<h5 class="card-title text-alcal-success">Ingresar Calificaciones</h5>
-						<p class="card-text text-muted">
-							Registrar notas y evaluaciones de estudiantes
-						</p>
-						<div class="d-grid gap-2">
-							<div class="btn btn-alcal-success">
-								<i class="bi bi-plus"></i> Registrar Calificaciones
-							</div>
-						</div>
-
-						<!-- Características -->
-						<div class="mt-3">
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Exámenes
-							</small>
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Trabajos prácticos
-							</small>
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Evaluaciones
-							</small>
-						</div>
+						<h4 class="fw-bold mb-0">Calificaciones</h4>
 					</div>
+					<p class="text-muted small mb-0">Carga de notas de exámenes y trabajos.</p>
 				</div>
-			</a>
+				<div class="p-3 border-top">
+					<a href="/ing_calificaciones_cur/" class="btn btn-light w-100 mb-2 text-start">
+						<i class="bi bi-grid-3x3-gap me-2 text-success"></i> Por Curso (Masivo)
+					</a>
+					<a href="/ing_calificaciones_alumno/" class="btn btn-light w-100 text-start">
+						<i class="bi bi-person-lines-fill me-2 text-success"></i> Por Alumno (Individual)
+					</a>
+				</div>
+			</div>
 		</div>
 
 		<!-- Observaciones -->
 		<div class="col-md-4">
-			<a href="/ing_observaciones" class="text-decoration-none">
-				<div class="card alcal-nav-card h-100">
-					<div class="card-body text-center">
-						<div class="mb-3">
-							<i class="bi bi-chat-left-dots text-alcal-warning" style="font-size: 4rem;"></i>
+			<div class="glass-card h-100 p-0 overflow-hidden hover-scale">
+				<div class="p-4 bg-soft-warning">
+					<div class="d-flex align-items-center mb-3">
+						<div class="stat-icon orange me-3">
+							<i class="bi bi-chat-left-text-fill"></i>
 						</div>
-						<h5 class="card-title text-alcal-warning">Ingresar Observaciones</h5>
-						<p class="card-text text-muted">
-							Registrar observaciones disciplinarias y académicas
-						</p>
-						<div class="d-grid gap-2">
-							<div class="btn btn-alcal-warning">
-								<i class="bi bi-plus"></i> Registrar Observaciones
-							</div>
-						</div>
-
-						<!-- Características -->
-						<div class="mt-3">
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Disciplinarias
-							</small>
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Académicas
-							</small>
-							<small class="text-muted d-block">
-								<i class="bi bi-check-circle"></i> Seguimiento
-							</small>
-						</div>
+						<h4 class="fw-bold mb-0">Observaciones</h4>
 					</div>
+					<p class="text-muted small mb-0">Notas de conducta y seguimiento.</p>
 				</div>
-			</a>
+				<div class="p-3 border-top">
+					<a href="/ingresar_observaciones/" class="btn btn-light w-100 text-start">
+						<i class="bi bi-pencil-square me-2 text-warning"></i> Nueva Observación
+					</a>
+				</div>
+			</div>
 		</div>
-
 	</div>
-
 </div>
 {% endblock %}
