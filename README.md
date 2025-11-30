@@ -24,19 +24,21 @@ El colegio ofrece dos carreras:
 
 ## 📊 Estado Actual
 
-**Base de datos actualizada al: 21/11/2025**
+## 📊 Estado Actual
+
+**Base de datos actualizada al: 30/11/2025**
 
 - ✅ 2 Carreras
 - ✅ 13 Cursos
-- ✅ 83 Docentes
-- ✅ 159 Materias
-- ✅ 396 Alumnos
+- ✅ Gestión completa de Docentes y Alumnos
+- ✅ Sistema de Asistencias y Calificaciones funcional
+- ✅ Despliegue en PythonAnywhere configurado
 
 ## 🚀 Inicio Rápido
 
 ### Requisitos Previos
 
-- Python 3.8+
+- Python 3.10+
 - pip
 - virtualenv (opcional pero recomendado)
 
@@ -49,7 +51,7 @@ cd /home/esteban/Documentos/alcal
 # Activar entorno virtual
 source venv/bin/activate
 
-# Instalar dependencias (si es necesario)
+# Instalar dependencias
 pip install -r requirements.txt
 
 # Ejecutar migraciones
@@ -59,17 +61,20 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-### Importar Datos
+### Datos de Prueba (Demo)
 
-Para cargar los datos del colegio desde los archivos CSV:
+Para probar el sistema sin necesidad de los archivos CSV reales, puedes generar datos ficticios:
 
 ```bash
-# Opción 1: Recrear base de datos desde cero (recomendado)
-rm -f db.sqlite3
-python manage.py migrate
-python scripts/import_data.py
+# Genera alumnos, docentes, cursos y materias con datos falsos
+python scripts/populate_fake_data.py
+```
 
-# Opción 2: El script limpia automáticamente los datos existentes
+### Importar Datos Reales (Legacy)
+
+Si cuentas con los archivos CSV originales (`Legajo Docente - Legajo.csv`, etc.):
+
+```bash
 python scripts/import_data.py
 ```
 
@@ -80,6 +85,16 @@ python manage.py runserver 8008
 ```
 
 Acceder a: http://localhost:8008
+
+## ☁️ Despliegue (PythonAnywhere)
+
+Este proyecto está configurado para desplegarse fácilmente en [PythonAnywhere](https://www.pythonanywhere.com/).
+
+1. **Configuración**: Usa `Whitenoise` para estáticos.
+2. **WSGI**: Configurar el archivo WSGI apuntando a `alcal.settings`.
+3. **Base de Datos**: SQLite es persistente y soportada por defecto.
+
+Ver `ARCHITECTURE.md` para más detalles de despliegue.
 
 ## 📁 Estructura del Proyecto
 

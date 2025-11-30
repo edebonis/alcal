@@ -1,6 +1,6 @@
 # ALCAL - Arquitectura del Sistema
 
-**Última actualización**: 2025-11-22
+**Última actualización**: 2025-11-30
 
 ---
 
@@ -396,9 +396,9 @@ Mensajes de feedback
 
 ### Scripts Disponibles
 
-- **`check_templates.py`**: Valida sintaxis de todas las plantillas del proyecto
-  - Ejecutar después de modificar templates
-  - Llama a `django.setup()` y usa `loader.get_template()`
+- **`check_templates.py`**: Valida sintaxis de todas las plantillas del proyecto.
+- **`scripts/populate_fake_data.py`**: Genera datos de prueba (alumnos, docentes, cursos) usando `Faker`. Ideal para entornos de demo.
+- **`scripts/import_data.py`**: Importa datos reales desde CSVs (requiere archivos originales).
 
 ### Comandos de Gestión
 
@@ -407,7 +407,26 @@ python manage.py check           # Verificar configuración
 python manage.py migrate         # Aplicar migraciones
 python manage.py test            # Ejecutar tests
 python check_templates.py        # Validar templates
+python scripts/populate_fake_data.py # Cargar datos demo
 ```
+
+---
+
+## ☁️ Despliegue y Producción
+
+### PythonAnywhere
+
+El proyecto está optimizado para despliegue en PythonAnywhere:
+
+1. **Archivos Estáticos**: Se utiliza `Whitenoise` con `CompressedManifestStaticFilesStorage` para servir CSS/JS eficientemente sin necesidad de Nginx/Apache adicional.
+2. **Base de Datos**: SQLite se mantiene como base de datos por defecto para facilitar el despliegue gratuito, aunque se recomienda PostgreSQL para alta concurrencia.
+3. **Dependencias**: `requirements.txt` ha sido optimizado para incluir solo lo necesario.
+
+### Configuración de Entorno
+
+- **DEBUG**: Debe estar en `False` en producción.
+- **SECRET_KEY**: Debe configurarse vía variable de entorno o `.env`.
+- **ALLOWED_HOSTS**: Debe incluir el dominio de PythonAnywhere (ej: `usuario.pythonanywhere.com`).
 
 ---
 

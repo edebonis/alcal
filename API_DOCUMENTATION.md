@@ -298,4 +298,4 @@ class AsistenciaViewSet(viewsets.ModelViewSet):
 ---
 
 **Versión**: 1.0.0  
-**Última actualización**: 2025-11-21
+**Última actualización**: 2025-11-30
