@@ -11,7 +11,7 @@ from docentes import views as docentes_views
 urlpatterns = [
     # Home and admin
     path('', views.home, name='home'),
-    path('grappelli/', include('grappelli.urls')),
+    # path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
     path('chaining/', include('smart_selects.urls')),
 
