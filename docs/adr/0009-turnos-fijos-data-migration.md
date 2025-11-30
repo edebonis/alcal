@@ -13,9 +13,11 @@ Los turnos se definen como **datos fijos** en la base de datos mediante una migr
 
 ### Turnos Definidos
 
-1. **Mañana**: 08:00 - 12:30
-2. **Tarde**: 13:30 - 17:30
-3. **Educación Física**: 14:00 - 16:00
+1. **Mañana**
+2. **Tarde**
+3. **Educación Física**
+
+Los horarios específicos no se almacenan en la base de datos ya que no son necesarios para el funcionamiento del sistema de asistencias.
 
 ### Implementación
 
@@ -52,16 +54,20 @@ Los turnos se definen como **datos fijos** en la base de datos mediante una migr
 
 ## Modificaciones Futuras
 
-Si se necesita cambiar los horarios de los turnos:
+Si se necesita agregar información adicional a los turnos (ej: horarios, descripción extendida):
 
 ```python
-# Nueva migración: 0004_actualizar_horarios_turnos.py
-def actualizar_horarios(apps, schema_editor):
-    Turno = apps.get_model('asistencias', 'Turno')
-    
-    turno_manana = Turno.objects.get(nombre='mañana')
-    turno_manana.hora_inicio = time(7, 45)  # Nuevo horario
-    turno_manana.save()
+# Nueva migración: 0005_agregar_campo_a_turno.py
+from django.db import migrations, models
+
+class Migration(migrations.Migration):
+    operations = [
+        migrations.AddField(
+            model_name='turno',
+            name='descripcion',
+            field=models.TextField(blank=True),
+        ),
+    ]
 ```
 
 ## Referencias

@@ -26,8 +26,12 @@ class ReglaAsistenciaAdmin(admin.ModelAdmin):
 
 
 class TurnoAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'hora_inicio', 'hora_fin')
-    list_filter = ('nombre',)
+    list_display = ('nombre', 'get_nombre_display')
+    
+    def get_nombre_display(self, obj):
+        return obj.get_nombre_display()
+    get_nombre_display.short_description = 'Descripción'
+
 
 
 class AsistenciaAdmin(admin.ModelAdmin):

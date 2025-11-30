@@ -57,14 +57,13 @@ class Turno(models.Model):
 		('educacion_fisica', 'Educación Física'),
 	)
 	nombre = models.CharField(max_length=20, choices=TURNO_CHOICES, unique=True)
-	hora_inicio = models.TimeField()
-	hora_fin = models.TimeField()
 	
 	def __str__(self):
-		return f"{self.get_nombre_display()} ({self.hora_inicio} - {self.hora_fin})"
+		return self.get_nombre_display()
 	
 	class Meta:
 		verbose_name_plural = "Turnos"
+
 
 
 class Asistencia(models.Model):
