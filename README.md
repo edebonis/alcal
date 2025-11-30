@@ -44,20 +44,45 @@ El colegio ofrece dos carreras:
 
 ### Instalación
 
-```bash
-# Clonar o acceder al directorio del proyecto
-cd /home/esteban/Documentos/alcal
+#### 🐧 Linux / macOS
 
-# Activar entorno virtual
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/edebonis/alcal.git
+cd alcal
+
+# 2. Crear y activar entorno virtual
+python3 -m venv venv
 source venv/bin/activate
 
-# Instalar dependencias
+# 3. Instalar dependencias
 pip install -r requirements.txt
 
-# Ejecutar migraciones
+# 4. Configurar base de datos
 python manage.py migrate
 
-# Crear superusuario para el admin (opcional)
+# 5. Crear superusuario (opcional)
+python manage.py createsuperuser
+```
+
+#### 🪟 Windows
+
+```powershell
+# 1. Clonar el repositorio
+git clone https://github.com/edebonis/alcal.git
+cd alcal
+
+# 2. Crear y activar entorno virtual
+python -m venv venv
+.\venv\Scripts\activate
+
+# 3. Instalar dependencias
+pip install -r requirements.txt
+
+# 4. Configurar base de datos
+python manage.py migrate
+
+# 5. Crear superusuario (opcional)
 python manage.py createsuperuser
 ```
 
