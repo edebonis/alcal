@@ -1,6 +1,6 @@
-# Sistema ALCAL - Colegio Sagrado Corazón
+# Sistema ALCAL - Sagrado Corazón ALCAL
 
-Sistema de Administración de Legajos Escolares para el Colegio Sagrado Corazón de Alcalá.
+Sistema de Administración de Legajos Escolares para el Sagrado Corazón ALCAL.
 
 ## 📋 Descripción
 
@@ -225,5 +225,5 @@ Para preguntas o problemas, contactar al administrador del sistema.
 
 ---
 
-**Sistema ALCAL** - Colegio Sagrado Corazón de Alcalá  
+**Sistema ALCAL** - Sagrado Corazón ALCAL  
 Desarrollado con Django

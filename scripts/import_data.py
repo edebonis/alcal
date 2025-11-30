@@ -1,5 +1,5 @@
 """
-Script para importar datos desde los archivos CSV del colegio Sagrado Corazón.
+Script para importar datos desde los archivos CSV del Sagrado Corazón ALCAL.
 """
 import os
 import sys

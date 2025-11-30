@@ -1,6 +1,6 @@
 # Documentación de Modelos de Datos - Sistema ALCAL
 
-## Colegio Sagrado Corazón - Sistema de Gestión Escolar
+## Sagrado Corazón ALCAL - Sistema de Gestión Escolar
 
 **Fecha:** 21 de Noviembre, 2025  
 **Versión:** 1.0  
@@ -25,7 +25,7 @@
 
 ## Resumen Ejecutivo
 
-El sistema ALCAL (Administración de Legajos Escolares del Colegio Sagrado Corazón) gestiona la información académica de una institución educativa con dos carreras principales:
+El sistema ALCAL (Administración de Legajos Escolares del Sagrado Corazón ALCAL) gestiona la información académica de una institución educativa con dos carreras principales:
 
 - **Bachillerato con orientación en Economía** (6 años - Cursos A)
 - **Técnico en Programación** (7 años - Cursos B)
@@ -443,4 +443,4 @@ Se crearon las siguientes migraciones para agregar el campo `email`:
 ---
 
 **Documento generado automáticamente**  
-**Sistema ALCAL - Colegio Sagrado Corazón**
+**Sistema ALCAL - Sagrado Corazón ALCAL**

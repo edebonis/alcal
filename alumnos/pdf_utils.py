@@ -1147,7 +1147,7 @@ def generar_ficha_inscripcion(alumno):
     y -= line_height
     
     p.drawString(margin_left, y, "Nombre escuela:")
-    p.drawString(margin_left + 40*mm, y, "Inst Sagrado Corazón Al.Cal")
+    p.drawString(margin_left + 40*mm, y, "Sagrado Corazón ALCAL")
     p.drawString(margin_left + 140*mm, y, "N°:")
     p.drawString(margin_left + 150*mm, y, "4883")
     y -= line_height

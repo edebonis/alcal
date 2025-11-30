@@ -180,7 +180,7 @@ if not DEBUG:
     SECURE_HSTS_PRELOAD = True
 
 # Admin settings
-ADMIN_SITE_HEADER = 'ALCAL - Sistema de Gestión Académica'
+ADMIN_SITE_HEADER = 'Sagrado Corazón ALCAL - Sistema de Gestión'
 ADMIN_SITE_TITLE = 'ALCAL Admin'
 ADMIN_INDEX_TITLE = 'Panel de Administración'
 

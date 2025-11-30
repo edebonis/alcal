@@ -1,7 +1,7 @@
 # 📚 Resumen Completo del Proyecto ALCAL
 
 **Fecha de análisis:** 2025-01-XX  
-**Sistema:** ALCAL - Administración de Legajos Escolares del Colegio Sagrado Corazón
+**Sistema:** ALCAL - Administración de Legajos Escolares del Sagrado Corazón ALCAL
 
 ---
 
@@ -516,6 +516,6 @@ python scripts/import_data.py
 ---
 
 **Documento generado automáticamente**  
-**Sistema ALCAL - Colegio Sagrado Corazón**
+**Sistema ALCAL - Sagrado Corazón ALCAL**
 
 
