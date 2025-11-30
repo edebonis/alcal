@@ -27,6 +27,29 @@ class CodigoAsistencia(models.Model):
 		verbose_name_plural = "Códigos de Asistencia"
 
 
+class ReglaAsistencia(models.Model):
+	"""
+	Matriz de reglas para calcular la falta final basada en la combinación de turnos.
+	Importada desde 'Asistencia - Codigos.csv'
+	"""
+	# Entradas (Códigos por turno) - '-' indica que no hubo turno
+	codigo_manana = models.CharField(max_length=1, help_text="Código en turno mañana (P, A, T, R, -)")
+	codigo_tarde = models.CharField(max_length=1, help_text="Código en turno tarde (P, A, T, R, -)")
+	codigo_ed_fisica = models.CharField(max_length=1, help_text="Código en turno ed. física (P, A, T, R, -)")
+	
+	# Salidas
+	valor_falta = models.FloatField(help_text="Valor numérico de la falta resultante")
+	observacion = models.CharField(max_length=255, help_text="Texto explicativo para la familia")
+	
+	def __str__(self):
+		return f"M:{self.codigo_manana} T:{self.codigo_tarde} E:{self.codigo_ed_fisica} = {self.valor_falta}"
+	
+	class Meta:
+		verbose_name = "Regla de Asistencia"
+		verbose_name_plural = "Reglas de Asistencia"
+		unique_together = ['codigo_manana', 'codigo_tarde', 'codigo_ed_fisica']
+
+
 class Turno(models.Model):
 	TURNO_CHOICES = (
 		('mañana', 'Mañana'),
@@ -74,7 +97,8 @@ class Asistencia(models.Model):
 
 class CierreDiario(models.Model):
 	"""
-	Modelo para registrar el cierre diario de asistencias
+	Modelo para registrar el cierre diario de asistencias.
+	Es el evento global de cierre.
 	"""
 	fecha = models.DateField(unique=True, help_text="Fecha del día que se está cerrando")
 	fecha_cierre = models.DateTimeField(auto_now_add=True, help_text="Momento en que se realizó el cierre")
@@ -87,12 +111,11 @@ class CierreDiario(models.Model):
 	# Estadísticas del cierre
 	total_asistencias_procesadas = models.IntegerField(default=0)
 	total_alumnos_procesados = models.IntegerField(default=0)
-	total_cursos_procesados = models.IntegerField(default=0)
 	
 	observaciones_cierre = models.TextField(
 		blank=True, 
 		null=True, 
-		help_text="Observaciones del cierre diario"
+		help_text="Observaciones generales del cierre diario"
 	)
 	
 	def __str__(self):
@@ -103,31 +126,57 @@ class CierreDiario(models.Model):
 		ordering = ['-fecha']
 
 
+class DetalleCierreCurso(models.Model):
+	"""
+	Configuración específica de qué turnos se dictaron para cada Curso y Grupo en un día específico.
+	Esto permite manejar excepciones (ej: un curso no tuvo tarde hoy, o solo Grupo 1 tuvo Ed Física).
+	"""
+	cierre = models.ForeignKey(CierreDiario, related_name='detalles', on_delete=models.CASCADE)
+	curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+	
+	GRUPO_CHOICES = (
+		('unico', 'Único'),
+		('1', 'Grupo 1'),
+		('2', 'Grupo 2'),
+	)
+	grupo = models.CharField(max_length=10, choices=GRUPO_CHOICES, default='unico')
+	
+	# Qué turnos se dictaron efectivamente
+	hubo_turno_manana = models.BooleanField(default=True)
+	hubo_turno_tarde = models.BooleanField(default=False)
+	hubo_turno_ed_fisica = models.BooleanField(default=False)
+	
+	def __str__(self):
+		return f"{self.curso} ({self.get_grupo_display()}) - M:{self.hubo_turno_manana} T:{self.hubo_turno_tarde} E:{self.hubo_turno_ed_fisica}"
+	
+	class Meta:
+		unique_together = ['cierre', 'curso', 'grupo']
+		verbose_name = "Detalle de Cierre por Curso"
+		verbose_name_plural = "Detalles de Cierre por Curso"
+
+
 class ResumenDiarioAlumno(models.Model):
 	"""
-	Resumen diario de asistencias por alumno después del cierre
+	Resumen diario de asistencias por alumno después del cierre.
+	Se calcula cruzando las Asistencias registradas con el DetalleCierreCurso y la ReglaAsistencia.
 	"""
 	cierre_diario = models.ForeignKey(CierreDiario, on_delete=models.CASCADE)
 	alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
 	fecha = models.DateField()
 	
-	# Códigos por turno
-	codigo_mañana = models.CharField(max_length=1, blank=True, null=True)
-	codigo_tarde = models.CharField(max_length=1, blank=True, null=True)
-	codigo_educacion_fisica = models.CharField(max_length=1, blank=True, null=True)
+	# Códigos por turno (P, A, T, R o - si no hubo turno)
+	codigo_manana = models.CharField(max_length=1, default='-')
+	codigo_tarde = models.CharField(max_length=1, default='-')
+	codigo_ed_fisica = models.CharField(max_length=1, default='-')
 	
-	# Turnos que tuvo clase
-	tuvo_mañana = models.BooleanField(default=False)
-	tuvo_tarde = models.BooleanField(default=False)
-	tuvo_educacion_fisica = models.BooleanField(default=False)
-	
-	# Valor final calculado
+	# Valor final calculado desde ReglaAsistencia
 	valor_falta_final = models.FloatField(
 		default=0.0, 
 		help_text="Valor final de falta calculado según las combinaciones de turnos"
 	)
 	
-	observaciones_resumen = models.TextField(blank=True, null=True)
+	# Observación automática desde ReglaAsistencia
+	observacion_calculada = models.CharField(max_length=255, blank=True, null=True)
 	
 	def __str__(self):
 		return f"{self.alumno} - {self.fecha} - Falta: {self.valor_falta_final}"
@@ -136,5 +185,3 @@ class ResumenDiarioAlumno(models.Model):
 		verbose_name_plural = "Resúmenes Diarios por Alumno"
 		unique_together = ['alumno', 'fecha']
 		ordering = ['-fecha', 'alumno__apellido', 'alumno__nombre']
-
-

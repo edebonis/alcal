@@ -10,7 +10,7 @@ from .serializers import (
     CodigoAsistenciaSerializer, TurnoSerializer,
     CierreDiarioSerializer, ResumenDiarioAlumnoSerializer
 )
-from .services import AsistenciaService
+
 
 
 class CodigoAsistenciaViewSet(viewsets.ReadOnlyModelViewSet):

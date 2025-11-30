@@ -38,7 +38,7 @@ def main():
     
     # Obtener IP local
     local_ip = get_local_ip()
-    port = 8080
+    port = 8008  # Puerto preferido por el usuario
     
     # Verificar si el puerto está disponible
     if not check_port_available(port):

@@ -1,330 +1,381 @@
-from datetime import date, datetime, timedelta
-
-from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.db import transaction
-from django.db.models import Count, Q
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render
-from django.utils import timezone
-from django.views.decorators.http import require_http_methods
+from django.contrib import messages
+from django.db import transaction, models
+from datetime import date
+from django.http import JsonResponse, HttpResponse
 
+from escuela.models import Curso, Anio
 from alumnos.models import Alumno
-from escuela.models import Anio, Curso
+from .models import Asistencia, Turno, CodigoAsistencia, CierreDiario, DetalleCierreCurso
+from .forms import CierreDiarioForm
+from .services import ServicioCierreAsistencia
 
-from .models import (
-    Asistencia,
-    CierreDiario,
-    CodigoAsistencia,
-    ResumenDiarioAlumno,
-    Turno,
-)
-from .services import AsistenciaService
+# --- VISTAS DE TOMA DE ASISTENCIA ---
 
+@login_required
+def ingresar_asistencia_selector(request):
+    """Vista principal para seleccionar el modo de ingreso de asistencia"""
+    return render(request, 'asistencias/ingresar_asistencia_selector.html')
 
 @login_required
 def tomar_asistencia_curso(request):
-    """Vista principal para seleccionar curso, turno y fecha"""
+    """Vista para seleccionar curso y fecha para tomar asistencia masiva"""
     cursos = Curso.objects.all().order_by('curso')
-    turnos = Turno.objects.all().order_by('hora_inicio')
-    anio_actual = Anio.objects.first()  # Tomar el primer año disponible
-    
-    context = {
+    turnos = Turno.objects.all()
+    return render(request, 'asistencias/tomar_asistencia_curso.html', {
         'cursos': cursos,
         'turnos': turnos,
-        'anio_actual': anio_actual,
-        'fecha_hoy': date.today().strftime('%Y-%m-%d'),
-    }
-    return render(request, 'asistencias/tomar_asistencia_curso.html', context)
+        'hoy': date.today()
+    })
 
+@login_required
+def tomar_asistencia_alumno(request):
+    """Vista para buscar un alumno y cargarle asistencia individualmente"""
+    turnos = Turno.objects.all()
+    codigos = CodigoAsistencia.objects.all().order_by('codigo')
+    
+    alumno = None
+    asistencias_hoy = []
+    
+    if request.method == 'POST':
+        # Si es búsqueda de alumno
+        if 'buscar_alumno' in request.POST:
+            query = request.POST.get('query')
+            alumnos = Alumno.objects.filter(
+                activo=True
+            ).filter(
+                models.Q(apellido__icontains=query) | 
+                models.Q(nombre__icontains=query) | 
+                models.Q(dni__icontains=query)
+            )[:10] # Limitar resultados
+            
+            return render(request, 'asistencias/tomar_asistencia_alumno.html', {
+                'alumnos_encontrados': alumnos,
+                'query': query,
+                'turnos': turnos
+            })
+            
+        # Si es selección de alumno
+        elif 'seleccionar_alumno' in request.POST:
+            alumno_id = request.POST.get('alumno_id')
+            alumno = get_object_or_404(Alumno, pk=alumno_id)
+            
+            # Buscar asistencias de hoy para este alumno
+            asistencias_hoy = Asistencia.objects.filter(
+                alumno=alumno,
+                fecha=date.today()
+            )
+            
+        # Si es guardado de asistencia
+        elif 'guardar_asistencia' in request.POST:
+            alumno_id = request.POST.get('alumno_id')
+            turno_id = request.POST.get('turno_id')
+            codigo_str = request.POST.get('codigo')
+            fecha = request.POST.get('fecha', date.today())
+            observaciones = request.POST.get('observaciones', '')
+            
+            try:
+                alumno = Alumno.objects.get(pk=alumno_id)
+                turno = Turno.objects.get(pk=turno_id)
+                codigo = CodigoAsistencia.objects.get(codigo=codigo_str)
+                ciclo = Anio.objects.last()
+                
+                Asistencia.objects.update_or_create(
+                    alumno=alumno,
+                    fecha=fecha,
+                    turno=turno,
+                    defaults={
+                        'curso': alumno.curso,
+                        'codigo': codigo,
+                        'ciclo_lectivo': ciclo,
+                        'observaciones': observaciones
+                    }
+                )
+                messages.success(request, f'Asistencia guardada para {alumno}')
+                # Recargar datos del alumno para mostrar actualizado
+                asistencias_hoy = Asistencia.objects.filter(alumno=alumno, fecha=fecha)
+                
+            except Exception as e:
+                messages.error(request, f'Error al guardar: {str(e)}')
+                
+    return render(request, 'asistencias/tomar_asistencia_alumno.html', {
+        'alumno': alumno,
+        'turnos': turnos,
+        'codigos': codigos,
+        'asistencias_hoy': asistencias_hoy,
+        'hoy': date.today()
+    })
 
 @login_required
 def lista_alumnos_curso(request):
-    """Vista para mostrar la lista de alumnos y tomar asistencia"""
-    curso_id = request.GET.get('curso')
-    turno_id = request.GET.get('turno')
-    fecha_str = request.GET.get('fecha')
+    """Devuelve la lista de alumnos para tomar asistencia.
+    Ahora acepta uno o varios turnos (separados por coma en el parámetro GET).
+    """
+    curso_id = request.GET.get('curso_id')
     
-    if not all([curso_id, turno_id, fecha_str]):
-        messages.error(request, 'Debe seleccionar curso, turno y fecha.')
-        return redirect('tomar_asistencia_curso')
+    # Validar que curso_id esté presente
+    if not curso_id:
+        return HttpResponse(
+            '<div class="alert alert-warning d-flex align-items-center">'
+            '<i class="bi bi-exclamation-triangle-fill me-2"></i>'
+            'Debe seleccionar un curso para cargar la lista de alumnos.'
+            '</div>',
+            status=400
+        )
     
-    try:
-        curso = get_object_or_404(Curso, id=curso_id)
-        turno = get_object_or_404(Turno, id=turno_id)
-        fecha = datetime.strptime(fecha_str, '%Y-%m-%d').date()
-        anio_actual = Anio.objects.first()
-        
-        # Obtener alumnos del curso
-        alumnos = Alumno.objects.filter(curso=curso).order_by('apellido', 'nombre')
-        
-        # Obtener códigos de asistencia
-        codigos = CodigoAsistencia.objects.all().order_by('codigo')
-        
-        # Obtener asistencias existentes para esta fecha, curso y turno
-        asistencias_existentes = {}
+    fecha = request.GET.get('fecha', date.today())
+    # Obtener turnos, pueden venir como lista o cadena separada por comas
+    turno_ids_param = request.GET.get('turno_id')
+    turno_ids = []
+    if turno_ids_param:
+        # Si viene como "1,2" o "1"
+        turno_ids = [int(t) for t in turno_ids_param.split(',') if t.isdigit()]
+    
+    curso = get_object_or_404(Curso, pk=curso_id)
+    alumnos = Alumno.objects.filter(curso=curso, activo=True).order_by('apellido', 'nombre')
+    codigos = CodigoAsistencia.objects.all().order_by('codigo')
+    turnos = Turno.objects.filter(id__in=turno_ids) if turno_ids else []
+
+    # Buscar asistencias existentes para los turnos indicados
+    asistencias_existentes = {}
+    if turno_ids:
         asistencias = Asistencia.objects.filter(
             curso=curso,
-            turno=turno,
             fecha=fecha,
-            ciclo_lectivo=anio_actual
-        ).select_related('alumno', 'codigo')
-        
-        for asistencia in asistencias:
-            asistencias_existentes[asistencia.alumno.legajo] = {
-                'codigo': asistencia.codigo.codigo,
-                'observaciones': asistencia.observaciones or ''
+            turno_id__in=turno_ids
+        )
+        for a in asistencias:
+            # Guardamos por alumno_id: {codigo, observaciones}
+            asistencias_existentes[a.alumno_id] = {
+                'codigo': a.codigo.codigo,
+                'observaciones': a.observaciones or ''
             }
-        
-        context = {
-            'curso': curso,
-            'turno': turno,
-            'fecha': fecha,
-            'fecha_str': fecha_str,
-            'alumnos': alumnos,
-            'codigos': codigos,
-            'asistencias_existentes': asistencias_existentes,
-            'anio_actual': anio_actual,
-        }
-        return render(request, 'asistencias/lista_alumnos_curso.html', context)
-        
-    except ValueError:
-        messages.error(request, 'Formato de fecha inválido.')
-        return redirect('tomar_asistencia_curso')
 
+    # Pasar turnos como cadena para el template (para que el hidden input mantenga valor)
+    turno_id_str = ','.join(map(str, turno_ids))
+    return render(request, 'asistencias/lista_alumnos_curso.html', {
+        'curso': curso,
+        'alumnos': alumnos,
+        'codigos': codigos,
+        'fecha': fecha,
+        'turno_id': turno_id_str,
+        'turnos': turnos,
+        'asistencias_existentes': asistencias_existentes
+    })
 
 @login_required
 def guardar_asistencia_curso(request):
-    """Vista para procesar y guardar las asistencias"""
-    if request.method != 'POST':
-        return redirect('tomar_asistencia_curso')
-    
-    curso_id = request.POST.get('curso_id')
-    turno_id = request.POST.get('turno_id')
-    fecha_str = request.POST.get('fecha')
-    
-    try:
-        curso = get_object_or_404(Curso, id=curso_id)
-        turno = get_object_or_404(Turno, id=turno_id)
-        fecha = datetime.strptime(fecha_str, '%Y-%m-%d').date()
-        anio_actual = Anio.objects.first()
-        
-        alumnos_procesados = 0
-        asistencias_creadas = 0
-        asistencias_actualizadas = 0
-        
-        with transaction.atomic():
-            # Procesar cada alumno
-            for key, value in request.POST.items():
-                if key.startswith('codigo_'):
-                    alumno_legajo = key.replace('codigo_', '')
-                    codigo_asistencia = value
-                    observaciones = request.POST.get(f'observaciones_{alumno_legajo}', '')
-                    
-                    if codigo_asistencia:  # Solo procesar si se seleccionó un código
-                        try:
-                            alumno = Alumno.objects.get(legajo=alumno_legajo, curso=curso)
-                            codigo = CodigoAsistencia.objects.get(codigo=codigo_asistencia)
-                            
-                            # Buscar si ya existe una asistencia para este alumno, fecha y turno
-                            asistencia, created = Asistencia.objects.get_or_create(
+    """Guarda la asistencia enviada desde el formulario.
+    Soporta múltiples turnos y observaciones por alumno.
+    """
+    if request.method == 'POST':
+        try:
+            curso_id = request.POST.get('curso_id')
+            fecha = request.POST.get('fecha')
+            turno_ids_str = request.POST.get('turno_id', '')
+            
+            # Parsear los IDs de turnos (pueden ser múltiples separados por coma)
+            turno_ids = [int(t) for t in turno_ids_str.split(',') if t.strip().isdigit()]
+            
+            if not turno_ids:
+                messages.error(request, 'Debe seleccionar al menos un turno')
+                return redirect('tomar_asistencia_curso')
+            
+            curso = get_object_or_404(Curso, pk=curso_id)
+            turnos = Turno.objects.filter(id__in=turno_ids)
+            ciclo = Anio.objects.last()  # Asumimos el último año lectivo
+            
+            asistencias_guardadas = 0
+            
+            with transaction.atomic():
+                # Iterar sobre los datos del POST
+                for key, value in request.POST.items():
+                    if key.startswith('codigo_'):
+                        alumno_id = key.split('_')[1]
+                        codigo_str = value
+                        
+                        # Buscar observaciones para este alumno
+                        obs_key = f'observaciones_{alumno_id}'
+                        observaciones = request.POST.get(obs_key, '').strip()
+                        
+                        alumno = Alumno.objects.get(pk=alumno_id)
+                        codigo = CodigoAsistencia.objects.get(codigo=codigo_str)
+                        
+                        # Crear o actualizar asistencia para CADA turno seleccionado
+                        for turno in turnos:
+                            Asistencia.objects.update_or_create(
                                 alumno=alumno,
                                 fecha=fecha,
                                 turno=turno,
-                                ciclo_lectivo=anio_actual,
                                 defaults={
                                     'curso': curso,
                                     'codigo': codigo,
-                                    'observaciones': observaciones,
+                                    'ciclo_lectivo': ciclo,
+                                    'observaciones': observaciones
                                 }
                             )
-                            
-                            if not created:
-                                # Actualizar asistencia existente
-                                asistencia.codigo = codigo
-                                asistencia.observaciones = observaciones
-                                asistencia.save()
-                                asistencias_actualizadas += 1
-                            else:
-                                asistencias_creadas += 1
-                            
-                            alumnos_procesados += 1
-                            
-                        except (Alumno.DoesNotExist, CodigoAsistencia.DoesNotExist):
-                            continue
-        
-        # Mensaje de éxito
-        mensaje = f'Asistencia guardada exitosamente. '
-        mensaje += f'Alumnos procesados: {alumnos_procesados}, '
-        mensaje += f'Nuevas: {asistencias_creadas}, '
-        mensaje += f'Actualizadas: {asistencias_actualizadas}'
-        
-        messages.success(request, mensaje)
-        
-        # Redirigir de vuelta a la lista con los mismos parámetros
-        return redirect(f'/lista_alumnos_curso/?curso={curso_id}&turno={turno_id}&fecha={fecha_str}')
-        
-    except Exception as e:
-        messages.error(request, f'Error al guardar asistencia: {str(e)}')
-        return redirect('tomar_asistencia_curso')
-
+                            asistencias_guardadas += 1
+            
+            turnos_nombres = ', '.join([t.get_nombre_display() for t in turnos])
+            messages.success(
+                request, 
+                f'Asistencia guardada correctamente ({asistencias_guardadas} registros para turnos: {turnos_nombres})'
+            )
+            return redirect('tomar_asistencia_curso')
+            
+        except Exception as e:
+            messages.error(request, f'Error al guardar: {str(e)}')
+            return redirect('tomar_asistencia_curso')
+            
+    return redirect('tomar_asistencia_curso')
 
 @login_required
 def consultar_asistencia_curso(request):
-    """Vista para consultar asistencias con filtros"""
+    """Vista para consultar asistencias"""
+    cursos = Curso.objects.all()
+    return render(request, 'asistencias/consultar_asistencia_curso.html', {'cursos': cursos})
+
+
+# --- VISTAS DE CIERRE DIARIO (Nuevas) ---
+
+@login_required
+def cierre_asistencia(request):
+    fecha_param = request.GET.get('fecha')
+    fecha_inicial = date.fromisoformat(fecha_param) if fecha_param else date.today()
+    
+    cierre_existente = CierreDiario.objects.filter(fecha=fecha_inicial).first()
+    
+    if request.method == 'POST':
+        form = CierreDiarioForm(request.POST)
+        if form.is_valid():
+            fecha = form.cleaned_data['fecha']
+            
+            try:
+                with transaction.atomic():
+                    # 1. Crear o Actualizar CierreDiario
+                    cierre, created = CierreDiario.objects.update_or_create(
+                        fecha=fecha,
+                        defaults={
+                            'usuario_cierre': request.user,
+                            'observaciones_cierre': form.cleaned_data['observaciones_cierre']
+                        }
+                    )
+                    
+                    # 2. Procesar cursos seleccionados
+                    cursos = Curso.objects.all()
+                    grupos_posibles = ['unico', '1', '2']
+                    cursos_procesados_count = 0
+                    
+                    for curso in cursos:
+                        for grupo in grupos_posibles:
+                            prefix = f"c_{curso.id}_g_{grupo}"
+                            
+                            # Verificar si hay alumnos (para no procesar cursos vacíos innecesariamente)
+                            if not Alumno.objects.filter(curso=curso, grupo=grupo, activo=True).exists():
+                                continue
+
+                            # Verificar si se marcó para procesar
+                            procesar = request.POST.get(f"{prefix}_procesar") == 'on'
+                            
+                            if procesar:
+                                hubo_manana = request.POST.get(f"{prefix}_m") == 'on'
+                                hubo_tarde = request.POST.get(f"{prefix}_t") == 'on'
+                                hubo_ed_fisica = request.POST.get(f"{prefix}_e") == 'on'
+                                
+                                DetalleCierreCurso.objects.update_or_create(
+                                    cierre=cierre,
+                                    curso=curso,
+                                    grupo=grupo,
+                                    defaults={
+                                        'hubo_turno_manana': hubo_manana,
+                                        'hubo_turno_tarde': hubo_tarde,
+                                        'hubo_turno_ed_fisica': hubo_ed_fisica
+                                    }
+                                )
+                                cursos_procesados_count += 1
+                    
+                    # 3. Ejecutar el cálculo
+                    if cursos_procesados_count > 0:
+                        total = ServicioCierreAsistencia.procesar_cierre(cierre)
+                        msg = f'Cierre {"creado" if created else "actualizado"} con éxito. Se procesaron registros.'
+                        messages.success(request, msg)
+                    else:
+                        messages.warning(request, 'Se guardó la cabecera del cierre pero no se seleccionaron cursos para procesar.')
+                        
+                    return redirect('administracion:dashboard')
+                    
+            except Exception as e:
+                messages.error(request, f'Error al realizar el cierre: {str(e)}')
+                # No redirigir, permitir corregir
+    
+    else:
+        # GET: Cargar formulario con datos existentes si hay
+        initial_data = {'fecha': fecha_inicial}
+        if cierre_existente:
+            initial_data['observaciones_cierre'] = cierre_existente.observaciones_cierre
+            messages.info(request, f'Visualizando cierre existente del {fecha_inicial.strftime("%d/%m/%Y")}. Al guardar se actualizarán los datos.')
+            
+        form = CierreDiarioForm(initial=initial_data)
+
+    # Preparar datos para la grilla
+    cursos_data = []
     cursos = Curso.objects.all().order_by('curso')
-    turnos = Turno.objects.all().order_by('hora_inicio')
     
-    # Filtros
-    curso_id = request.GET.get('curso')
-    turno_id = request.GET.get('turno')
-    fecha_desde = request.GET.get('fecha_desde')
-    fecha_hasta = request.GET.get('fecha_hasta')
+    # Mapa de detalles existentes para pre-llenar
+    detalles_map = {}
+    if cierre_existente:
+        for det in cierre_existente.detalle_cursos.all():
+            key = f"{det.curso.id}_{det.grupo}"
+            detalles_map[key] = det
     
-    asistencias = None
-    estadisticas = None
-    
-    if curso_id:  # Curso es obligatorio
-        try:
-            curso = get_object_or_404(Curso, id=curso_id)
-            
-            # Construir query
-            query = Q(curso=curso)
-            
-            if turno_id:
-                query &= Q(turno_id=turno_id)
-            
-            if fecha_desde:
-                fecha_desde_obj = datetime.strptime(fecha_desde, '%Y-%m-%d').date()
-                query &= Q(fecha__gte=fecha_desde_obj)
-            
-            if fecha_hasta:
-                fecha_hasta_obj = datetime.strptime(fecha_hasta, '%Y-%m-%d').date()
-                query &= Q(fecha__lte=fecha_hasta_obj)
-            
-            # Obtener asistencias
-            asistencias = Asistencia.objects.filter(query).select_related(
-                'alumno', 'codigo', 'turno'
-            ).order_by('-fecha', 'turno__hora_inicio', 'alumno__apellido', 'alumno__nombre')
-            
-            # Calcular estadísticas
-            total_registros = asistencias.count()
-            estadisticas_codigos = asistencias.values('codigo__codigo', 'codigo__descripcion').annotate(
-                cantidad=Count('id')
-            ).order_by('codigo__codigo')
-            
-            estadisticas = {
-                'total_registros': total_registros,
-                'por_codigo': list(estadisticas_codigos),
-            }
-            
-        except ValueError:
-            messages.error(request, 'Formato de fecha inválido.')
-    
-    context = {
-        'cursos': cursos,
-        'turnos': turnos,
-        'asistencias': asistencias,
-        'estadisticas': estadisticas,
-        'filtros': {
-            'curso_id': curso_id,
-            'turno_id': turno_id,
-            'fecha_desde': fecha_desde,
-            'fecha_hasta': fecha_hasta,
-        }
-    }
-    
-    return render(request, 'asistencias/consultar_asistencia_curso.html', context)
-
-
-@login_required
-def cierre_diario_seleccion(request):
-    """Vista para seleccionar la fecha a cerrar"""
-    # Verificar permisos (debe ser preceptor o superior)
-    if not (request.user.is_superuser or 
-            request.user.groups.filter(name__in=['preceptor', 'director', 'admin']).exists()):
-        messages.error(request, 'No tiene permisos para realizar el cierre diario.')
-        return redirect('/')
-    
-    # Obtener fechas que pueden ser cerradas (días anteriores que no han sido cerrados)
-    fechas_cerradas = CierreDiario.objects.values_list('fecha', flat=True)
-    
-    # Sugerir el día anterior como fecha a cerrar
-    fecha_sugerida = date.today() - timedelta(days=1)
-    
-    # Obtener estadísticas de la fecha sugerida
-    estadisticas_fecha = None
-    if fecha_sugerida not in fechas_cerradas:
-        asistencias_pendientes = Asistencia.objects.filter(
-            fecha=fecha_sugerida,
-            procesado=False
-        ).count()
+    for curso in cursos:
+        tiene_grupo_1 = Alumno.objects.filter(curso=curso, grupo='1', activo=True).exists()
+        tiene_grupo_2 = Alumno.objects.filter(curso=curso, grupo='2', activo=True).exists()
         
-        total_alumnos = Asistencia.objects.filter(
-            fecha=fecha_sugerida
-        ).values('alumno').distinct().count()
+        es_curso_b = 'B' in curso.curso.upper()
         
-        total_cursos = Asistencia.objects.filter(
-            fecha=fecha_sugerida
-        ).values('curso').distinct().count()
-        
-        estadisticas_fecha = {
-            'fecha': fecha_sugerida,
-            'asistencias_pendientes': asistencias_pendientes,
-            'total_alumnos': total_alumnos,
-            'total_cursos': total_cursos,
-            'puede_cerrar': asistencias_pendientes > 0
-        }
-    
-    context = {
-        'fecha_sugerida': fecha_sugerida,
-        'fechas_cerradas': list(fechas_cerradas),
-        'estadisticas_fecha': estadisticas_fecha,
-    }
-    
-    return render(request, 'asistencias/cierre_diario_seleccion.html', context)
-
-
-@login_required
-def procesar_cierre_diario(request):
-    """Vista para procesar el cierre diario"""
-    if request.method != 'POST':
-        return redirect('cierre_diario_seleccion')
-    
-    # Verificar permisos
-    if not (request.user.is_superuser or 
-            request.user.groups.filter(name__in=['preceptor', 'director', 'admin']).exists()):
-        messages.error(request, 'No tiene permisos para realizar el cierre diario.')
-        return redirect('/')
-    
-    fecha_str = request.POST.get('fecha')
-    observaciones = request.POST.get('observaciones', '')
-    
-    try:
-        fecha_cierre = datetime.strptime(fecha_str, '%Y-%m-%d').date()
-        
-        # Verificar que no esté ya cerrada
-        if CierreDiario.objects.filter(fecha=fecha_cierre).exists():
-            messages.error(request, f'La fecha {fecha_cierre} ya ha sido cerrada.')
-            return redirect('cierre_diario_seleccion')
-        
-        # Procesar cierre
-        resultado = AsistenciaService.procesar_cierre_fecha(fecha_cierre, request.user, observaciones)
-        
-        if resultado['success']:
-            messages.success(request, 
-                f'Cierre procesado exitosamente. '
-                f'Alumnos: {resultado["alumnos_procesados"]}, '
-                f'Asistencias: {resultado["asistencias_procesadas"]}'
-            )
+        grupos_a_mostrar = []
+        if tiene_grupo_1 or tiene_grupo_2:
+            if tiene_grupo_1: grupos_a_mostrar.append(('1', 'Grupo 1'))
+            if tiene_grupo_2: grupos_a_mostrar.append(('2', 'Grupo 2'))
         else:
-            messages.error(request, f'Error en el cierre: {resultado["error"]}')
+            grupos_a_mostrar.append(('unico', 'Único'))
             
-    except ValueError:
-        messages.error(request, 'Formato de fecha inválido.')
-    except Exception as e:
-        messages.error(request, f'Error inesperado: {str(e)}')
-    
-    return redirect('cierre_diario_seleccion')
+        for grp_cod, grp_name in grupos_a_mostrar:
+            prefix = f"c_{curso.id}_g_{grp_cod}"
+            key = f"{curso.id}_{grp_cod}"
+            
+            detalle = detalles_map.get(key)
+            
+            # Valores por defecto
+            checked_procesar = detalle is not None # Si existe detalle, marcar procesar por defecto
+            checked_m = detalle.hubo_turno_manana if detalle else True
+            checked_t = detalle.hubo_turno_tarde if detalle else es_curso_b
+            checked_e = detalle.hubo_turno_ed_fisica if detalle else False
+            
+            # Si es un cierre nuevo (no existente), marcar todos para procesar por defecto
+            if not cierre_existente:
+                checked_procesar = True
 
+            cursos_data.append({
+                'curso': curso,
+                'grupo': grp_cod,
+                'grupo_display': grp_name,
+                'prefix': prefix,
+                'checked_procesar': checked_procesar,
+                'checked_m': checked_m,
+                'checked_t': checked_t,
+                'checked_e': checked_e
+            })
 
+    return render(request, 'asistencias/cierre_form.html', {
+        'form': form,
+        'cursos_data': cursos_data,
+        'cierre_existente': cierre_existente,
+        'fecha_seleccionada': fecha_inicial.isoformat()
+    })
+
+# Alias para compatibilidad con urls.py
+cierre_diario_seleccion = cierre_asistencia
+procesar_cierre_diario = cierre_asistencia

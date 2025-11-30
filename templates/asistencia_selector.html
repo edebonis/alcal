@@ -72,19 +72,23 @@
                     </p>
 
                     <div class="d-grid gap-2 mt-4">
-                        <a href="/cons_asistencia_alumno/" class="btn btn-outline-alcal-primary">
+                        <a href="{% url 'cons_asistencia_alumno' %}" class="btn btn-outline-alcal-primary">
                             <i class="bi bi-search"></i> Consultar Asistencias
                         </a>
-                        <a href="/ing_asistencia_alumno/" class="btn btn-alcal-primary">
+                        {% if user.is_staff or user.is_superuser %}
+                        <a href="{% url 'tomar_asistencia_alumno' %}" class="btn btn-alcal-primary">
                             <i class="bi bi-plus-circle"></i> Registrar Asistencia
                         </a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="card-footer bg-light">
                     <small class="text-muted">
                         <i class="bi bi-check-circle text-success"></i> Búsqueda rápida por nombre o legajo<br>
                         <i class="bi bi-check-circle text-success"></i> Historial completo del estudiante<br>
+                        {% if user.is_staff or user.is_superuser %}
                         <i class="bi bi-check-circle text-success"></i> Registro individual de faltas
+                        {% endif %}
                     </small>
                 </div>
             </div>
@@ -104,12 +108,14 @@
                     </p>
 
                     <div class="d-grid gap-2 mt-4">
-                        <a href="/cons_asistencia/" class="btn btn-outline-alcal-secondary">
+                        <a href="{% url 'cons_asistencia' %}" class="btn btn-outline-alcal-secondary">
                             <i class="bi bi-search"></i> Consultar por Curso
                         </a>
-                        <a href="/ing_asistencia/" class="btn btn-alcal-secondary">
+                        {% if user.is_staff or user.is_superuser %}
+                        <a href="{% url 'tomar_asistencia_curso' %}" class="btn btn-alcal-secondary">
                             <i class="bi bi-list-check"></i> Tomar Lista
                         </a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="card-footer bg-light">

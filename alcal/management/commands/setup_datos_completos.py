@@ -462,3 +462,5 @@ class Command(BaseCommand):
         self.stdout.write('  • Admin: http://127.0.0.1:8008/admin/')
         self.stdout.write('  • Usuario: admin')
         self.stdout.write('  • Contraseña: admin123')
+
+

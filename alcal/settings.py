@@ -44,12 +44,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'smart_selects',
     'alcal',  # App principal con modelos de usuario
-    'alumnos',
-    'docentes',
+    'alumnos.apps.AlumnosConfig',
+    'docentes.apps.DocentesConfig',
     'escuela',
     'asistencias',
     'calificaciones',
     'observaciones',
+    'administracion',  # Panel de administración personalizado
     'django_extensions',
     'drf_spectacular',
     'django_filters',

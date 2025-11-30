@@ -111,8 +111,12 @@
                 <h2 class="fw-bold text-white mb-1">Lista de Asistencia</h2>
                 <div class="d-flex gap-3 text-white-50">
                     <span><i class="bi bi-mortarboard me-1"></i> {{ curso.curso }}</span>
-                    <span><i class="bi bi-clock me-1"></i> {{ turno.get_nombre_display }}</span>
-                    <span><i class="bi bi-calendar-event me-1"></i> {{ fecha_obj|date:"d/m/Y" }}</span>
+                    <span><i class="bi bi-clock me-1"></i>
+                        {% for turno in turnos %}
+                        {{ turno.get_nombre_display }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </span>
+                    <span><i class="bi bi-calendar-event me-1"></i> {{ fecha|date:"d/m/Y" }}</span>
                 </div>
             </div>
             <div class="text-end">
@@ -126,7 +130,7 @@
     <form method="post" action="{% url 'guardar_asistencia_curso' %}" id="asistenciaForm">
         {% csrf_token %}
         <input type="hidden" name="curso_id" value="{{ curso.id }}">
-        <input type="hidden" name="turno_id" value="{{ turno.id }}">
+        <input type="hidden" name="turno_id" value="{{ turno_id }}">
         <input type="hidden" name="fecha" value="{{ fecha }}">
 
         <!-- Controles Rápidos -->
@@ -180,9 +184,9 @@
                                     <div class="position-relative">
                                         <input type="radio" class="codigo-radio"
                                             id="codigo_{{ alumno.id }}_{{ codigo.codigo }}"
-                                            name="codigo_{{ alumno.legajo }}" value="{{ codigo.codigo }}" {% if
-                                            asistencias_existentes|get_item:alumno.legajo|get_item:'codigo'==codigo.codigo
-                                            %}checked{% endif %}>
+                                            name="codigo_{{ alumno.id }}" value="{{ codigo.codigo }}" {% if
+                                            asistencias_existentes|get_item:alumno.id.codigo==codigo.codigo %}checked{%
+                                            endif %}>
                                         <label for="codigo_{{ alumno.id }}_{{ codigo.codigo }}"
                                             class="codigo-label codigo-{{ codigo.codigo }}"
                                             title="{{ codigo.descripcion }}">
@@ -194,8 +198,8 @@
                             </td>
                             <td class="pe-4">
                                 <input type="text" class="form-control bg-light border-0"
-                                    name="observaciones_{{ alumno.legajo }}" placeholder="Agregar nota..."
-                                    value="{{ asistencias_existentes|get_item:alumno.legajo|get_item:'observaciones'|default:'' }}"
+                                    name="observaciones_{{ alumno.id }}" placeholder="Agregar nota..."
+                                    value="{{ asistencias_existentes|get_item:alumno.id.observaciones|default:'' }}"
                                     maxlength="100">
                             </td>
                         </tr>

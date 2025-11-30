@@ -55,60 +55,76 @@
 			</div>
 		</div>
 	</div>
+</div>
 
-	<!-- Main Actions Section -->
-	<div class="row g-4">
-		<!-- Asistencia -->
-		<div class="col-md-6">
-			<div class="glass-card h-100">
-				<div class="d-flex justify-content-between align-items-center mb-3">
-					<h5 class="fw-bold mb-0"><i class="bi bi-clipboard-check text-primary me-2"></i>Asistencia</h5>
+<!-- Main Actions Section -->
+<div class="row g-4">
+	<!-- Asistencia -->
+	<div class="col-md-4">
+		<div class="glass-card h-100">
+			<div class="d-flex justify-content-between align-items-center mb-3">
+				<h5 class="fw-bold mb-0"><i class="bi bi-clipboard-check text-primary me-2"></i>Asistencia</h5>
+			</div>
+			<div class="row g-2">
+				<div class="col-6">
+					<a href="/tomar_asistencia_curso/" class="btn btn-light w-100 py-3 text-start border hover-scale">
+						<i class="bi bi-collection-fill d-block mb-2 text-primary fs-4"></i>
+						<span class="fw-bold d-block">Por Curso</span>
+						<small class="text-muted">Tomar lista grupal</small>
+					</a>
 				</div>
-				<div class="row g-2">
-					<div class="col-6">
-						<a href="/tomar_asistencia_curso/"
-							class="btn btn-light w-100 py-3 text-start border hover-scale">
-							<i class="bi bi-collection-fill d-block mb-2 text-primary fs-4"></i>
-							<span class="fw-bold d-block">Por Curso</span>
-							<small class="text-muted">Tomar lista grupal</small>
-						</a>
-					</div>
-					<div class="col-6">
-						<a href="/ingresar_asistencia_alumno/"
-							class="btn btn-light w-100 py-3 text-start border hover-scale">
-							<i class="bi bi-person-fill d-block mb-2 text-primary fs-4"></i>
-							<span class="fw-bold d-block">Individual</span>
-							<small class="text-muted">Falta particular</small>
-						</a>
-					</div>
+				<div class="col-6">
+					<a href="/ingresar_asistencia_alumno/"
+						class="btn btn-light w-100 py-3 text-start border hover-scale">
+						<i class="bi bi-person-fill d-block mb-2 text-primary fs-4"></i>
+						<span class="fw-bold d-block">Individual</span>
+						<small class="text-muted">Falta particular</small>
+					</a>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<!-- Calificaciones -->
-		<div class="col-md-6">
-			<div class="glass-card h-100">
-				<div class="d-flex justify-content-between align-items-center mb-3">
-					<h5 class="fw-bold mb-0"><i class="bi bi-bar-chart-fill text-success me-2"></i>Calificaciones</h5>
+	<!-- Calificaciones -->
+	<div class="col-md-4">
+		<div class="glass-card h-100">
+			<div class="d-flex justify-content-between align-items-center mb-3">
+				<h5 class="fw-bold mb-0"><i class="bi bi-bar-chart-fill text-success me-2"></i>Calificaciones</h5>
+			</div>
+			<div class="row g-2">
+				<div class="col-6">
+					<a href="/ingresar_calificaciones_curso/"
+						class="btn btn-light w-100 py-3 text-start border hover-scale">
+						<i class="bi bi-grid-3x3-gap-fill d-block mb-2 text-success fs-4"></i>
+						<span class="fw-bold d-block">Por Curso</span>
+						<small class="text-muted">Carga masiva</small>
+					</a>
 				</div>
-				<div class="row g-2">
-					<div class="col-6">
-						<a href="/ingresar_calificaciones_curso/"
-							class="btn btn-light w-100 py-3 text-start border hover-scale">
-							<i class="bi bi-grid-3x3-gap-fill d-block mb-2 text-success fs-4"></i>
-							<span class="fw-bold d-block">Por Curso</span>
-							<small class="text-muted">Carga masiva</small>
-						</a>
-					</div>
-					<div class="col-6">
-						<a href="/ingresar_calificaciones_alumno/"
-							class="btn btn-light w-100 py-3 text-start border hover-scale">
-							<i class="bi bi-person-lines-fill d-block mb-2 text-success fs-4"></i>
-							<span class="fw-bold d-block">Individual</span>
-							<small class="text-muted">Nota particular</small>
-						</a>
-					</div>
+				<div class="col-6">
+					<a href="/ingresar_calificaciones_alumno/"
+						class="btn btn-light w-100 py-3 text-start border hover-scale">
+						<i class="bi bi-person-lines-fill d-block mb-2 text-success fs-4"></i>
+						<span class="fw-bold d-block">Individual</span>
+						<small class="text-muted">Nota particular</small>
+					</a>
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Gestión Administrativa -->
+	<div class="col-md-4">
+		<div class="glass-card h-100">
+			<div class="d-flex justify-content-between align-items-center mb-3">
+				<h5 class="fw-bold mb-0"><i class="bi bi-gear-fill text-warning me-2"></i>Gestión</h5>
+			</div>
+			<div class="d-grid gap-2">
+				<a href="/gestion/" class="btn btn-warning w-100 py-3 text-start border-0 hover-scale">
+					<i class="bi bi-speedometer2 d-block mb-2 fs-4"></i>
+					<span class="fw-bold d-block">Panel de Administración</span>
+					<small class="text-dark opacity-75">Gestionar carreras, cursos, materias, docentes, alumnos y
+						turnos</small>
+				</a>
 			</div>
 		</div>
 	</div>

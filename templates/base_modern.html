@@ -12,6 +12,10 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/alcal-premium.css' %}">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- ApexCharts -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
@@ -38,44 +42,52 @@
                     </a>
                 </div>
 
-                <div class="nav-label text-muted small fw-bold px-3 mt-3 mb-2">ACADÉMICO</div>
+                <div class="nav-label text-muted small fw-bold px-3 mt-3 mb-2">GESTIÓN ACADÉMICA</div>
 
                 <div class="nav-item">
-                    <a href="/consultas/" class="nav-link {% if 'consultas' in request.path %}active{% endif %}">
-                        <i class="bi bi-search"></i> Consultas
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="/ingresar/" class="nav-link {% if 'ingresar' in request.path %}active{% endif %}">
-                        <i class="bi bi-plus-circle-fill"></i> Ingresar Datos
-                    </a>
-                </div>
-
-                <div class="nav-label text-muted small fw-bold px-3 mt-3 mb-2">ACCESOS RÁPIDOS</div>
-
-                <div class="nav-item">
-                    <a href="/cons_asistencia/" class="nav-link">
+                    <a href="{% url 'asistencia_selector' %}"
+                        class="nav-link {% if 'asistencia' in request.path %}active{% endif %}">
                         <i class="bi bi-clipboard-check"></i> Asistencias
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="/cons_calificaciones/" class="nav-link">
+                    <a href="{% url 'calificaciones_selector' %}"
+                        class="nav-link {% if 'calificaciones' in request.path %}active{% endif %}">
                         <i class="bi bi-bar-chart-fill"></i> Calificaciones
                     </a>
                 </div>
 
+                {% if user.is_staff or user.is_superuser %}
+                <div class="nav-item">
+                    <a href="{% url 'observaciones' %}"
+                        class="nav-link {% if 'observaciones' in request.path %}active{% endif %}">
+                        <i class="bi bi-chat-square-text-fill"></i> Observaciones
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="{% url 'cierre_diario_seleccion' %}"
+                        class="nav-link {% if 'cierre_diario' in request.path %}active{% endif %}">
+                        <i class="bi bi-calendar-check-fill"></i> Cierre Diario
+                    </a>
+                </div>
+                {% endif %}
+
+                {% if user.is_superuser %}
                 <div class="nav-label text-muted small fw-bold px-3 mt-3 mb-2">ADMINISTRACIÓN</div>
 
                 <div class="nav-item">
-                    <a href="/admin/" class="nav-link">
-                        <i class="bi bi-gear-fill"></i> Panel Admin
+                    <a href="{% url 'administracion:dashboard' %}" class="nav-link">
+                        <i class="bi bi-sliders"></i> Gestión (CRUD)
                     </a>
                 </div>
+
                 <div class="nav-item">
-                    <a href="/api/v1/docs/" class="nav-link" target="_blank">
-                        <i class="bi bi-code-square"></i> API Docs
+                    <a href="/admin/" class="nav-link">
+                        <i class="bi bi-gear-fill"></i> Panel Admin Django
                     </a>
                 </div>
+                {% endif %}
             </nav>
 
             <div class="sidebar-footer">

@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 
 from alumnos.models import Alumno
 from asistencias.models import Asistencia, CodigoAsistencia, Turno
-from calificaciones.models import CalificacionParcial, CalificacionTrimestral, CicloLectivo, Instancia
+from calificaciones.models import CalificacionParcial, CalificacionTrimestral, Instancia
 from escuela.models import Curso, Materia, Anio
 
 
@@ -377,7 +377,7 @@ def ing_calificaciones_alumno(request):
             
             # Obtener ciclo lectivo
             anio_actual = fecha.split('-')[0]
-            ciclo, _ = CicloLectivo.objects.get_or_create(ciclo_lectivo=int(anio_actual))
+            ciclo, _ = Anio.objects.get_or_create(ciclo_lectivo=int(anio_actual))
             
             if tipo == 'trimestral':
                 trimestre_val = request.POST.get('trimestre')

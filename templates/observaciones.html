@@ -1,84 +1,60 @@
-{% extends "base.html" %}
+{% extends "base_modern.html" %}
 {% load static %}
 
 {% block title %}Observaciones - ALCAL Sistema Académico{% endblock %}
 
-{% block content_title %}
-<div class="alcal-header">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-md-8">
-        <h1 class="display-5 mb-0">
-          <i class="bi bi-chat-left-text"></i> Observaciones
-        </h1>
-        <p class="lead mb-0 mt-2">Gestión de observaciones académicas y disciplinarias</p>
-      </div>
-      <div class="col-md-4 text-end">
-        <a href="/" class="btn btn-outline-light">
-          <i class="bi bi-arrow-left"></i> Volver al Dashboard
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-{% endblock %}
-
-{% block breadcrumbs %}
-<div class="container">
-  <nav class="alcal-breadcrumb" aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <i class="bi bi-house-door"></i>
-        <a href="/">Inicio</a>
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">
-        <i class="bi bi-chat-left-text"></i> Observaciones
-      </li>
-    </ol>
-  </nav>
-</div>
-{% endblock %}
-
 {% block content %}
-<div class="container alcal-fade-in-up">
+<div class="container-fluid alcal-fade-in-up">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="h3 mb-0 text-gray-800">Observaciones</h1>
+      <p class="text-muted mb-0">Gestión de observaciones académicas y disciplinarias</p>
+    </div>
+    <a href="/" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-left"></i> Volver
+    </a>
+  </div>
 
   <div class="row justify-content-center">
-    <div class="col-md-10">
+    <div class="col-md-12">
 
       <!-- Info Card -->
-      <div class="alert alcal-alert alert-warning d-flex align-items-center mb-4">
-        <i class="bi bi-info-circle-fill"></i>
+      <div class="alert alert-warning border-0 shadow-sm d-flex align-items-center mb-4">
+        <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
         <div>
-          <strong>Sistema de Observaciones</strong><br>
-          Esta funcionalidad está siendo desarrollada. Pronto estará disponible.
+          <strong>Funcionalidad en Desarrollo</strong><br>
+          El sistema de observaciones está siendo actualizado. Pronto podrá registrar y consultar observaciones
+          detalladas.
         </div>
       </div>
 
       <!-- Main Card -->
-      <div class="card">
-        <div class="card-header">
-          <h5 class="mb-0">
-            <i class="bi bi-chat-left-text"></i> Lista de Observaciones
-          </h5>
+      <div class="card shadow border-0">
+        <div class="card-header bg-white py-3">
+          <h6 class="m-0 font-weight-bold text-alcal-primary">
+            <i class="bi bi-chat-left-text-fill me-2"></i>Lista de Observaciones
+          </h6>
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-hover">
-              <thead class="table-light">
+            <table class="table table-hover align-middle">
+              <thead class="bg-light small text-uppercase text-muted">
                 <tr>
-                  <th><i class="bi bi-person"></i> Estudiante</th>
-                  <th><i class="bi bi-calendar"></i> Fecha</th>
-                  <th><i class="bi bi-tag"></i> Tipo</th>
-                  <th><i class="bi bi-chat-text"></i> Observación</th>
-                  <th><i class="bi bi-gear"></i> Acciones</th>
+                  <th>Estudiante</th>
+                  <th>Fecha</th>
+                  <th>Tipo</th>
+                  <th>Observación</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td colspan="5" class="text-center text-muted py-4">
-                    <i class="bi bi-chat-left-dots" style="font-size: 3rem;"></i>
-                    <p class="mt-3">No hay observaciones registradas</p>
-                    <small>Las observaciones aparecerán aquí cuando se registren</small>
+                  <td colspan="5" class="text-center py-5">
+                    <div class="text-muted">
+                      <i class="bi bi-chat-square-quote display-4 mb-3 d-block"></i>
+                      <p class="lead mb-1">No hay observaciones registradas</p>
+                      <small>Las observaciones aparecerán aquí cuando se registren</small>
+                    </div>
                   </td>
                 </tr>
               </tbody>

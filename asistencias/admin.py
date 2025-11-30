@@ -6,6 +6,8 @@ from .models import (
     Asistencia,
     CierreDiario,
     CodigoAsistencia,
+    DetalleCierreCurso,
+    ReglaAsistencia,
     ResumenDiarioAlumno,
     Turno,
 )
@@ -15,6 +17,12 @@ class CodigoAsistenciaAdmin(admin.ModelAdmin):
     list_display = ('codigo', 'descripcion', 'cantidad_falta')
     list_filter = ('cantidad_falta',)
     search_fields = ('codigo', 'descripcion')
+
+
+class ReglaAsistenciaAdmin(admin.ModelAdmin):
+    list_display = ('codigo_manana', 'codigo_tarde', 'codigo_ed_fisica', 'valor_falta', 'observacion')
+    list_filter = ('valor_falta', 'codigo_manana', 'codigo_tarde', 'codigo_ed_fisica')
+    search_fields = ('observacion',)
 
 
 class TurnoAdmin(admin.ModelAdmin):
@@ -48,30 +56,37 @@ class AsistenciaAdmin(admin.ModelAdmin):
         return super().get_queryset(request).select_related('alumno', 'curso', 'turno', 'codigo')
 
 
+class DetalleCierreCursoInline(admin.TabularInline):
+    model = DetalleCierreCurso
+    extra = 0
+    fields = ('curso', 'grupo', 'hubo_turno_manana', 'hubo_turno_tarde', 'hubo_turno_ed_fisica')
+
+
 class CierreDiarioAdmin(admin.ModelAdmin):
     list_display = ('fecha', 'usuario_cierre', 'fecha_cierre', 'total_alumnos_procesados', 'total_asistencias_procesadas')
     list_filter = ('fecha', 'usuario_cierre', 'fecha_cierre')
     search_fields = ('fecha', 'usuario_cierre__username', 'usuario_cierre__first_name', 'usuario_cierre__last_name')
     date_hierarchy = 'fecha'
+    inlines = [DetalleCierreCursoInline]
     
     fieldsets = (
         ('Información del Cierre', {
             'fields': ('fecha', 'usuario_cierre', 'fecha_cierre')
         }),
         ('Estadísticas', {
-            'fields': ('total_asistencias_procesadas', 'total_alumnos_procesados', 'total_cursos_procesados')
+            'fields': ('total_asistencias_procesadas', 'total_alumnos_procesados')
         }),
         ('Observaciones', {
             'fields': ('observaciones_cierre',)
         }),
     )
     
-    readonly_fields = ('fecha_cierre', 'total_asistencias_procesadas', 'total_alumnos_procesados', 'total_cursos_procesados')
+    readonly_fields = ('fecha_cierre', 'total_asistencias_procesadas', 'total_alumnos_procesados')
 
 
 class ResumenDiarioAlumnoAdmin(admin.ModelAdmin):
-    list_display = ('alumno', 'fecha', 'mostrar_turnos', 'mostrar_codigos', 'valor_falta_final')
-    list_filter = ('fecha', 'cierre_diario', 'tuvo_mañana', 'tuvo_tarde', 'tuvo_educacion_fisica', 'valor_falta_final')
+    list_display = ('alumno', 'fecha', 'mostrar_codigos', 'valor_falta_final', 'observacion_calculada')
+    list_filter = ('fecha', 'cierre_diario', 'valor_falta_final')
     search_fields = ('alumno__nombre', 'alumno__apellido', 'alumno__legajo')
     date_hierarchy = 'fecha'
     
@@ -79,36 +94,22 @@ class ResumenDiarioAlumnoAdmin(admin.ModelAdmin):
         ('Información Básica', {
             'fields': ('cierre_diario', 'alumno', 'fecha')
         }),
-        ('Turnos Cursados', {
-            'fields': ('tuvo_mañana', 'tuvo_tarde', 'tuvo_educacion_fisica')
-        }),
         ('Códigos de Asistencia', {
-            'fields': ('codigo_mañana', 'codigo_tarde', 'codigo_educacion_fisica')
+            'fields': ('codigo_manana', 'codigo_tarde', 'codigo_ed_fisica')
         }),
         ('Resultado Final', {
-            'fields': ('valor_falta_final', 'observaciones_resumen')
+            'fields': ('valor_falta_final', 'observacion_calculada')
         }),
     )
     
-    def mostrar_turnos(self, obj):
-        turnos = []
-        if obj.tuvo_mañana:
-            turnos.append('<span class="badge" style="background-color: #ffc107; color: #000;">Mañana</span>')
-        if obj.tuvo_tarde:
-            turnos.append('<span class="badge" style="background-color: #fd7e14; color: #fff;">Tarde</span>')
-        if obj.tuvo_educacion_fisica:
-            turnos.append('<span class="badge" style="background-color: #20c997; color: #fff;">Ed. Física</span>')
-        return format_html(' '.join(turnos)) if turnos else '-'
-    mostrar_turnos.short_description = 'Turnos'
-    
     def mostrar_codigos(self, obj):
         codigos = []
-        if obj.codigo_mañana:
-            codigos.append(f'M:{obj.codigo_mañana}')
-        if obj.codigo_tarde:
+        if obj.codigo_manana != '-':
+            codigos.append(f'M:{obj.codigo_manana}')
+        if obj.codigo_tarde != '-':
             codigos.append(f'T:{obj.codigo_tarde}')
-        if obj.codigo_educacion_fisica:
-            codigos.append(f'EF:{obj.codigo_educacion_fisica}')
+        if obj.codigo_ed_fisica != '-':
+            codigos.append(f'EF:{obj.codigo_ed_fisica}')
         return ' | '.join(codigos) if codigos else '-'
     mostrar_codigos.short_description = 'Códigos'
     
@@ -117,6 +118,7 @@ class ResumenDiarioAlumnoAdmin(admin.ModelAdmin):
 
 
 admin.site.register(CodigoAsistencia, CodigoAsistenciaAdmin)
+admin.site.register(ReglaAsistencia, ReglaAsistenciaAdmin)
 admin.site.register(Turno, TurnoAdmin)
 admin.site.register(Asistencia, AsistenciaAdmin)
 admin.site.register(CierreDiario, CierreDiarioAdmin)
