@@ -1,0 +1,198 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}Tomar Asistencia por Curso{% endblock %}
+
+{% block content %}
+<div class="container-fluid alcal-fade-in-up">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Tomar Asistencia</h1>
+            <p class="text-muted mb-0">Registro masivo por curso</p>
+        </div>
+        <a href="{% url 'asistencia_selector' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+    </div>
+
+    <div class="card shadow mb-4 border-0">
+        <div class="card-header py-3 bg-white border-bottom-0">
+            <h6 class="m-0 font-weight-bold text-alcal-primary">
+                <i class="bi bi-funnel-fill me-2"></i>Filtros de Selección
+            </h6>
+        </div>
+        <div class="card-body bg-light rounded-bottom">
+            <div id="selectorForm" class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    <label for="fecha" class="form-label fw-bold text-muted small">FECHA</label>
+                    <input type="date" id="fecha" name="fecha" class="form-control" value="{{ hoy|date:'Y-m-d' }}"
+                        required>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="curso" class="form-label fw-bold text-muted small">CURSO</label>
+                    <select id="curso" name="curso" class="form-select" required>
+                        <option value="">-- Seleccione Curso --</option>
+                        {% for curso in cursos %}
+                        <option value="{{ curso.id }}">{{ curso.curso }} - {{ curso.carrera.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="turno" class="form-label fw-bold text-muted small">
+                        TURNOS
+                        <span class="text-muted fw-normal">(Ctrl+clic para múltiples)</span>
+                    </label>
+                    <select id="turno" name="turno_id" class="form-select" multiple required size="3">
+                        {% for turno in turnos %}
+                        <option value="{{ turno.id }}">{{ turno.get_nombre_display }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="listaAlumnosContainer">
+        <div class="text-center text-muted py-5">
+            <i class="bi bi-people-fill display-1 text-gray-300 mb-3"></i>
+            <p class="lead">Seleccione fecha, curso y turno para cargar la lista.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // DEBUGGING: Interceptar TODOS los requests
+    (function () {
+        const originalFetch = window.fetch;
+        window.fetch = function (...args) {
+            console.log('[FETCH INTERCEPTED]', args);
+            return originalFetch.apply(this, args);
+        };
+    })();
+
+    // DEBUGGING: Interceptar submit de formularios
+    document.addEventListener('submit', function (e) {
+        console.error('[FORM SUBMIT INTERCEPTED - PREVENTED]', e.target);
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }, true);
+
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('[DOM LOADED] Inicializando listeners de asistencia');
+
+        const fechaInput = document.getElementById('fecha');
+        const cursoSelect = document.getElementById('curso');
+        const turnoSelect = document.getElementById('turno');
+
+        // Verificar que no haya forms
+        const forms = document.querySelectorAll('form');
+        if (forms.length > 0) {
+            console.warn('[WARNING] Se encontraron', forms.length, 'forms en la página:', forms);
+        }
+
+        function checkAndLoad() {
+            console.log('[checkAndLoad] Verificando campos...');
+            console.log('  - fecha:', fechaInput.value);
+            console.log('  - curso:', cursoSelect.value);
+            console.log('  - turnos selected:', turnoSelect.selectedOptions.length);
+
+            if (fechaInput.value && cursoSelect.value && turnoSelect.selectedOptions.length > 0) {
+                console.log('[checkAndLoad] Todos los campos completos, llamando cargarAlumnos()');
+                cargarAlumnos();
+            } else {
+                console.log('[checkAndLoad] Faltan campos, no se carga');
+            }
+        }
+
+        fechaInput.addEventListener('change', function () {
+            console.log('[EVENT] Fecha cambió a:', this.value);
+            checkAndLoad();
+        });
+
+        cursoSelect.addEventListener('change', function () {
+            console.log('[EVENT] Curso cambió a:', this.value);
+            checkAndLoad();
+        });
+
+        turnoSelect.addEventListener('change', function () {
+            console.log('[EVENT] Turno cambió, seleccionados:', this.selectedOptions.length);
+            checkAndLoad();
+        });
+    });
+
+    function cargarAlumnos() {
+        console.log('[cargarAlumnos] INICIO');
+
+        const fecha = document.getElementById('fecha').value;
+        const cursoId = document.getElementById('curso').value;
+        const turnoSelect = document.getElementById('turno');
+
+        const turnoIds = Array.from(turnoSelect.selectedOptions)
+            .map(option => option.value)
+            .filter(value => value)
+            .join(',');
+
+        console.log('[cargarAlumnos] Valores:', {
+            fecha,
+            cursoId,
+            turnoIds
+        });
+
+        if (!cursoId) {
+            console.error('[cargarAlumnos] ERROR: curso_id está vacío');
+            return;
+        }
+        if (!fecha) {
+            console.error('[cargarAlumnos] ERROR: fecha está vacía');
+            return;
+        }
+        if (!turnoIds) {
+            console.error('[cargarAlumnos] ERROR: turno_id está vacío');
+            return;
+        }
+
+        const container = document.getElementById('listaAlumnosContainer');
+        container.innerHTML = '<div class="text-center py-5"><div class="spinner-border text-alcal-primary" role="status"></div><p class="mt-2 text-muted">Cargando lista de alumnos...</p></div>';
+
+        const url = `{% url 'lista_alumnos_curso' %}?curso_id=${cursoId}&fecha=${fecha}&turno_id=${turnoIds}`;
+        console.log('[cargarAlumnos] URL completa:', url);
+
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        };
+        console.log('[cargarAlumnos] Fetch options:', fetchOptions);
+        console.log('[cargarAlumnos] Llamando fetch...');
+
+        fetch(url, fetchOptions)
+            .then(response => {
+                console.log('[cargarAlumnos] Response recibido:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    ok: response.ok,
+                    headers: Object.fromEntries(response.headers.entries())
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(html => {
+                console.log('[cargarAlumnos] HTML recibido, tamaño:', html.length, 'caracteres');
+                console.log('[cargarAlumnos] SUCCESS: Lista cargada');
+                container.innerHTML = html;
+            })
+            .catch(error => {
+                console.error('[cargarAlumnos] ERROR:', error);
+                container.innerHTML = '<div class="alert alert-danger d-flex align-items-center"><i class="bi bi-exclamation-triangle-fill me-2"></i> Error al cargar la lista. Intente nuevamente. Error: ' + error.message + '</div>';
+            });
+
+        console.log('[cargarAlumnos] FIN (fetch iniciado)');
+    }
+</script>
+{% endblock %}

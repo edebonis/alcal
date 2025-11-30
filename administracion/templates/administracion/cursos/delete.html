@@ -1,0 +1,39 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}Eliminar Curso{% endblock %}
+
+{% block content %}
+<h2 style="margin-bottom: 30px; font-size: 28px; font-weight: 700; color: var(--danger);">⚠️ Eliminar Curso</h2>
+
+<div
+    style="background: #fef3c7; border-left: 4px solid var(--warning); padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+    <p style="margin-bottom: 10px;"><strong>¿Está seguro que desea eliminar este curso?</strong></p>
+    <p style="margin: 0; color: var(--gray);">Esta acción no se puede deshacer.</p>
+</div>
+
+<div style="background: var(--light-gray); padding: 25px; border-radius: 12px; margin-bottom: 30px;">
+    <h3 style="margin-bottom: 15px; font-weight: 600;">Curso a eliminar:</h3>
+    <p style="font-size: 24px; font-weight: 600; color: var(--primary); margin-bottom: 10px;">{{ curso.curso }}</p>
+    <p style="color: var(--gray);">Carrera: {{ curso.carrera.nombre }}</p>
+
+    {% if alumnos_count > 0 or materias_count > 0 %}
+    <div style="background: #fee2e2; padding: 15px; border-radius: 8px; margin-top: 15px;">
+        <p style="color: var(--danger); margin: 0;">
+            ⚠️ Este curso tiene:
+            {% if alumnos_count > 0 %}<strong>{{ alumnos_count }} alumno(s)</strong>{% endif %}
+            {% if alumnos_count > 0 and materias_count > 0 %} y {% endif %}
+            {% if materias_count > 0 %}<strong>{{ materias_count }} materia(s)</strong>{% endif %}
+            asociado(s).
+        </p>
+    </div>
+    {% endif %}
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <div style="display: flex; gap: 10px;">
+        <button type="submit" class="btn btn-danger">🗑 Sí, eliminar curso</button>
+        <a href="{% url 'administracion:curso_list' %}" class="btn btn-secondary">← Cancelar</a>
+    </div>
+</form>
+{% endblock %}

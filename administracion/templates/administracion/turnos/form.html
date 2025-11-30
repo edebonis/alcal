@@ -1,0 +1,38 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}{{ action }} Turno{% endblock %}
+
+{% block content %}
+<h2 style="margin-bottom: 30px; font-size: 28px; font-weight: 700;">{{ action }} Turno</h2>
+
+<form method="post" style="max-width: 600px;">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label class="form-label" for="nombre">Tipo de Turno *</label>
+        <select id="nombre" name="nombre" class="form-control" required>
+            <option value="">-- Seleccione --</option>
+            {% for value, label in turno_choices %}
+            <option value="{{ value }}" {% if turno.nombre == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" for="hora_inicio">Hora de Inicio *</label>
+        <input type="time" id="hora_inicio" name="hora_inicio" class="form-control"
+            value="{{ turno.hora_inicio|time:'H:i'|default:'' }}" required>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" for="hora_fin">Hora de Fin *</label>
+        <input type="time" id="hora_fin" name="hora_fin" class="form-control"
+            value="{{ turno.hora_fin|time:'H:i'|default:'' }}" required>
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-top: 30px;">
+        <button type="submit" class="btn btn-success">💾 Guardar</button>
+        <a href="{% url 'administracion:turno_list' %}" class="btn btn-secondary">← Cancelar</a>
+    </div>
+</form>
+{% endblock %}

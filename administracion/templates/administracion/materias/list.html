@@ -1,0 +1,96 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}Materias{% endblock %}
+
+{% block content %}
+<div class="container-fluid alcal-fade-in-up">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <h1 class="h3 mb-0 text-gray-800">Materias</h1>
+    <a href="{% url 'administracion:materia_create' %}" class="btn btn-alcal-primary shadow-sm">➕ Nueva Materia</a>
+</div>
+
+<div class="card shadow border-0 mb-4"><div class="card-body">
+    <form method="get" class="row g-3 align-items-center">
+        <div class="col-md-4"><input type="text" name="q" class="form-control" placeholder="Buscar materia..." value="{{ search }}"></div>
+        <select name="curso" class="form-control" style="max-width: 300px;">
+            <option value="">Todos los cursos</option>
+            {% for curso in cursos %}
+            <option value="{{ curso.id }}" {% if curso_id == curso.id|stringformat:"s" %}selected{% endif %}>{{ curso.curso }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-alcal-primary shadow-sm">🔍 Filtrar</button>
+        {% if search or curso_id %}
+        <a href="{% url 'administracion:materia_list' %}" class="btn btn-sm btn-outline-secondary">✕ Limpiar</a>
+        {% endif %}
+    </form>
+</div>
+
+{% if materias %}
+<div class="card shadow border-0 mb-4"><div class="card-body"><div class="table-responsive">
+    <table class="table table-hover align-middle" width="100%" cellspacing="0">
+        <thead class="bg-light small text-uppercase text-muted">
+            <tr>
+                <th>Materia</th>
+                <th>Curso</th>
+                <th>Carrera</th>
+                <th>Horas</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for materia in materias %}
+            <tr>
+                <td><strong>{{ materia.nombre }}</strong></td>
+                <td>{{ materia.curso.curso }}</td>
+                <td style="color: var(--gray); font-size: 13px;">{{ materia.curso.carrera.nombre }}</td>
+                <td>{{ materia.horas }}h</td>
+                <td>
+                    <a href="{% url 'administracion:materia_update' materia.id %}" class="btn btn-sm btn-outline-secondary"
+                        >✎ Editar</a>
+                    <a href="{% url 'administracion:materia_delete' materia.id %}" class="btn btn-sm btn-outline-danger"
+                        >🗑 Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table></div></div></div>
+</div>
+
+{% if materias.has_other_pages %}
+<div class="pagination">
+    {% if materias.has_previous %}
+    <a href="?page=1{% if search %}&q={{ search }}{% endif %}{% if curso_id %}&curso={{ curso_id }}{% endif %}">«
+        Primera</a>
+    <a
+        href="?page={{ materias.previous_page_number }}{% if search %}&q={{ search }}{% endif %}{% if curso_id %}&curso={{ curso_id }}{% endif %}">‹
+        Anterior</a>
+    {% endif %}
+
+    <span class="current">Página {{ materias.number }} de {{ materias.paginator.num_pages }}</span>
+
+    {% if materias.has_next %}
+    <a
+        href="?page={{ materias.next_page_number }}{% if search %}&q={{ search }}{% endif %}{% if curso_id %}&curso={{ curso_id }}{% endif %}">Siguiente
+        ›</a>
+    <a
+        href="?page={{ materias.paginator.num_pages }}{% if search %}&q={{ search }}{% endif %}{% if curso_id %}&curso={{ curso_id }}{% endif %}">Última
+        »</a>
+    {% endif %}
+</div>
+{% endif %}
+{% else %}
+<div style="text-align: center; padding: 60px 20px;">
+    <p >
+        {% if search or curso_id %}
+        No se encontraron materias
+        {% else %}
+        No hay materias registradas
+        {% endif %}
+    </p>
+    {% if not search and not curso_id %}
+    <a href="{% url 'administracion:materia_create' %}" class="btn btn-alcal-primary shadow-sm">Crear primera materia</a>
+    {% endif %}
+</div>
+{% endif %}
+
+{% endblock %}

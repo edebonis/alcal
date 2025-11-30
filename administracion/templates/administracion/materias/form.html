@@ -1,0 +1,40 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}{{ action }} Materia{% endblock %}
+
+{% block content %}
+<h2 style="margin-bottom: 30px; font-size: 28px; font-weight: 700;">{{ action }} Materia</h2>
+
+<form method="post" style="max-width: 600px;">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label class="form-label" for="nombre">Nombre de la Materia *</label>
+        <input type="text" id="nombre" name="nombre" class="form-control" value="{{ materia.nombre|default:'' }}"
+            required placeholder="Ej: Matemática, Lengua, Programación">
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" for="curso">Curso *</label>
+        <select id="curso" name="curso" class="form-control" required>
+            <option value="">-- Seleccione un curso --</option>
+            {% for curso in cursos %}
+            <option value="{{ curso.id }}" {% if materia.curso.id == curso.id %}selected{% endif %}>
+                {{ curso.curso }} - {{ curso.carrera.nombre }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" for="horas">Horas Semanales *</label>
+        <input type="number" id="horas" name="horas" class="form-control" value="{{ materia.horas|default:'3' }}"
+            required min="1" max="20" placeholder="Ej: 3">
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-top: 30px;">
+        <button type="submit" class="btn btn-success">💾 Guardar</button>
+        <a href="{% url 'administracion:materia_list' %}" class="btn btn-secondary">← Cancelar</a>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% load asistencia_tags %}
+<form action="{% url 'guardar_asistencia_curso' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="curso_id" value="{{ curso.id }}">
+    <input type="hidden" name="fecha" value="{{ fecha }}">
+    <input type="hidden" name="turno_id" value="{{ turno_id }}">
+
+    <div class="card shadow border-0">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-alcal-primary">
+                <i class="bi bi-list-check me-2"></i>Lista de Alumnos
+            </h6>
+            <button type="button" class="btn btn-sm btn-outline-success" onclick="marcarTodos('P')">
+                <i class="bi bi-check-all me-1"></i> Todos Presente
+            </button>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light text-muted small text-uppercase">
+                        <tr>
+                            <th class="ps-4">Legajo</th>
+                            <th>Alumno</th>
+                            <th>Grupo</th>
+                            <th>Asistencia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for alumno in alumnos %}
+                        <tr>
+                            <td class="ps-4 fw-bold text-muted">#{{ alumno.legajo }}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-initials me-3 bg-light text-primary rounded-circle d-flex align-items-center justify-content-center"
+                                        style="width: 35px; height: 35px; font-weight: bold;">
+                                        {{ alumno.nombre|slice:":1" }}{{ alumno.apellido|slice:":1" }}
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold">{{ alumno.apellido }}, {{ alumno.nombre }}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                {% if alumno.grupo != 'unico' %}
+                                <span class="badge bg-info text-dark rounded-pill">G{{ alumno.grupo }}</span>
+                                {% else %}
+                                <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    {% for codigo in codigos %}
+                                    {% with asistencia_actual=asistencias_existentes|get_item:alumno.id %}
+                                    {% with is_active=asistencia_actual == codigo.codigo or not asistencia_actual and
+                                    codigo.codigo == 'P' %}
+
+                                    <input type="radio" class="btn-check" name="asistencia_{{ alumno.id }}"
+                                        id="btn_{{ alumno.id }}_{{ codigo.codigo }}" value="{{ codigo.codigo }}" {% if
+                                        is_active %}checked{% endif %}>
+                                    <label
+                                        class="btn btn-outline-{{ codigo.codigo|yesno:'success,danger,warning,secondary' }} {% if is_active %}active{% endif %}"
+                                        for="btn_{{ alumno.id }}_{{ codigo.codigo }}">
+                                        {{ codigo.codigo }}
+                                    </label>
+
+                                    {% endwith %}
+                                    {% endwith %}
+                                    {% endfor %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer bg-light py-3 text-end">
+            <button type="submit" class="btn btn-alcal-primary btn-lg px-4">
+                <i class="bi bi-save me-2"></i> Guardar Asistencia
+            </button>
+        </div>
+    </div>
+</form>
+
+{% include 'asistencias/lista_alumnos_curso_script.html' %}

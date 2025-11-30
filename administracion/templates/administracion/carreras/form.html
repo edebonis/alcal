@@ -1,0 +1,22 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}{{ action }} Carrera{% endblock %}
+
+{% block content %}
+<h2 style="margin-bottom: 30px; font-size: 28px; font-weight: 700;">{{ action }} Carrera</h2>
+
+<form method="post" style="max-width: 600px;">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label class="form-label" for="nombre">Nombre de la Carrera *</label>
+        <input type="text" id="nombre" name="nombre" class="form-control" value="{{ carrera.nombre|default:'' }}"
+            required placeholder="Ej: Bachillerato con orientación en Economía">
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-top: 30px;">
+        <button type="submit" class="btn btn-success">💾 Guardar</button>
+        <a href="{% url 'administracion:carrera_list' %}" class="btn btn-secondary">← Cancelar</a>
+    </div>
+</form>
+{% endblock %}

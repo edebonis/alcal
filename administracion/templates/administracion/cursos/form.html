@@ -1,0 +1,32 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}{{ action }} Curso{% endblock %}
+
+{% block content %}
+<h2 style="margin-bottom: 30px; font-size: 28px; font-weight: 700;">{{ action }} Curso</h2>
+
+<form method="post" style="max-width: 600px;">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label class="form-label" for="curso">Nombre del Curso *</label>
+        <input type="text" id="curso" name="curso" class="form-control" value="{{ curso.curso|default:'' }}" required
+            placeholder="Ej: 1A, 2B, 7B">
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" for="carrera">Carrera *</label>
+        <select id="carrera" name="carrera" class="form-control" required>
+            <option value="">-- Seleccione una carrera --</option>
+            {% for carrera in carreras %}
+            <option value="{{ carrera.id }}" {% if curso.carrera.id == carrera.id %}selected{% endif %}>{{ carrera.nombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-top: 30px;">
+        <button type="submit" class="btn btn-success">💾 Guardar</button>
+        <a href="{% url 'administracion:curso_list' %}" class="btn btn-secondary">← Cancelar</a>
+    </div>
+</form>
+{% endblock %}

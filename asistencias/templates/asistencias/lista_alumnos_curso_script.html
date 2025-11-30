@@ -1,0 +1,18 @@
+<script>
+    function marcarTodos(codigo) {
+        // Buscar todos los radio buttons con ese valor
+        const radios = document.querySelectorAll(`input[type="radio"][value="${codigo}"]`);
+        radios.forEach(radio => {
+            radio.checked = true;
+            // Actualizar clases visuales (Bootstrap buttons)
+            const label = radio.parentElement;
+            const group = label.parentElement;
+
+            // Remover active de todos los labels en el grupo
+            group.querySelectorAll('label').forEach(l => l.classList.remove('active'));
+
+            // Agregar active al label seleccionado
+            label.classList.add('active');
+        });
+    }
+</script>

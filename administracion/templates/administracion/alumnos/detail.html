@@ -1,0 +1,147 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}Detalle Alumno{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <h2 style="font-size: 28px; font-weight: 700;">Detalle del Alumno</h2>
+    <div>
+        <a href="{% url 'administracion:alumno_update' alumno.legajo %}" class="btn btn-alcal-primary">✎ Editar</a>
+        <a href="{% url 'administracion:alumno_list' %}" class="btn btn-secondary">← Volver</a>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
+    <div>
+        <div style="background: var(--light-gray); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+            <h3 style="margin-bottom: 20px; font-weight: 600;">Información Personal</h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <label style="color: var(--gray); font-size: 13px; display: block; margin-bottom: 5px;">Nombre
+                        Completo</label>
+                    <p style="font-size: 20px; font-weight: 600; color: var(--primary);">{{ alumno.apellido }}, {{
+                        alumno.nombre }}</p>
+                </div>
+
+                <div>
+                    <label
+                        style="color: var(--gray); font-size: 13px; display: block; margin-bottom: 5px;">Legajo</label>
+                    <p style="font-size: 20px; font-weight: 600;">{{ alumno.legajo }}</p>
+                </div>
+
+                <div>
+                    <label style="color: var(--gray); font-size: 13px; display: block; margin-bottom: 5px;">DNI</label>
+                    <p style="font-size: 16px;">{{ alumno.dni|default:"-" }}</p>
+                </div>
+
+                <div>
+                    <label
+                        style="color: var(--gray); font-size: 13px; display: block; margin-bottom: 5px;">Email</label>
+                    <p style="font-size: 16px;">{{ alumno.email|default:"-" }}</p>
+                </div>
+
+                <div>
+                    <label
+                        style="color: var(--gray); font-size: 13px; display: block; margin-bottom: 5px;">Teléfono</label>
+                    <p style="font-size: 16px;">{{ alumno.telefono|default:"-" }}</p>
+                </div>
+
+                <div>
+                    <label
+                        style="color: var(--gray); font-size: 13px; display: block; margin-bottom: 5px;">Nacionalidad</label>
+                    <p style="font-size: 16px;">{{ alumno.nacionalidad|default:"-" }}</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <label
+                    style="color: var(--gray); font-size: 13px; display: block; margin-bottom: 5px;">Dirección</label>
+                <p style="font-size: 16px;">{{ alumno.direccion|default:"-" }}</p>
+            </div>
+        </div>
+
+        {% if alumno.padre or alumno.madre or alumno.tutor %}
+        <div style="background: var(--light-gray); padding: 25px; border-radius: 12px;">
+            <h3 style="margin-bottom: 20px; font-weight: 600;">Información Familiar</h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                {% if alumno.padre %}
+                <div>
+                    <h4 style="color: var(--gray); font-size: 13px; margin-bottom: 10px;">Padre</h4>
+                    <p style="font-weight: 600;">{{ alumno.padre.apellido_padre }}, {{ alumno.padre.nombre_padre }}</p>
+                    <p style="font-size: 14px; color: var(--gray);">{{ alumno.padre.telefono_padre }}</p>
+                </div>
+                {% endif %}
+
+                {% if alumno.madre %}
+                <div>
+                    <h4 style="color: var(--gray); font-size: 13px; margin-bottom: 10px;">Madre</h4>
+                    <p style="font-weight: 600;">{{ alumno.madre.apellido_madre }}, {{ alumno.madre.nombre_madre }}</p>
+                    <p style="font-size: 14px; color: var(--gray);">{{ alumno.madre.telefono_madre }}</p>
+                </div>
+                {% endif %}
+
+                {% if alumno.tutor %}
+                <div>
+                    <h4 style="color: var(--gray); font-size: 13px; margin-bottom: 10px;">Tutor</h4>
+                    <p style="font-weight: 600;">{{ alumno.tutor.apellido_tutor }}, {{ alumno.tutor.nombre_tutor }}</p>
+                    <p style="font-size: 14px; color: var(--gray);">{{ alumno.tutor.telefono_tutor }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div>
+        <div style="background: var(--light-gray); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+            <h3 style="margin-bottom: 20px; font-weight: 600;">Curso</h3>
+            <p style="font-size: 32px; font-weight: 700; color: var(--primary); margin-bottom: 10px;">{{ alumno.curso.curso }}</p>
+            <p style="color: var(--gray);">{{ alumno.curso.carrera.nombre }}</p>
+        </div>
+
+        <div style="background: var(--light-gray); padding: 25px; border-radius: 12px;">
+            <h3 style="margin-bottom: 20px; font-weight: 600;">Estados</h3>
+
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    {% if alumno.activo %}
+                    <span
+                        style="background: var(--success); width: 12px; height: 12px; border-radius: 50%; display: inline-block;"></span>
+                    <span style="font-weight: 600;">Activo</span>
+                    {% else %}
+                    <span
+                        style="background: var(--gray); width: 12px; height: 12px; border-radius: 50%; display: inline-block;"></span>
+                    <span style="color: var(--gray);">Inactivo</span>
+                    {% endif %}
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    {% if alumno.libre %}
+                    <span
+                        style="background: var(--warning); width: 12px; height: 12px; border-radius: 50%; display: inline-block;"></span>
+                    <span style="font-weight: 600; color: var(--warning);">Libre</span>
+                    {% else %}
+                    <span
+                        style="background: var(--light-gray); width: 12px; height: 12px; border-radius: 50%; display: inline-block; border: 2px solid var(--border);"></span>
+                    <span style="color: var(--gray);">Regular</span>
+                    {% endif %}
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    {% if alumno.condicional %}
+                    <span
+                        style="background: var(--danger); width: 12px; height: 12px; border-radius: 50%; display: inline-block;"></span>
+                    <span style="font-weight: 600; color: var(--danger);">Condicional</span>
+                    {% else %}
+                    <span
+                        style="background: var(--light-gray); width: 12px; height: 12px; border-radius: 50%; display: inline-block; border: 2px solid var(--border);"></span>
+                    <span style="color: var(--gray);">No condicional</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

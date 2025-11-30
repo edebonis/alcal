@@ -1,0 +1,71 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}Códigos de Asistencia{% endblock %}
+
+{% block content %}
+<div class="container-fluid alcal-fade-in-up">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <h1 class="h3 mb-0 text-gray-800">Códigos de Asistencia</h1>
+    <a href="{% url 'administracion:codigo_asistencia_create' %}" class="btn btn-alcal-primary shadow-sm">➕ Nuevo Código</a>
+</div>
+
+<div style="background: #dbeafe; padding: 20px; border-radius: 12px; margin-bottom: 30px;">
+    <p style="margin: 0; color: var(--primary);">
+        💡 Los códigos de asistencia definen el valor numérico de falta para cada estado. Configure los valores según
+        las políticas institucionales.
+    </p>
+</div>
+
+{% if codigos %}
+<div class="card shadow border-0 mb-4"><div class="card-body"><div class="table-responsive">
+    <table class="table table-hover align-middle" width="100%" cellspacing="0">
+        <thead class="bg-light small text-uppercase text-muted">
+            <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Valor de Falta</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for codigo in codigos %}
+            <tr>
+                <td><strong >{{ codigo.codigo }}</strong></td>
+                <td>{{ codigo.descripcion }}</td>
+                <td>
+                    <span style="background: {% if codigo.cantidad_falta == 0 %}var(--success){% elif codigo.cantidad_falta < 1 %}var(--warning){% else %}var(--danger){% endif %}; 
+                                 color: white; padding: 4px 12px; border-radius: 6px; font-weight: 600;">
+                        {{ codigo.cantidad_falta }}
+                    </span>
+                </td>
+                <td>
+                    <a href="{% url 'administracion:codigo_asistencia_update' codigo.id %}" class="btn btn-sm btn-outline-secondary"
+                        >✎ Editar</a>
+                    <a href="{% url 'administracion:codigo_asistencia_delete' codigo.id %}" class="btn btn-sm btn-outline-danger"
+                        >🗑 Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table></div></div></div>
+</div>
+
+<div style="background: var(--light-gray); padding: 20px; border-radius: 12px; margin-top: 30px;">
+    <h3 style="margin-bottom: 15px; font-weight: 600;">Valores recomendados:</h3>
+    <ul style="line-height: 1.8; color: var(--gray);">
+        <li><strong>P</strong> (Presente): 0</li>
+        <li><strong>t</strong> (Tarde menos de 15 min): 0.25 o 0.5</li>
+        <li><strong>T</strong> (Tarde más de 15 min): 0.5</li>
+        <li><strong>A</strong> (Ausente): 1.0</li>
+        <li><strong>r</strong> (Retirado temprano menos de 15 min): 0.25</li>
+        <li><strong>R</strong> (Retirado temprano más de 15 min): 0.5</li>
+    </ul>
+</div>
+{% else %}
+<div style="text-align: center; padding: 60px 20px;">
+    <p >No hay códigos de asistencia configurados</p>
+    <a href="{% url 'administracion:codigo_asistencia_create' %}" class="btn btn-alcal-primary shadow-sm">Crear primer código</a>
+</div>
+{% endif %}
+
+{% endblock %}

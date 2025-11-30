@@ -1,0 +1,63 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}Carreras{% endblock %}
+
+{% block content %}
+<div class="container-fluid alcal-fade-in-up">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <h1 class="h3 mb-0 text-gray-800">Carreras</h1>
+    <a href="{% url 'administracion:carrera_create' %}" class="btn btn-alcal-primary shadow-sm">➕ Nueva Carrera</a>
+</div>
+
+<div class="card shadow border-0 mb-4"><div class="card-body">
+    <form method="get" class="row g-3 align-items-center">
+        <div class="col-md-4"><input type="text" name="q" class="form-control" placeholder="Buscar carrera..." value="{{ search }}"></div>
+        <button type="submit" class="btn btn-alcal-primary shadow-sm">🔍 Buscar</button>
+        {% if search %}
+        <a href="{% url 'administracion:carrera_list' %}" class="btn btn-sm btn-outline-secondary">✕ Limpiar</a>
+        {% endif %}
+    </form>
+</div>
+
+{% if carreras %}
+<div class="card shadow border-0 mb-4"><div class="card-body"><div class="table-responsive">
+    <table class="table table-hover align-middle" width="100%" cellspacing="0">
+        <thead class="bg-light small text-uppercase text-muted">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for carrera in carreras %}
+            <tr>
+                <td>{{ carrera.id }}</td>
+                <td><strong>{{ carrera.nombre }}</strong></td>
+                <td>
+                    <a href="{% url 'administracion:carrera_update' carrera.id %}" class="btn btn-sm btn-outline-secondary"
+                        >✎ Editar</a>
+                    <a href="{% url 'administracion:carrera_delete' carrera.id %}" class="btn btn-sm btn-outline-danger"
+                        >🗑 Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table></div></div></div>
+</div>
+{% else %}
+<div style="text-align: center; padding: 60px 20px;">
+    <p >
+        {% if search %}
+        No se encontraron carreras que coincidan con "{{ search }}"
+        {% else %}
+        No hay carreras registradas
+        {% endif %}
+    </p>
+    {% if not search %}
+    <a href="{% url 'administracion:carrera_create' %}" class="btn btn-alcal-primary shadow-sm">Crear primera carrera</a>
+    {% endif %}
+</div>
+{% endif %}
+
+{% endblock %}

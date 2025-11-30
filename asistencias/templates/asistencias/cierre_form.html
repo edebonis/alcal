@@ -1,0 +1,105 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}Cierre Diario de Asistencia{% endblock %}
+
+{% block content %}
+<div class="container-fluid alcal-fade-in-up">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Cierre Diario</h1>
+            <p class="text-muted mb-0">Confirmación de turnos dictados</p>
+        </div>
+    </div>
+
+    <div class="card shadow border-0 mb-4">
+        <div class="card-header py-3 bg-alcal-primary text-white">
+            <h6 class="m-0 font-weight-bold">
+                <i class="bi bi-sliders me-2"></i>Configuración del Día
+            </h6>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label for="{{ form.fecha.id_for_label }}" class="form-label fw-bold text-muted small">FECHA DE
+                            CIERRE</label>
+                        {{ form.fecha }}
+                        {% if form.fecha.errors %}
+                        <div class="text-danger small mt-1">{{ form.fecha.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <label for="{{ form.observaciones_cierre.id_for_label }}"
+                            class="form-label fw-bold text-muted small">OBSERVACIONES GENERALES</label>
+                        {{ form.observaciones_cierre }}
+                    </div>
+                </div>
+
+                <div class="alert alert-info d-flex align-items-center border-0 bg-light-info text-info mb-4">
+                    <i class="bi bi-info-circle-fill fs-4 me-3"></i>
+                    <div>
+                        <strong>Instrucciones:</strong> Seleccione qué turnos se dictaron efectivamente para cada
+                        curso/grupo.
+                        El sistema calculará las faltas basándose en esta configuración.
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="bg-light text-muted small text-uppercase">
+                            <tr>
+                                <th style="width: 40%">Curso / Grupo</th>
+                                <th class="text-center" style="width: 20%">Mañana</th>
+                                <th class="text-center" style="width: 20%">Tarde</th>
+                                <th class="text-center" style="width: 20%">Ed. Física</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cursos_data %}
+                            <tr>
+                                <td>
+                                    <div class="fw-bold text-dark">{{ item.curso.curso }}</div>
+                                    {% if item.grupo != 'unico' %}
+                                    <span class="badge bg-secondary rounded-pill small">{{ item.grupo_display }}</span>
+                                    {% endif %}
+                                    <div class="small text-muted">{{ item.curso.carrera.nombre }}</div>
+                                </td>
+
+                                <td class="text-center">
+                                    <div class="form-check form-switch d-flex justify-content-center">
+                                        <input class="form-check-input" type="checkbox" id="{{ item.prefix }}_m"
+                                            name="{{ item.prefix }}_m" checked>
+                                    </div>
+                                </td>
+
+                                <td class="text-center">
+                                    <div class="form-check form-switch d-flex justify-content-center">
+                                        <input class="form-check-input" type="checkbox" id="{{ item.prefix }}_t"
+                                            name="{{ item.prefix }}_t" {% if item.default_tarde %}checked{% endif %}>
+                                    </div>
+                                </td>
+
+                                <td class="text-center">
+                                    <div class="form-check form-switch d-flex justify-content-center">
+                                        <input class="form-check-input" type="checkbox" id="{{ item.prefix }}_e"
+                                            name="{{ item.prefix }}_e">
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4 text-end">
+                    <button type="submit" class="btn btn-success btn-lg px-5">
+                        <i class="bi bi-check-circle-fill me-2"></i> Procesar Cierre
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

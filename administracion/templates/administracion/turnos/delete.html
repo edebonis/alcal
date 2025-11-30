@@ -1,0 +1,29 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}Eliminar Turno{% endblock %}
+
+{% block content %}
+<h2 style="margin-bottom: 30px; font-size: 28px; font-weight: 700; color: var(--danger);">⚠️ Eliminar Turno</h2>
+
+<div
+    style="background: #fef3c7; border-left: 4px solid var(--warning); padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+    <p style="margin-bottom: 10px;"><strong>¿Está seguro que desea eliminar este turno?</strong></p>
+    <p style="margin: 0; color: var(--gray);">Esta acción no se puede deshacer y puede afectar los registros de
+        asistencia existentes.</p>
+</div>
+
+<div style="background: var(--light-gray); padding: 25px; border-radius: 12px; margin-bottom: 30px;">
+    <h3 style="margin-bottom: 15px; font-weight: 600;">Turno a eliminar:</h3>
+    <p style="font-size: 20px; font-weight: 600; color: var(--primary); margin-bottom: 5px;">{{ turno.get_nombre_display
+        }}</p>
+    <p style="color: var(--gray);">Horario: {{ turno.hora_inicio|time:"H:i" }} - {{ turno.hora_fin|time:"H:i" }}</p>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <div style="display: flex; gap: 10px;">
+        <button type="submit" class="btn btn-danger">🗑 Sí, eliminar turno</button>
+        <a href="{% url 'administracion:turno_list' %}" class="btn btn-secondary">← Cancelar</a>
+    </div>
+</form>
+{% endblock %}

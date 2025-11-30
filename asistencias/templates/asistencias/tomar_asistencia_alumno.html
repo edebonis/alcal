@@ -1,0 +1,180 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}Asistencia por Alumno{% endblock %}
+
+{% block content %}
+<div class="container-fluid alcal-fade-in-up">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Asistencia Individual</h1>
+            <p class="text-muted mb-0">Registro por alumno específico</p>
+        </div>
+        <a href="{% url 'asistencia_selector' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+    </div>
+
+    <div class="row">
+        <!-- Columna Izquierda: Buscador -->
+        <div class="col-md-4">
+            <div class="card shadow border-0 mb-4 h-100">
+                <div class="card-header bg-white py-3">
+                    <h6 class="m-0 font-weight-bold text-alcal-primary">
+                        <i class="bi bi-search me-2"></i>Buscar Alumno
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="text" name="query" class="form-control" placeholder="Nombre, Apellido o DNI..."
+                                value="{{ query|default:'' }}" required>
+                            <button class="btn btn-alcal-primary" type="submit" name="buscar_alumno">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    {% if alumnos_encontrados %}
+                    <div class="list-group list-group-flush mt-3">
+                        {% for a in alumnos_encontrados %}
+                        <form method="post" class="mb-0">
+                            {% csrf_token %}
+                            <input type="hidden" name="alumno_id" value="{{ a.legajo }}">
+                            <button type="submit" name="seleccionar_alumno"
+                                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center border-0 rounded mb-1 bg-light">
+                                <div>
+                                    <div class="fw-bold">{{ a.apellido }}, {{ a.nombre }}</div>
+                                    <small class="text-muted">{{ a.curso.curso }} - {{ a.curso.carrera.nombre }}</small>
+                                </div>
+                                <i class="bi bi-chevron-right text-gray-400"></i>
+                            </button>
+                        </form>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna Derecha: Formulario de Carga -->
+        <div class="col-md-8">
+            {% if alumno %}
+            <div class="card shadow border-0 mb-4">
+                <div
+                    class="card-header bg-alcal-primary text-white py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold">
+                        <i class="bi bi-person-check-fill me-2"></i>{{ alumno.apellido }}, {{ alumno.nombre }}
+                    </h6>
+                    <span class="badge bg-white text-alcal-primary">{{ alumno.curso.curso }}</span>
+                </div>
+                <div class="card-body">
+                    <!-- Tabla de Asistencias de Hoy -->
+                    <h6 class="text-uppercase text-muted small fw-bold mb-3">
+                        <i class="bi bi-calendar-event me-1"></i> Asistencias del día ({{ hoy|date:"d/m/Y" }})
+                    </h6>
+
+                    {% if asistencias_hoy %}
+                    <div class="table-responsive mb-4">
+                        <table class="table table-bordered align-middle">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Turno</th>
+                                    <th>Estado</th>
+                                    <th>Observaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for asis in asistencias_hoy %}
+                                <tr>
+                                    <td>{{ asis.turno.get_nombre_display }}</td>
+                                    <td>
+                                        <span
+                                            class="badge bg-{{ asis.codigo.codigo|yesno:'success,danger,warning,secondary' }}">
+                                            {{ asis.codigo.descripcion }}
+                                        </span>
+                                    </td>
+                                    <td>{{ asis.observaciones|default:"-" }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-light border mb-4 d-flex align-items-center">
+                        <i class="bi bi-info-circle text-muted me-2"></i>
+                        <span class="text-muted">No hay asistencias registradas hoy para este alumno.</span>
+                    </div>
+                    {% endif %}
+
+                    <hr class="my-4">
+
+                    <!-- Formulario de Nueva Asistencia -->
+                    <h6 class="text-uppercase text-muted small fw-bold mb-3">
+                        <i class="bi bi-plus-circle me-1"></i> Nueva Entrada
+                    </h6>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="alumno_id" value="{{ alumno.legajo }}">
+                        <input type="hidden" name="seleccionar_alumno" value="true">
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Fecha</label>
+                                <input type="date" name="fecha" class="form-control" value="{{ hoy|date:'Y-m-d' }}"
+                                    required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Turno</label>
+                                <select name="turno_id" class="form-select" required>
+                                    {% for t in turnos %}
+                                    <option value="{{ t.id }}">{{ t.get_nombre_display }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Estado</label>
+                            <div class="d-flex flex-wrap gap-2">
+                                {% for codigo in codigos %}
+                                <input type="radio" class="btn-check" name="codigo" id="code_{{ codigo.codigo }}"
+                                    value="{{ codigo.codigo }}" required>
+                                <label
+                                    class="btn btn-outline-{{ codigo.codigo|yesno:'success,danger,warning,secondary' }}"
+                                    for="code_{{ codigo.codigo }}">
+                                    <strong>{{ codigo.codigo }}</strong> - {{ codigo.descripcion }}
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Observaciones</label>
+                            <textarea name="observaciones" class="form-control" rows="2"
+                                placeholder="Opcional..."></textarea>
+                        </div>
+
+                        <button type="submit" name="guardar_asistencia" class="btn btn-success w-100 py-2">
+                            <i class="bi bi-save me-2"></i> Guardar Asistencia
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <div class="card shadow border-0 h-100 d-flex align-items-center justify-content-center bg-light"
+                style="min-height: 400px;">
+                <div class="text-center p-5">
+                    <div class="mb-4 text-gray-300">
+                        <i class="bi bi-person-badge display-1"></i>
+                    </div>
+                    <h4 class="text-gray-600">Seleccione un Alumno</h4>
+                    <p class="text-muted">Utilice el buscador de la izquierda para comenzar.</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

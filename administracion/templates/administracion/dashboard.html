@@ -1,0 +1,148 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}Dashboard de Gestión{% endblock %}
+
+{% block content %}
+<div class="container-fluid alcal-fade-in-up">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Panel de Gestión</h1>
+            <p class="text-muted mb-0">Administración de registros académicos</p>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-left-primary shadow h-100 py-2 border-0">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Carreras</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_carreras }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-mortarboard-fill fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                    <a href="{% url 'administracion:carrera_list' %}" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-left-success shadow h-100 py-2 border-0">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Cursos</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_cursos }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-book-fill fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                    <a href="{% url 'administracion:curso_list' %}" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-left-info shadow h-100 py-2 border-0">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Materias</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_materias }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-journal-bookmark-fill fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                    <a href="{% url 'administracion:materia_list' %}" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-left-warning shadow h-100 py-2 border-0">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Alumnos</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_alumnos }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-people-fill fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                    <a href="{% url 'administracion:alumno_list' %}" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acciones Rápidas -->
+    <h4 class="mb-3 text-gray-800">Acciones Rápidas</h4>
+    <div class="row g-3 mb-5">
+        <div class="col-md-3">
+            <a href="{% url 'administracion:alumno_create' %}" class="btn btn-alcal-primary w-100 py-3 shadow-sm">
+                <i class="bi bi-person-plus-fill me-2"></i> Nuevo Alumno
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="{% url 'administracion:docente_create' %}" class="btn btn-alcal-primary w-100 py-3 shadow-sm">
+                <i class="bi bi-person-badge-fill me-2"></i> Nuevo Docente
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="{% url 'administracion:materia_create' %}" class="btn btn-alcal-primary w-100 py-3 shadow-sm">
+                <i class="bi bi-journal-plus me-2"></i> Nueva Materia
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="{% url 'administracion:curso_create' %}" class="btn btn-alcal-primary w-100 py-3 shadow-sm">
+                <i class="bi bi-plus-square-fill me-2"></i> Nuevo Curso
+            </a>
+        </div>
+    </div>
+
+    <!-- Bienvenida -->
+    <div class="card shadow border-0 bg-gradient-primary text-white">
+        <div class="card-body p-4">
+            <h4 class="card-title"><i class="bi bi-lightbulb-fill me-2"></i> Bienvenido al Panel de Gestión</h4>
+            <p class="card-text">
+                Desde aquí puedes gestionar todos los aspectos académicos de la institución. Utiliza el menú superior o
+                las tarjetas para navegar.
+                Puedes crear, editar y eliminar registros de carreras, cursos, materias, docentes y alumnos.
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .border-left-primary {
+        border-left: .25rem solid #4e73df !important;
+    }
+
+    .border-left-success {
+        border-left: .25rem solid #1cc88a !important;
+    }
+
+    .border-left-info {
+        border-left: .25rem solid #36b9cc !important;
+    }
+
+    .border-left-warning {
+        border-left: .25rem solid #f6c23e !important;
+    }
+
+    .text-gray-300 {
+        color: #dddfeb !important;
+    }
+
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    }
+</style>
+{% endblock %}

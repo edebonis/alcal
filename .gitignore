@@ -123,3 +123,6 @@ yarn-error.log*
 # Temporary files
 *.tmp
 *.temp
+# Data files
+*.csv
+*.pdf

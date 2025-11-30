@@ -1,0 +1,77 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}Detalle Docente{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <h2 style="font-size: 28px; font-weight: 700;">Detalle del Docente</h2>
+    <div>
+        <a href="{% url 'administracion:docente_update' docente.id %}" class="btn btn-alcal-primary">✎ Editar</a>
+        <a href="{% url 'administracion:docente_list' %}" class="btn btn-secondary">← Volver</a>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+    <div style="background: var(--light-gray); padding: 25px; border-radius: 12px;">
+        <h3 style="margin-bottom: 20px; font-weight: 600;">Información Personal</h3>
+
+        <div style="margin-bottom: 15px;">
+            <label style="color: var(--gray); font-size: 13px; display: block; margin-bottom: 5px;">Nombre
+                Completo</label>
+            <p style="font-size: 20px; font-weight: 600; color: var(--primary);">{{ docente.apellido }}, {{
+                docente.nombre }}</p>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="color: var(--gray); font-size: 13px; display: block; margin-bottom: 5px;">Legajo</label>
+            <p style="font-size: 16px; font-weight: 500;">{{ docente.legajo }}</p>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="color: var(--gray); font-size: 13px; display: block; margin-bottom: 5px;">DNI</label>
+            <p style="font-size: 16px;">{{ docente.dni|default:"-" }}</p>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="color: var(--gray); font-size: 13px; display: block; margin-bottom: 5px;">Email</label>
+            <p style="font-size: 16px;">{{ docente.email|default:"-" }}</p>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="color: var(--gray); font-size: 13px; display: block; margin-bottom: 5px;">Teléfono</label>
+            <p style="font-size: 16px;">{{ docente.telefono|default:"-" }}</p>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="color: var(--gray); font-size: 13px; display: block; margin-bottom: 5px;">Dirección</label>
+            <p style="font-size: 16px;">{{ docente.direccion|default:"-" }}</p>
+        </div>
+
+        <div>
+            <label style="color: var(--gray); font-size: 13px; display: block; margin-bottom: 5px;">Nacionalidad</label>
+            <p style="font-size: 16px;">{{ docente.nacionalidad }}</p>
+        </div>
+    </div>
+
+    <div style="background: var(--light-gray); padding: 25px; border-radius: 12px;">
+        <h3 style="margin-bottom: 20px; font-weight: 600;">Materias que Dicta</h3>
+
+        {% if docente.materia.all %}
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            {% for materia in docente.materia.all %}
+            <div style="background: white; padding: 15px; border-radius: 10px; border-left: 4px solid var(--primary);">
+                <p style="font-weight: 600; margin-bottom: 5px;">{{ materia.nombre }}</p>
+                <p style="color: var(--gray); font-size: 13px;">
+                    Curso: {{ materia.curso.curso }} | {{ materia.horas }}h semanales
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p style="text-align: center; color: var(--gray); padding: 40px 20px;">
+            No tiene materias asignadas
+        </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

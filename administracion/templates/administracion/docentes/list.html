@@ -1,0 +1,93 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}Docentes{% endblock %}
+
+{% block content %}
+<div class="container-fluid alcal-fade-in-up">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <h1 class="h3 mb-0 text-gray-800">Docentes</h1>
+    <a href="{% url 'administracion:docente_create' %}" class="btn btn-alcal-primary shadow-sm">➕ Nuevo Docente</a>
+</div>
+
+<div class="card shadow border-0 mb-4"><div class="card-body">
+    <form method="get" class="row g-3 align-items-center">
+        <div class="col-md-4"><input type="text" name="q" class="form-control" placeholder="Buscar por nombre, apellido, email o DNI..."
+            value="{{ search }}"></div>
+        <button type="submit" class="btn btn-alcal-primary shadow-sm">🔍 Buscar</button>
+        {% if search %}
+        <a href="{% url 'administracion:docente_list' %}" class="btn btn-sm btn-outline-secondary">✕ Limpiar</a>
+        {% endif %}
+    </form>
+</div>
+
+{% if docentes %}
+<div class="card shadow border-0 mb-4"><div class="card-body"><div class="table-responsive">
+    <table class="table table-hover align-middle" width="100%" cellspacing="0">
+        <thead class="bg-light small text-uppercase text-muted">
+            <tr>
+                <th>Legajo</th>
+                <th>Apellido y Nombre</th>
+                <th>DNI</th>
+                <th>Email</th>
+                <th>Materias</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for docente in docentes %}
+            <tr>
+                <td><strong>{{ docente.legajo }}</strong></td>
+                <td>{{ docente.apellido }}, {{ docente.nombre }}</td>
+                <td>{{ docente.dni|default:"-" }}</td>
+                <td >{{ docente.email|default:"-" }}</td>
+                <td>
+                    <span
+                        style="background: var(--primary); color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px;">
+                        {{ docente.materia.count }}
+                    </span>
+                </td>
+                <td>
+                    <a href="{% url 'administracion:docente_detail' docente.id %}" class="btn btn-sm btn-outline-secondary"
+                        >👁 Ver</a>
+                    <a href="{% url 'administracion:docente_update' docente.id %}" class="btn btn-sm btn-outline-secondary"
+                        >✎ Editar</a>
+                    <a href="{% url 'administracion:docente_delete' docente.id %}" class="btn btn-sm btn-outline-danger"
+                        >🗑</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table></div></div></div>
+</div>
+
+{% if docentes.has_other_pages %}
+<div class="pagination">
+    {% if docentes.has_previous %}
+    <a href="?page=1{% if search %}&q={{ search }}{% endif %}">« Primera</a>
+    <a href="?page={{ docentes.previous_page_number }}{% if search %}&q={{ search }}{% endif %}">‹ Anterior</a>
+    {% endif %}
+
+    <span class="current">Página {{ docentes.number }} de {{ docentes.paginator.num_pages }}</span>
+
+    {% if docentes.has_next %}
+    <a href="?page={{ docentes.next_page_number }}{% if search %}&q={{ search }}{% endif %}">Siguiente ›</a>
+    <a href="?page={{ docentes.paginator.num_pages }}{% if search %}&q={{ search }}{% endif %}">Última »</a>
+    {% endif %}
+</div>
+{% endif %}
+{% else %}
+<div style="text-align: center; padding: 60px 20px;">
+    <p >
+        {% if search %}
+        No se encontraron docentes
+        {% else %}
+        No hay docentes registrados
+        {% endif %}
+    </p>
+    {% if not search %}
+    <a href="{% url 'administracion:docente_create' %}" class="btn btn-alcal-primary shadow-sm">Crear primer docente</a>
+    {% endif %}
+</div>
+{% endif %}
+
+{% endblock %}

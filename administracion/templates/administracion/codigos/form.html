@@ -1,0 +1,52 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}{{ action }} Código de Asistencia{% endblock %}
+
+{% block content %}
+<h2 style="margin-bottom: 30px; font-size: 28px; font-weight: 700;">{{ action }} Código de Asistencia</h2>
+
+<form method="post" style="max-width: 600px;">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label class="form-label" for="codigo">Código *</label>
+        <select id="codigo" name="codigo" class="form-control" required>
+            <option value="">-- Seleccione --</option>
+            {% for value, label in codigo_choices %}
+            <option value="{{ value }}" {% if codigo_obj.codigo == value %}selected{% endif %}>{{ value }} - {{ label }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" for="descripcion">Descripción *</label>
+        <input type="text" id="descripcion" name="descripcion" class="form-control"
+            value="{{ codigo_obj.descripcion|default:'' }}" required placeholder="Ej: Presente, Tarde, Ausente">
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" for="cantidad_falta">Valor Numérico de Falta *</label>
+        <input type="number" id="cantidad_falta" name="cantidad_falta" class="form-control"
+            value="{{ codigo_obj.cantidad_falta|default:'0' }}" required min="0" max="1" step="0.25"
+            placeholder="Ej: 0, 0.25, 0.5, 1.0">
+        <small style="color: var(--gray); margin-top: 5px; display: block;">
+            Valores sugeridos: 0 (presente), 0.25-0.5 (tarde/retirado), 1.0 (ausente)
+        </small>
+    </div>
+
+    <div style="background: var(--light-gray); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <p style="margin: 0; color: var(--gray); font-size: 14px;">
+            💡 El valor numérico indica cuántas faltas equivale este código. Por ejemplo:<br>
+            - 0 = Sin falta (presente)<br>
+            - 0.5 = Media falta (tarde o retirado)<br>
+            - 1.0 = Falta completa (ausente)
+        </p>
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-top: 30px;">
+        <button type="submit" class="btn btn-success">💾 Guardar</button>
+        <a href="{% url 'administracion:codigo_asistencia_list' %}" class="btn btn-secondary">← Cancelar</a>
+    </div>
+</form>
+{% endblock %}

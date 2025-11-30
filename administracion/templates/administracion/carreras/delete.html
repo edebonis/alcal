@@ -1,0 +1,35 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}Eliminar Carrera{% endblock %}
+
+{% block content %}
+<h2 style="margin-bottom: 30px; font-size: 28px; font-weight: 700; color: var(--danger);">⚠️ Eliminar Carrera</h2>
+
+<div
+    style="background: #fef3c7; border-left: 4px solid var(--warning); padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+    <p style="margin-bottom: 10px;"><strong>¿Está seguro que desea eliminar esta carrera?</strong></p>
+    <p style="margin: 0; color: var(--gray);">Esta acción no se puede deshacer.</p>
+</div>
+
+<div style="background: var(--light-gray); padding: 25px; border-radius: 12px; margin-bottom: 30px;">
+    <h3 style="margin-bottom: 15px; font-weight: 600;">Carrera a eliminar:</h3>
+    <p style="font-size: 20px; font-weight: 600; color: var(--primary); margin-bottom: 15px;">{{ carrera.nombre }}</p>
+
+    {% if cursos_count > 0 %}
+    <div style="background: #fee2e2; padding: 15px; border-radius: 8px; margin-top: 15px;">
+        <p style="color: var(--danger); margin: 0;">
+            ⚠️ Esta carrera tiene <strong>{{ cursos_count }} curso(s)</strong> asociado(s). Al eliminar la carrera,
+            también se eliminarán todos sus cursos y datos relacionados.
+        </p>
+    </div>
+    {% endif %}
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <div style="display: flex; gap: 10px;">
+        <button type="submit" class="btn btn-danger">🗑 Sí, eliminar carrera</button>
+        <a href="{% url 'administracion:carrera_list' %}" class="btn btn-secondary">← Cancelar</a>
+    </div>
+</form>
+{% endblock %}
