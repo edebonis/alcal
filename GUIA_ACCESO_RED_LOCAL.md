@@ -232,3 +232,4 @@ http://192.168.68.111:8008/admin/
 **Última actualización:** 2025-01-XX  
 **Sistema ALCAL - Colegio Sagrado Corazón**
 
+

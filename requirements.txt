@@ -127,3 +127,14 @@ xlrd==2.0.1
 yaspin==3.1.0
 zipp==3.20.2
 zstandard==0.23.0
+Django>=4.2
+gunicorn
+whitenoise
+Faker
+django-environ
+django-smart-selects
+django-extensions
+drf-spectacular
+django-filter
+django-cors-headers
+djangorestframework

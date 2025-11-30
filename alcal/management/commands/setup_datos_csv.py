@@ -378,3 +378,4 @@ class Command(BaseCommand):
         self.stdout.write('  • Contraseña: admin123')
 
 
+

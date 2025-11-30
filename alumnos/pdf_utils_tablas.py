@@ -284,3 +284,4 @@ def generar_ficha_inscripcion(alumno):
     
     return response
 
+
