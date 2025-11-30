@@ -1,8 +1,21 @@
 # -*- encoding: utf-8 -*-
 from django.contrib import admin
-from .models import Docente
-from django.utils.html import format_html
-from django.urls import reverse
+from .models import Docente, DocenteMateria
+
+
+class DocenteMateriaInline(admin.TabularInline):
+	"""Inline para gestionar las materias del docente con grupos"""
+	model = DocenteMateria
+	extra = 1
+	autocomplete_fields = ['materia']
+	verbose_name = "Materia asignada"
+	verbose_name_plural = "Materias asignadas"
+	
+	def formfield_for_choice_field(self, db_field, request, **kwargs):
+		"""Personaliza el campo grupo para mostrar ayuda contextual"""
+		if db_field.name == 'grupo':
+			kwargs['help_text'] = 'Selecciona "Ambos grupos" para materias normales, o un grupo específico para materias técnico-específicas'
+		return super().formfield_for_choice_field(db_field, request, **kwargs)
 
 
 def marcar_activo(modeladmin, request, queryset):
@@ -51,7 +64,7 @@ class DocenteAdmin(admin.ModelAdmin):
 	readonly_fields = ('antiguedad_completa', 'pdf_button')
 	date_hierarchy = 'fecha_alta'
 	list_per_page = 50
-	filter_horizontal = ('materia',)
+	inlines = [DocenteMateriaInline]
 	
 	actions = [marcar_activo, marcar_inactivo, marcar_titular, marcar_suplente]
 	
@@ -90,19 +103,32 @@ class DocenteAdmin(admin.ModelAdmin):
 				('es_titular', 'es_suplente'),
 			)
 		}),
-		('Materias', {
-			'fields': ('materia',),
-			'description': 'Materias que dicta el docente'
-		}),
 	)
 	
 	def get_queryset(self, request):
 		"""Optimiza las consultas con prefetch_related"""
 		qs = super().get_queryset(request)
-		return qs.prefetch_related('materia')
+		return qs.prefetch_related('materias', 'docentemateria_set__materia')
 
 	def pdf_button(self, obj):
+		from django.utils.html import format_html
+		from django.urls import reverse
 		url = reverse('exportar_ficha_docente', args=[obj.id])
 		return format_html('<a class="button" href="{}" target="_blank">📄 PDF</a>', url)
 	pdf_button.short_description = 'Ficha'
 	pdf_button.allow_tags = True
+
+
+@admin.register(DocenteMateria)
+class DocenteMateriaAdmin(admin.ModelAdmin):
+	"""Admin para gestionar asignaciones docente-materia directamente"""
+	list_display = ('docente', 'materia', 'grupo', 'es_tecnico_especifica_display')
+	list_filter = ('grupo', 'materia__es_tecnico_especifica', 'materia__curso')
+	search_fields = ('docente__apellido', 'docente__nombre', 'materia__nombre')
+	autocomplete_fields = ['docente', 'materia']
+	list_per_page = 100
+	
+	def es_tecnico_especifica_display(self, obj):
+		return "✓" if obj.materia.es_tecnico_especifica else "✗"
+	es_tecnico_especifica_display.short_description = 'Técnico-Específica'
+	es_tecnico_especifica_display.boolean = True

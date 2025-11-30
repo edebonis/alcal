@@ -6,7 +6,9 @@ class CursoAdmin(admin.ModelAdmin):
     list_display = ('curso', 'carrera')
 
 class MateriaAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'curso', 'horas')
+    list_display = ('nombre', 'curso', 'horas', 'es_tecnico_especifica')
+    list_filter = ('es_tecnico_especifica', 'curso__carrera')
+    search_fields = ('nombre',)
 
 
 admin.site.register(Curso, CursoAdmin)

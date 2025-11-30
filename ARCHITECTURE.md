@@ -137,21 +137,36 @@ alcal/
 ### 4. `alumnos/`
 - **Responsabilidad**: Modelo de datos de alumnos
 - **Modelo principal**: `Alumno`
-  - Campos: legajo, nombre, apellido, curso, grupo, datos de contacto, estado (activo, libre, condicional)
+  - Campos: legajo, nombre, apellido, curso, **grupo**, datos de contacto, estado (activo, libre, condicional)
+  - **Campo grupo**: Valores 'unico', '1', '2' - usado para dividir cursos en materias técnico-específicas
 - **Relaciones**: 
   - `ForeignKey` a `Curso`
   - `OneToMany` desde `Asistencia`
   - `OneToMany` desde `Calificacion`
 
-### 5. `escuela/`
+### 5. `docentes/`
+- **Responsabilidad**: Gestión de docentes y asignaciones a materias
+- **Modelos**:
+  - `Docente`: Información de profesores
+  - `DocenteMateria`: **Modelo intermedio** para asignaciones docente-materia con soporte de grupos
+    - Permite asignar docentes a grupos específicos en materias técnico-específicas
+    - Campo `grupo`: 'ambos', '1', '2'
+- **Características especiales**:
+  - Materias técnico-específicas pueden tener dos docentes (uno por grupo)
+  - Validación: solo materias técnico-específicas pueden tener grupos 1 o 2
+
+### 6. `escuela/`
 - **Responsabilidad**: Estructura organizativa de la escuela
 - **Modelos**:
   - `Carrera`: Carreras ofrecidas (ej: Técnico en Programación)
   - `Curso`: Cursos específicos (año + carrera + grupo)
   - `Anio`: Año lectivo
+  - `Materia`: Asignaturas del plan de estudios
+    - **Campo `es_tecnico_especifica`**: Indica si la materia divide el curso en grupos (solo carreras técnicas)
 - **Relaciones**: `Carrera` ← `Curso` ← `Alumno`
+- **Nota**: Las carreras técnicas (7 años, cursos "B") tienen materias técnico-específicas que dividen el curso en Grupo 1 y Grupo 2
 
-### 6. `calificaciones/`
+### 7. `calificaciones/`
 - **Responsabilidad**: Gestión de notas y evaluaciones
 - **Modelos**:
   - `Calificacion`: Nota de un alumno en una materia
@@ -282,16 +297,23 @@ Carrera
   |
   ├── 1:N → Curso
   |           |
-  |           ├── 1:N → Alumno
+  |           ├── 1:N → Alumno (con campo 'grupo': unico/1/2)
   |           |           |
   |           |           ├── 1:N → Asistencia
   |           |           └── 1:N → Calificacion
   |           |
+  |           ├── 1:N → Materia (con campo 'es_tecnico_especifica')
+  |           |           |
+  |           |           ├── N:M → Docente (a través de DocenteMateria)
+  |           |           └── 1:N → Calificacion
+  |           |
   |           └── 1:N → Asistencia
+
+DocenteMateria (Modelo Intermedio)
   |
-  └── 1:N → Materia
-              |
-              └── 1:N → Calificacion
+  ├── N:1 → Docente
+  ├── N:1 → Materia
+  └── Campo 'grupo' (ambos/1/2)
 
 Turno
   |
@@ -311,7 +333,24 @@ Anio (año lectivo)
 #### `Alumno` (app: `alumnos`)
 - Datos personales y de contacto
 - Relación con `Curso` (año + carrera + grupo)
+- **Campo `grupo`**: 'unico' (default), '1', '2'
+  - En carreras técnicas, los alumnos se dividen en grupos para materias técnico-específicas
 - Estados: activo, libre, condicional
+
+#### `Materia` (app: `escuela`)
+- Representa una asignatura del plan de estudios
+- **Campo `es_tecnico_especifica`**: Boolean
+  - `True`: La materia divide el curso en Grupo 1 y Grupo 2
+  - `False`: Materia normal, todo el curso junto
+- Solo aplica a carreras técnicas (7 años, cursos "B")
+
+#### `DocenteMateria` (app: `docentes`)
+- **Modelo intermedio** para la relación Docente-Materia
+- **Campo `grupo`**: 'ambos', '1', '2'
+  - 'ambos': Para materias normales (default)
+  - '1' o '2': Para materias técnico-específicas (un docente por grupo)
+- Permite que una materia técnico-específica tenga dos docentes diferentes
+- **Validación**: Solo materias con `es_tecnico_especifica=True` pueden tener grupos 1 o 2
 
 #### `Asistencia` (app: `asistencias`)
 - Registro diario de presencia
@@ -464,6 +503,8 @@ Ver archivos ADR en `docs/adr/` para detalles:
 5. **RBAC en sidebar** mediante `user.is_staff` / `user.is_superuser`
 6. **Multi-turno en asistencias** (parámetro `turno_id` como CSV)
 7. **Cierre parcial de asistencias** (no obligatorio cerrar todos los cursos)
+8. **Despliegue en PythonAnywhere** con Whitenoise y SQLite
+9. **Sistema de grupos para materias técnico-específicas** (DocenteMateria como modelo intermedio)
 
 ---
 

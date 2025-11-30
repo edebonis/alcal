@@ -60,8 +60,13 @@ class Docente(models.Model):
 	es_titular = models.BooleanField(default=False)
 	es_suplente = models.BooleanField(default=False)
 	
-	# Relaciones
-	materia = models.ManyToManyField(Materia, blank=True, related_name='docentes')
+	# Relaciones - Ahora a través de modelo intermedio
+	materias = models.ManyToManyField(
+		Materia, 
+		through='DocenteMateria',
+		related_name='docentes_asignados',
+		blank=True
+	)
 	
 	class Meta:
 		verbose_name_plural = "Docentes"
@@ -77,4 +82,42 @@ class Docente(models.Model):
 	def __str__(self):
 		cargo_str = f" ({self.get_cargo_display()})" if self.cargo != 'DOCENTE' else ""
 		return f"{self.apellido}, {self.nombre}{cargo_str}"
+
+
+class DocenteMateria(models.Model):
+	"""
+	Modelo intermedio para la relación Docente-Materia.
+	Permite asignar docentes a grupos específicos en materias técnico-específicas.
+	"""
+	docente = models.ForeignKey(Docente, on_delete=models.CASCADE)
+	materia = models.ForeignKey(Materia, on_delete=models.CASCADE)
 	
+	GRUPO_CHOICES = (
+		('ambos', 'Ambos grupos'),
+		('1', 'Grupo 1'),
+		('2', 'Grupo 2'),
+	)
+	grupo = models.CharField(
+		max_length=10,
+		choices=GRUPO_CHOICES,
+		default='ambos',
+		help_text="Grupo al que da clases (solo para materias técnico-específicas)"
+	)
+	
+	class Meta:
+		verbose_name = "Asignación Docente-Materia"
+		verbose_name_plural = "Asignaciones Docente-Materia"
+		unique_together = [['docente', 'materia', 'grupo']]
+		ordering = ['materia__curso', 'materia__nombre', 'grupo']
+	
+	def __str__(self):
+		grupo_str = f" - {self.get_grupo_display()}" if self.materia.es_tecnico_especifica else ""
+		return f"{self.docente} → {self.materia}{grupo_str}"
+	
+	def clean(self):
+		"""Validación: solo materias técnico-específicas pueden tener grupos 1 o 2"""
+		from django.core.exceptions import ValidationError
+		if self.grupo in ['1', '2'] and not self.materia.es_tecnico_especifica:
+			raise ValidationError(
+				"Solo las materias técnico-específicas pueden tener grupos asignados."
+			)

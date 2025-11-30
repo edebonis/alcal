@@ -8,9 +8,11 @@ ALCAL es un sistema de gestión escolar desarrollado en Django que permite admin
 - Información de docentes y sus materias
 - Datos de alumnos y sus familias
 - Estructura académica (carreras, cursos, materias)
-- Asistencias
+- **Sistema de grupos** para materias técnico-específicas
+- Asistencias (con soporte multi-turno)
 - Calificaciones
 - Observaciones
+- Generación de reportes PDF
 
 ## 🏫 Estructura Académica
 
@@ -21,6 +23,8 @@ El colegio ofrece dos carreras:
 
 2. **Técnico en Programación** (7 años)
    - Cursos: 1B, 2B, 3B, 4B, 5B, 6B, 7B
+   - **Materias técnico-específicas**: Algunas materias dividen el curso en Grupo 1 y Grupo 2
+   - Cada grupo puede tener un docente diferente y horarios distintos
 
 ## 📊 Estado Actual
 

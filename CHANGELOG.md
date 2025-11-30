@@ -8,9 +8,16 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 ## [Unreleased]
 
 ### Agregado
+- **Sistema de grupos para materias técnico-específicas**:
+  - Campo `es_tecnico_especifica` en modelo `Materia`
+  - Modelo intermedio `DocenteMateria` para asignaciones con grupos
+  - Soporte para dividir cursos técnicos en Grupo 1 y Grupo 2
+  - Permite asignar diferentes docentes a cada grupo
+  - Importación automática desde columna 7 del CSV
 - Script `scripts/populate_fake_data.py` para generar datos de prueba (alumnos, docentes, cursos, materias) sin necesidad de archivos CSV reales.
 - Configuración de `Whitenoise` para servir archivos estáticos en producción.
 - Archivo `Procfile` para despliegue.
+- ADR 0008: Documentación del sistema de grupos para materias técnicas.
 
 ### Cambiado
 - Limpieza masiva de `requirements.txt` para eliminar dependencias innecesarias y facilitar el despliegue.

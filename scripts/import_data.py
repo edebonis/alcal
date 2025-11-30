@@ -174,6 +174,8 @@ def importar_materias():
     """Importa las materias y la relación docente-materia desde el CSV."""
     print("\nImportando materias...")
     
+    from docentes.models import DocenteMateria
+    
     archivo = '/home/esteban/Documentos/alcal/Legajo Docente - DocenteMateria.csv'
     
     with open(archivo, 'r', encoding='utf-8-sig') as f:
@@ -184,15 +186,17 @@ def importar_materias():
         relaciones_count = 0
         
         for row in reader:
-            if len(row) < 6:
+            if len(row) < 7:  # Ahora necesitamos al menos 7 columnas
                 continue
             
             try:
-                # Columnas: 0=id, 1=año, 2=curso(A/B), 3=nombre_materia, 4=nombre_docente, 5=email_docente
+                # Columnas: 0=id, 1=año, 2=curso(A/B), 3=nombre_materia, 
+                #           4=nombre_docente, 5=email_docente, 6=es_tecnico_especifica
                 anio_numero = int(row[1])
                 division = row[2].strip()
                 nombre_materia = row[3].strip()
                 email_docente = row[5].strip()
+                es_tecnico_especifica = row[6].strip().upper() == 'TRUE'
                 
                 if not nombre_materia or not division:
                     continue
@@ -207,29 +211,46 @@ def importar_materias():
                     print(f"  ⚠ Curso no encontrado: {curso_nombre}")
                     continue
                 
-                # Crear materia (horas por defecto: 3)
+                # Crear materia con el campo es_tecnico_especifica
                 materia, created = Materia.objects.get_or_create(
                     nombre=nombre_materia,
                     curso=curso,
-                    defaults={'horas': 3}
+                    defaults={
+                        'horas': 3,
+                        'es_tecnico_especifica': es_tecnico_especifica
+                    }
                 )
+                
+                # Si ya existía, actualizar el campo es_tecnico_especifica
+                if not created and materia.es_tecnico_especifica != es_tecnico_especifica:
+                    materia.es_tecnico_especifica = es_tecnico_especifica
+                    materia.save()
                 
                 if created:
                     materias_count += 1
-                    print(f"  Materia: {nombre_materia} - {curso_nombre}")
+                    tecnico_str = " (Técnico-Específica)" if es_tecnico_especifica else ""
+                    print(f"  Materia: {nombre_materia} - {curso_nombre}{tecnico_str}")
                 
-                # Buscar docente y crear relación ManyToMany
+                # Buscar docente y crear relación usando DocenteMateria
                 if email_docente:
                     try:
                         docente = Docente.objects.filter(email=email_docente).first()
                         
-                        if docente and materia not in docente.materia.all():
-                            # Agregar materia al docente usando ManyToMany
-                            docente.materia.add(materia)
-                            relaciones_count += 1
+                        if docente:
+                            # Crear asignación usando el modelo intermedio
+                            # Por defecto, asignamos a "ambos" grupos
+                            # Esto se puede ajustar manualmente después
+                            asignacion, created_asig = DocenteMateria.objects.get_or_create(
+                                docente=docente,
+                                materia=materia,
+                                defaults={'grupo': 'ambos'}
+                            )
+                            
+                            if created_asig:
+                                relaciones_count += 1
                         
-                    except Docente.DoesNotExist:
-                        print(f"  ⚠ Docente no encontrado: {email_docente}")
+                    except Exception as e:
+                        print(f"  ⚠ Error asignando docente {email_docente}: {e}")
                 
             except Exception as e:
                 print(f"  ⚠ Error en fila {row}: {e}")
@@ -237,6 +258,7 @@ def importar_materias():
     
     print(f"✓ {materias_count} materias creadas")
     print(f"✓ {relaciones_count} asignaciones docente-materia creadas")
+
 
 def importar_alumnos():
     """Importa los alumnos desde el CSV."""

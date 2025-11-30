@@ -24,6 +24,16 @@ class Materia(models.Model):
 	nombre = models.CharField(max_length=50)
 	curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
 	horas = models.IntegerField()
+	es_tecnico_especifica = models.BooleanField(
+		default=False,
+		help_text="Indica si es una materia técnico-específica que divide el curso en grupos"
+	)
+	
+	class Meta:
+		verbose_name_plural = "Materias"
+		ordering = ['curso', 'nombre']
+	
 	def __str__(self):
 		return self.nombre
+
 
